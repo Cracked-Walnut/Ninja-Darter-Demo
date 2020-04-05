@@ -96,11 +96,11 @@ public class LevelGeneration : MonoBehaviour {
                     } else {
                         roomDetection.GetComponent<RoomType>().RoomDestruction();
 
-                        // int randomBottomRoom = Random.Range(1, 4);
-                        // if (randomBottomRoom == 2) {
-                        //     randomBottomRoom = 1;
-                        // }
-                        Instantiate(altStartRoom, transform.position, Quaternion.identity);
+                        int randomBottomRoom = Random.Range(1, 4);
+                        if (randomBottomRoom == 2) {
+                            randomBottomRoom = 1;
+                        }
+                        Instantiate(rooms[randomBottomRoom], transform.position, Quaternion.identity);
                     }
                 }
 
