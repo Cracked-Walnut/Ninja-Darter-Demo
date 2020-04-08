@@ -10,10 +10,6 @@ public class LevelGeneration : MonoBehaviour {
     [SerializeField] private GameObject startRoom; /*The room the player spawns in at the beginning of level generation*/
     [SerializeField] private GameObject lastRoom;
     private Collider2D roomDetection;
-
-    /*Make a last rooms array. Modify this script so you call one of these random rooms as the last generated room
-        1) I want to be able to grab the last room generated, destroy it, then pick a random room from the last rooms
-        array and replace it with that*/
     
     public bool stopGeneration = false;
 
@@ -55,8 +51,12 @@ public class LevelGeneration : MonoBehaviour {
                 Vector2 newPos = new Vector2(transform.position.x + moveAmount, transform.position.y);
                 transform.position = newPos;
 
-                int rand = Random.Range(0, rooms.Length); /*Spawn any room type here*/
-                Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                if (transform.position.x == maxX) /*If we're on the right side of the level, spawn an LRTB room...*/
+                    Instantiate(rooms[3], transform.position, Quaternion.identity);
+                else { /*... otherwise, spawn a random room*/
+                    int rand = Random.Range(0, rooms.Length);
+                    Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                }
 
                 /*To prevent overlapping of rooms*/
                 direction = Random.Range(1, 6);
@@ -65,18 +65,21 @@ public class LevelGeneration : MonoBehaviour {
                 } else if (direction == 4) {
                     direction = 5;
                 }
-            } else { /*Otherwise, move down*/
+            } else/*Otherwise, move down*/
                 direction = 5;
-            }
+
         } else if (direction == 3 || direction == 4) { // Move Left 
             if (transform.position.x > minX) { /*Only move left if within boundaries*/
                 downCounter = 0;
                 Vector2 newPos = new Vector2(transform.position.x - moveAmount, transform.position.y);
                 transform.position = newPos;
 
-                int rand = Random.Range(0, rooms.Length); /*Spawn any room type here*/
-                Instantiate(rooms[rand], transform.position, Quaternion.identity);
-
+                if (transform.position.x == minX) /*If we're on the left side of the level, spawn an LRTB room...*/
+                    Instantiate(rooms[3], transform.position, Quaternion.identity);
+                else { /*... otherwise, spawn a random room*/
+                    int rand = Random.Range(0, rooms.Length); /*Spawn any room type here*/
+                    Instantiate(rooms[rand], transform.position, Quaternion.identity);
+                }
                 direction = Random.Range(3, 6);
 
             } else { /*Otherwise, move down*/
