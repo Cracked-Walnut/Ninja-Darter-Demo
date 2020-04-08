@@ -7,8 +7,9 @@ public class LevelGeneration : MonoBehaviour {
     public Transform[] startingPositions;
     public GameObject[] rooms; /*index 0 -> LR, index 1 -> LRB, index 2 -> LRT, index 3 -> LRTB*/
     
-    [SerializeField] private GameObject startRoom, 
-        altStartRoom;
+    [SerializeField] private GameObject startRoom; /*The room the player spawns in at the beginning of level generation*/
+    [SerializeField] private GameObject lastRoom;
+    private Collider2D roomDetection;
 
     /*Make a last rooms array. Modify this script so you call one of these random rooms as the last generated room
         1) I want to be able to grab the last room generated, destroy it, then pick a random room from the last rooms
@@ -87,13 +88,17 @@ public class LevelGeneration : MonoBehaviour {
             downCounter++;
             if (transform.position.y > minY) {
 
-                Collider2D roomDetection = Physics2D.OverlapCircle(transform.position, 1, room);
-                if (roomDetection.GetComponent<RoomType>().type != 1 && roomDetection.GetComponent<RoomType>().type !=3) {
+                roomDetection = Physics2D.OverlapCircle(transform.position, 1, room);
+                if (roomDetection.GetComponent<RoomType>().type != 1 && roomDetection.GetComponent<RoomType>().type !=3) { /*If the room doesn't have a bottom opening...*/
                     
                     if (downCounter >= 2) {
+                        if (roomDetection.GetComponent<RoomType>().type == 3)
+                            return; /*No point in destroying the room if it's got openings all on sides*/
                         roomDetection.GetComponent<RoomType>().RoomDestruction();
                         Instantiate(rooms[3], transform.position, Quaternion.identity);
                     } else {
+                        if (roomDetection.GetComponent<RoomType>().type == 3)
+                            return;
                         roomDetection.GetComponent<RoomType>().RoomDestruction();
 
                         int randomBottomRoom = Random.Range(1, 4);
@@ -111,10 +116,16 @@ public class LevelGeneration : MonoBehaviour {
                 Instantiate(rooms[rand], transform.position, Quaternion.identity);
 
                 direction = Random.Range(1 ,6);
-            } else {
+            }
+            else {
                 /*Stop level generation*/
                 stopGeneration = true;
             }
+        }
+        if (transform.position.y == minY && stopGeneration) { /*This is how I detect the last room generated*/
+            roomDetection = Physics2D.OverlapCircle(transform.position, 1, room);
+            roomDetection.GetComponent<RoomType>().RoomDestruction();
+            Instantiate(lastRoom, transform.position, Quaternion.identity);
         }
     }
 }
