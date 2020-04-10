@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 5767065659735310999}
   - component: {fileID: 3295034786324669947}
   - component: {fileID: 4171414253289823467}
+  - component: {fileID: 2581019118900920150}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -5881,6 +5882,20 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!19719996 &2581019118900920150
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436633956930410593}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
 --- !u!1 &3695744922816024036
 GameObject:
   m_ObjectHideFlags: 0

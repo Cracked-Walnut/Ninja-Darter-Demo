@@ -712,7 +712,7 @@ MonoBehaviour:
     type: 3}
   stopGeneration: 0
   moveAmount: 40
-  startTimeBtwRoom: 0.25
+  startTimeBtwRoom: 0
   minX: 20
   maxX: 140
   minY: 20
@@ -1026,7 +1026,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445205920}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1445205922
 Camera:
   m_ObjectHideFlags: 0
@@ -1034,7 +1034,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445205920}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0.35982364, g: 0.509434, b: 0.28595588, a: 0}
