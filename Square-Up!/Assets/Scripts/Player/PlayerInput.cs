@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour {
 
      public CharacterController2D controller;
      public float wallKickDistance = 0.5f;
-     private float horizontalMove = 0f, runSpeed = 120f, phaseSpeed = 3000f, phaseSpeedNegative = -3000f;
+     [SerializeField] private float horizontalMove = 0f, runSpeed = 180f, phaseSpeed = 3000f, phaseSpeedNegative = -3000f, dropSpeed = 1f;
      
      private bool jump, isGameOver, isGamePaused, isGrounded, isFacingRight, 
           crouch = false, canDoubleJump = true, escapeKey = true, canPhase = true, rayCast, isFlipped;
@@ -76,7 +76,7 @@ public class PlayerInput : MonoBehaviour {
           checkJump();
           checkPhase();
           checkWallJump();
-          checkGroundPound();
+          // checkGroundPound();
           
           if (Input.GetButtonDown("Crouch")) 
                crouch = true;
@@ -203,11 +203,11 @@ public class PlayerInput : MonoBehaviour {
           hitLeft = Physics2D.Raycast(transform.position, Vector2.left * transform.localScale.x, wallKickDistance);
 
           /*RIGHT WALL CLING*/
-          if (!characterController2D.getGrounded() && hitRight.collider != null) {
+          if (!characterController2D.getGrounded() && hitRight.collider != null && Input.GetKey(KeyCode.RightArrow)) {
                wallJumpFunction(false, false, 0f, -50f, false, "No Sound");
           }
           /*LEFT WALL CLING*/
-          else if (!characterController2D.getGrounded() && hitLeft.collider != null) {
+          else if (!characterController2D.getGrounded() && hitLeft.collider != null && Input.GetKey(KeyCode.LeftArrow)) {
                wallJumpFunction(false, false, 0f, -50f, false, "No Sound");
           }
           
@@ -224,10 +224,6 @@ public class PlayerInput : MonoBehaviour {
 
           this.canDoubleJump = canDoubleJump;
           this.canPhase = canPhase;
-
-          // characterController2D.Flip();
-               
-
           applyForce(x, y);
           
           if (isSound)
@@ -257,9 +253,10 @@ public class PlayerInput : MonoBehaviour {
 
      void checkGroundPound() {
           if (!characterController2D.getGrounded() && Input.GetKey(KeyCode.DownArrow))
-               setGravity(10f);
+               // setGravity(10f);
+               rigidbody2D.AddForce(Vector2.down * dropSpeed, ForceMode2D.Impulse);
           else if (!characterController2D.getGrounded() && Input.GetKeyUp(KeyCode.DownArrow))
-               setGravity(2f);
+               // setGravity(2f);
 
           if (characterController2D.getGrounded())
                setGravity(2f);
