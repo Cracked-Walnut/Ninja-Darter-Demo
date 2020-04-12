@@ -8,7 +8,7 @@ This script will have a game object move back and fourth based off of two other 
 
 public class EnemyAI : MonoBehaviour {
 
-	[SerializeField] private Transform startPos, endPos; 
+	[SerializeField] private Transform startPos, endPos;
 	[SerializeField] private bool repeatable = false;
 	[SerializeField] private float speed = 1.0f;
 	[SerializeField] private float duration  = 3.0f;

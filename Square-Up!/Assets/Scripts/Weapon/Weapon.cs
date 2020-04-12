@@ -8,14 +8,18 @@ public class Weapon : MonoBehaviour {
     public Transform firePoint;
     public GameObject bulletPrefab;
     public Text currentAmmoDisplay, maxAmmoDisplay;
+    public PlayerInput playerInput;
     private int currentAmmo = 10, maxAmmo = 20;
     private bool canFire = true;
 
+    private void Awake() {
+        playerInput = GetComponent<PlayerInput>();
+    }
     
     void Update() {
         currentAmmoDisplay.text = currentAmmo.ToString();
         maxAmmoDisplay.text = maxAmmo.ToString();
-        fireWeapon();
+        checkWeaponFire();
     }
 
     public int getBulletCount() {
@@ -34,24 +38,28 @@ public class Weapon : MonoBehaviour {
         this.maxAmmo = maxAmmo;
     }
 
-    void fireWeapon() {
+    void checkWeaponFire() {
 
-        if (Input.GetButtonDown("Fire1")) { 
-            if (canFire && currentAmmo > 0) { 
-                currentAmmo -= 1;
-                Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        if (!playerInput.getCanShoot())
+            return;
+        else {
+            if (Input.GetButtonDown("Fire1")) { 
+                if (canFire && currentAmmo > 0) { 
+                    currentAmmo -= 1;
+                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-                if (currentAmmo <= 0) {
-                    if (currentAmmo < 0)
-                        currentAmmo = 0;
-                    canFire = false;
+                    if (currentAmmo <= 0) {
+                        if (currentAmmo < 0)
+                            currentAmmo = 0;
+                        canFire = false;
+                    }
                 }
             }
+            if (currentAmmo > 0)
+                canFire = true; 
         }
-        if (currentAmmo > 0)
-            canFire = true; 
     }
-}
+}//end of class
 
 
 /*

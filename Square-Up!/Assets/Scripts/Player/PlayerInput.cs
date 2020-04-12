@@ -7,10 +7,12 @@ public class PlayerInput : MonoBehaviour {
 
      public CharacterController2D controller;
      public float wallKickDistance = 0.5f;
+
+     [Header("Player Property")]
      [SerializeField] private float horizontalMove = 0f, runSpeed = 180f, phaseSpeed = 3000f, phaseSpeedNegative = -3000f, dropSpeed = 1f;
      
      private bool jump, isGameOver, isGamePaused, isGrounded, isFacingRight, 
-          crouch = false, canDoubleJump = true, escapeKey = true, canPhase = true, rayCast, isFlipped;
+          crouch = false, canDoubleJump = true, escapeKey = true, canPhase = true, rayCast, isFlipped, canShoot;
      
      private CharacterController2D characterController2D;
      private EnemyCollision enemyCollision;
@@ -71,10 +73,18 @@ public class PlayerInput : MonoBehaviour {
           this.phaseSpeedNegative = phaseSpeedNegative;
      }
 
+     public bool getCanShoot() {
+          return canShoot;
+     }
+
+     public void setCanShoot(bool canShoot){ 
+          this.canShoot = canShoot;
+     }
+
      void checkPhysics() {
           horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
           checkJump();
-          checkPhase();
+          // checkPhase();
           checkWallJump();
           // checkGroundPound();
           
@@ -168,12 +178,14 @@ public class PlayerInput : MonoBehaviour {
           if (Time.timeScale != 0.0f) {
                if (Input.GetKeyDown(KeyCode.RightShift) && isFacingRight && !isGrounded && canPhase) {
                     audioManager.Play("Phase");
-                    applyForce(phaseSpeed, 0f);
+                    // applyForce(phaseSpeed, 0f);
+                    rigidbody2D.velocity = new Vector2(110f, 0f);
                     canPhase = false;
                }
                else if (Input.GetKeyDown(KeyCode.RightShift) && !isFacingRight && !isGrounded && canPhase) {
                     audioManager.Play("Phase");
-                    applyForce(phaseSpeedNegative, 0f);
+                    // applyForce(phaseSpeedNegative, 0f);
+                    rigidbody2D.velocity = new Vector2(-110f, 0f);
                     canPhase = false;
                }    
                if (isGrounded)
@@ -217,6 +229,11 @@ public class PlayerInput : MonoBehaviour {
           /*RIGHT WALL JUMP*/
           else if (Input.GetKeyDown(KeyCode.RightArrow) && !characterController2D.getGrounded() && hitLeft.collider != null)
                wallJumpFunction(true, true, 1250f, 650f, true, "WallJump");
+
+          if (hitRight.collider != null || hitLeft.collider != null)
+               canShoot = false; /*If you're clinging to a wall, you can't fire your weapon*/
+          else
+               canShoot = true;
      }
 
      void wallJumpFunction(bool canDoubleJump, bool canPhase,
@@ -252,9 +269,11 @@ public class PlayerInput : MonoBehaviour {
      // }
 
      void checkGroundPound() {
-          if (!characterController2D.getGrounded() && Input.GetKey(KeyCode.DownArrow))
+          if (!characterController2D.getGrounded() && Input.GetKey(KeyCode.DownArrow)) {
                // setGravity(10f);
                rigidbody2D.AddForce(Vector2.down * dropSpeed, ForceMode2D.Impulse);
+               Debug.Log(Vector2.down * dropSpeed);
+          }
           else if (!characterController2D.getGrounded() && Input.GetKeyUp(KeyCode.DownArrow))
                // setGravity(2f);
 
@@ -268,6 +287,9 @@ public class PlayerInput : MonoBehaviour {
 
      public void applyForce(float phaseValue, float jumpValue) {
           characterController2D.addForce(phaseValue, jumpValue);
+          /*Try this:
+          rigidbody2d.velocity = new Vector2(dashSpeed, 0)
+          This might solve your clipping issue*/
      }
      
      void checkSceneRestart() {
