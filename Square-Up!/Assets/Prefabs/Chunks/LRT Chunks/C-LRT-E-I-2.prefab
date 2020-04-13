@@ -235,6 +235,8 @@ GameObject:
   - component: {fileID: 4944537381586196810}
   - component: {fileID: 5820622188061745242}
   - component: {fileID: 8325492667658340533}
+  - component: {fileID: 1192943522782938800}
+  - component: {fileID: 1315354825406020978}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -9081,8 +9083,196 @@ TilemapCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
+  m_UsedByComposite: 1
+  m_Offset: {x: 0, y: 0}
+--- !u!50 &1192943522782938800
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086171754013648080}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!66 &1315354825406020978
+CompositeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086171754013648080}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_GeometryType: 0
+  m_GenerationType: 0
+  m_EdgeRadius: 0
+  m_ColliderPaths:
+  - m_Collider: {fileID: 8325492667658340533}
+    m_ColliderPaths:
+    - - X: 70000000
+        Y: 320000000
+      - X: 80000000
+        Y: 320000000
+      - X: 80000000
+        Y: 330000000
+      - X: 110000000
+        Y: 330000000
+      - X: 110000000
+        Y: 280000000
+      - X: 170000000
+        Y: 280000000
+      - X: 170000000
+        Y: 330000000
+      - X: 180000000
+        Y: 330000000
+      - X: 180000000
+        Y: 400000000
+      - X: 0
+        Y: 400000000
+      - X: 0
+        Y: 220000000
+      - X: 70000000
+        Y: 220000000
+    - - X: 400000000
+        Y: 400000000
+      - X: 220000000
+        Y: 400000000
+      - X: 220000000
+        Y: 340000000
+      - X: 230000000
+        Y: 340000000
+      - X: 230000000
+        Y: 290000000
+      - X: 290000000
+        Y: 290000000
+      - X: 290000000
+        Y: 360000000
+      - X: 300000000
+        Y: 360000000
+      - X: 300000000
+        Y: 370000000
+      - X: 330000000
+        Y: 370000000
+      - X: 330000000
+        Y: 360000000
+      - X: 340000000
+        Y: 360000000
+      - X: 340000000
+        Y: 220000000
+      - X: 400000000
+        Y: 220000000
+    - - X: 400000000
+        Y: 180000000
+      - X: 330000000
+        Y: 180000000
+      - X: 330000000
+        Y: 40000000
+      - X: 310000000
+        Y: 40000000
+      - X: 310000000
+        Y: 10000000
+      - X: 270000000
+        Y: 10000000
+      - X: 270000000
+        Y: 150000000
+      - X: 230000000
+        Y: 150000000
+      - X: 230000000
+        Y: 91400000
+      - X: 200000000
+        Y: 91400000
+      - X: 200000000
+        Y: 180000000
+      - X: 180000000
+        Y: 180000000
+      - X: 180000000
+        Y: 171400000
+      - X: 130000000
+        Y: 171400000
+      - X: 130000000
+        Y: 180000000
+      - X: 110000000
+        Y: 180000000
+      - X: 110000000
+        Y: 71400000
+      - X: 70000000
+        Y: 71400000
+      - X: 70000000
+        Y: 180000000
+      - X: 0
+        Y: 180000000
+      - X: 0
+        Y: 0
+      - X: 400000000
+        Y: 0
+  m_CompositePaths:
+    m_Paths:
+    - - {x: 7, y: 32}
+      - {x: 8, y: 32}
+      - {x: 8, y: 33}
+      - {x: 11, y: 33}
+      - {x: 11, y: 28}
+      - {x: 17, y: 28}
+      - {x: 17, y: 33}
+      - {x: 18, y: 33}
+      - {x: 18, y: 40}
+      - {x: 0, y: 40}
+      - {x: 0, y: 22}
+      - {x: 7, y: 22}
+    - - {x: 40, y: 40}
+      - {x: 22, y: 40}
+      - {x: 22, y: 34}
+      - {x: 23, y: 34}
+      - {x: 23, y: 29}
+      - {x: 29, y: 29}
+      - {x: 29, y: 36}
+      - {x: 30, y: 36}
+      - {x: 30, y: 37}
+      - {x: 33, y: 37}
+      - {x: 33, y: 36}
+      - {x: 34, y: 36}
+      - {x: 34, y: 22}
+      - {x: 40, y: 22}
+    - - {x: 40, y: 18}
+      - {x: 33, y: 18}
+      - {x: 33, y: 4}
+      - {x: 31, y: 4}
+      - {x: 31, y: 1}
+      - {x: 27, y: 1}
+      - {x: 27, y: 15}
+      - {x: 23, y: 15}
+      - {x: 23, y: 9.14}
+      - {x: 20, y: 9.14}
+      - {x: 20, y: 18}
+      - {x: 18, y: 18}
+      - {x: 18, y: 17.14}
+      - {x: 13, y: 17.14}
+      - {x: 13, y: 18}
+      - {x: 11, y: 18}
+      - {x: 11, y: 7.14}
+      - {x: 7, y: 7.14}
+      - {x: 7, y: 18}
+      - {x: 0, y: 18}
+      - {x: 0, y: 0}
+      - {x: 40, y: 0}
+  m_VertexDistance: 0.0005
 --- !u!1 &6515928343120785749
 GameObject:
   m_ObjectHideFlags: 0
