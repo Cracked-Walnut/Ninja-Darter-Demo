@@ -1171,7 +1171,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.000011920929, y: -0.00014650216}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -7189,42 +7189,6 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-  - first: {x: 19, y: 19, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: 20, y: 19, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: 19, y: 20, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
-  - first: {x: 20, y: 20, z: 0}
-    second:
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
-      m_TileMatrixIndex: 0
-      m_TileColorIndex: 0
-      m_ObjectToInstantiate: {fileID: 0}
-      m_TileFlags: 1
-      m_ColliderType: 1
   - first: {x: 19, y: 21, z: 0}
     second:
       m_TileIndex: 0
@@ -11448,17 +11412,17 @@ Tilemap:
       m_ColliderType: 1
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 862
+  - m_RefCount: 858
     m_Data: {fileID: 11400000, guid: 881c5478ee5312540acc63bf71067c16, type: 2}
   - m_RefCount: 156
     m_Data: {fileID: 11400000, guid: 6e9d16a3cbcfff74bb2d2f20a037ac15, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 862
+  - m_RefCount: 858
     m_Data: {fileID: 21300000, guid: 7bd82757c4fce4240a050f2c6dcfbba4, type: 3}
   - m_RefCount: 156
     m_Data: {fileID: 21300000, guid: 6893fb0309fb248408d8de5f95001e54, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 1018
+  - m_RefCount: 1014
     m_Data:
       e00: 1
       e01: 0
@@ -11477,7 +11441,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 1018
+  - m_RefCount: 1014
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11647,9 +11611,9 @@ CompositeCollider2D:
       - X: 190000000
         Y: 220000000
       - X: 190000000
-        Y: 170000000
+        Y: 210000000
       - X: 210000000
-        Y: 170000000
+        Y: 210000000
     - - X: 210000000
         Y: 330000000
       - X: 200000000
@@ -11658,18 +11622,6 @@ CompositeCollider2D:
         Y: 320000000
       - X: 210000000
         Y: 320000000
-    - - X: 188600000
-        Y: 228600000
-      - X: 188600000
-        Y: 241400000
-      - X: 201400000
-        Y: 241400000
-      - X: 201400000
-        Y: 240000000
-      - X: 190000000
-        Y: 240000000
-      - X: 190000000
-        Y: 228600000
     - - X: 400000000
         Y: 190000000
       - X: 390000000
@@ -11706,6 +11658,14 @@ CompositeCollider2D:
         Y: 0
       - X: 400000000
         Y: 0
+    - - X: 210000000
+        Y: 190000000
+      - X: 190000000
+        Y: 190000000
+      - X: 190000000
+        Y: 170000000
+      - X: 210000000
+        Y: 170000000
   m_CompositePaths:
     m_Paths:
     - - {x: 36, y: 27}
@@ -11730,18 +11690,12 @@ CompositeCollider2D:
       - {x: 15, y: 23}
       - {x: 15, y: 22}
       - {x: 19, y: 22}
-      - {x: 19, y: 17}
-      - {x: 21, y: 17}
+      - {x: 19, y: 21}
+      - {x: 21, y: 21}
     - - {x: 21, y: 33}
       - {x: 20, y: 33}
       - {x: 20, y: 32}
       - {x: 21, y: 32}
-    - - {x: 18.86, y: 22.86}
-      - {x: 18.86, y: 24.14}
-      - {x: 20.14, y: 24.14}
-      - {x: 20.14, y: 24}
-      - {x: 19, y: 24}
-      - {x: 19, y: 22.86}
     - - {x: 40, y: 19}
       - {x: 39, y: 19}
       - {x: 39, y: 18}
@@ -11760,6 +11714,10 @@ CompositeCollider2D:
       - {x: 0, y: 17}
       - {x: 0, y: 0}
       - {x: 40, y: 0}
+    - - {x: 21, y: 19}
+      - {x: 19, y: 19}
+      - {x: 19, y: 17}
+      - {x: 21, y: 17}
   m_VertexDistance: 0.0005
 --- !u!1 &5306200175301904660
 GameObject:
@@ -12570,7 +12528,7 @@ GameObject:
   m_Layer: 0
   m_Name: Heart-1
   m_TagString: Untagged
-  m_Icon: {fileID: 2800000, guid: 64537d6872dc2b04b9d978a61b141f00, type: 3}
+  m_Icon: {fileID: 2800000, guid: c6326d60c40f73d45ac4eb2cb2c38234, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

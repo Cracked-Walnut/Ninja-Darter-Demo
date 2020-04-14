@@ -9,10 +9,10 @@ public class PlayerInput : MonoBehaviour {
      public float wallKickDistance = 0.5f;
 
      [Header("Player Property")]
-     [SerializeField] private float horizontalMove = 0f, runSpeed = 180f, phaseSpeed = 3000f, phaseSpeedNegative = -3000f, dropSpeed = 1f;
+     [SerializeField] private float horizontalMove = 0f, runSpeed = 240f, phaseSpeed = 3000f, phaseSpeedNegative = -3000f, dropSpeed = 1f;
      
      private bool jump, isGameOver, isGamePaused, isGrounded, isFacingRight, 
-          crouch = false, canDoubleJump = true, escapeKey = true, canPhase = true, rayCast, isFlipped, canShoot;
+          crouch = false, canDoubleJump = true, canAltJump = true, escapeKey = true, canPhase = true, rayCast, isFlipped, canShoot;
      
      private CharacterController2D characterController2D;
      private EnemyCollision enemyCollision;
@@ -23,6 +23,7 @@ public class PlayerInput : MonoBehaviour {
      private PlayerPosition playerPosition;
      private RaycastHit2D hitRight, hitLeft;
      private Rigidbody2D rigidbody2D;
+     private Weapon weapon;
 
     // Update is called once per frame
     void Update() {
@@ -47,6 +48,7 @@ public class PlayerInput : MonoBehaviour {
           player = GameObject.FindWithTag("Player");
           playerPosition = FindObjectOfType<PlayerPosition>();
           rigidbody2D = GetComponent<Rigidbody2D>();
+          weapon = FindObjectOfType<Weapon>();
      }
 
      public float getRunSpeed() {
@@ -84,14 +86,19 @@ public class PlayerInput : MonoBehaviour {
      void checkPhysics() {
           horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
           checkJump();
+          checkAltJump();
           // checkPhase();
           checkWallJump();
           // checkGroundPound();
           
-          if (Input.GetButtonDown("Crouch")) 
-               crouch = true;
-          else if (Input.GetButtonUp("Crouch")) 
-               crouch = false;
+          // if (Input.GetButtonDown("Crouch")) {
+          //      crouch = true;
+          //      weapon.firePoint.position = new Vector3(transform.position.x, transform.position.y - 0.4f, transform.position.z);
+          // }
+          // else if (Input.GetButtonUp("Crouch")) { 
+          //      crouch = false;
+          //      weapon.firePoint.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+          // }
           
           checkSceneRestart();
      }//end of checkPhysics()
@@ -122,17 +129,16 @@ public class PlayerInput : MonoBehaviour {
 
           /*Make a CharacterController2D object here instead of two bool objects*/ 
           isGrounded = characterController2D.getGrounded();
-          isFacingRight = characterController2D.getFacingRight();
 
           /*If the player jumps...*/
           if (Input.GetButtonDown("Jump")) {
                if (Time.timeScale != 0.0f) { /*If the game isn't paused...*/
-                    if (isGrounded) { /*Single jump*/
+                    if (isGrounded && !checkAltJump()) { /*Single jump*/
                          audioManager.Play("Jump");
                          // characterController2D.highJump();
                          jump = true; /*addForce is being called in CharacterController2D.cs*/
                     }
-                    if (!isGrounded && canDoubleJump) { /*Double jump*/
+                    if (!isGrounded && canDoubleJump && !checkAltJump()) { /*Double jump*/
                          audioManager.Play("DoubleJump");
                          applyForce(0f, 800f); /*To upgrade the jump height, check if upgrade is active with a boolean*/
                          canDoubleJump = false;
@@ -145,6 +151,22 @@ public class PlayerInput : MonoBehaviour {
                          return;
                }
           }
+     }
+
+     private bool checkAltJump() {
+          isGrounded = characterController2D.getGrounded();
+
+          if (!isGrounded && canAltJump) {
+               if (Input.GetButtonDown("Jump")) {
+                    audioManager.Play("DoubleJump");
+                    applyForce(0f, 800f);
+                    canAltJump = false;
+                    return true;
+               }
+          }
+          if (isGrounded)
+               canAltJump = true;
+               return false;
      }
 
      // void checkJumpController() {
