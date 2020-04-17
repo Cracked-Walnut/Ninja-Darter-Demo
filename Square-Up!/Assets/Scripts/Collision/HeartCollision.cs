@@ -15,7 +15,6 @@ public class HeartCollision : MonoBehaviour {
 
     private void Awake() {
         player = FindObjectOfType<Player>();
-        // bullet = FindObjectOfType<Bullet>();
         boxCollider2D = GetComponent<BoxCollider2D>();
     }
 

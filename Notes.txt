@@ -1,0 +1,75 @@
+ToDos:
+        - Health pickup sound
+    
+    - Spawning:
+         - Randomly generate (need to reset everything when the player dies):
+            - Heart
+            - ammo 
+            - grenades (launches from the player, 3s fuse)
+            - Nova Gems
+            - upgrades
+            - enemies
+        
+        - Work on making varied levels (tunnels, drops, doors?, spikes, rotating spikes, ground enemies, airborne enemies)
+    
+    - Minimap: https://www.youtube.com/watch?v=kWhOMJMihC0&feature=emb_rel_pause
+    - Dodge roll: https://www.youtube.com/watch?time_continue=448&v=ptPAg83fQ4M&feature=emb_title
+
+    Bugs:
+
+    Technical:
+        Saving: https://www.youtube.com/watch?v=4oRVMCRCvN0
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+    Notes:
+        - Bombs that arm when the player gets too close
+        - At the end of each level will be the Nova Room.
+            - Nova Room will give the player the chance to allocate Nova Gems to skills to power them up, use Nova Gems to buy items, or invest in power ups
+                - Upgrading skills:
+                    - You can assign Nova Gems to skills to upgrade them. The upgraded versions can be found
+                        in levels hereafter. Same thing applies to power ups
+            - If the player dies, they lose all Nova Gems in possession, plus any items.
+        - Endurance rooms? Should be LRT type.
+            - These rooms will close shut until the player has killed the boss in the room
+            - Implement for later levels
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+        
+        Permanent Upgrades:
+            - Preserve up to 10% of your items when you die
+                - 15%
+                - 20%
+            - Phase (dash forward)
+            - Ground Pound
+            - Increase skill inventory to 2, 3, 4 (assign skills to D-Pad)
+        
+        Skills:
+            - Offense:
+                - Spinning spike ball around the player (20 seconds) deals damage to enemies it touches
+                - Phase deals damage (+10%, +5%, requires Phase skill)
+                - +5%, +10% bullet damage
+                - +5, +10 max bullets
+                - +10% bullet velocity
+                - +10% bullet accuracy
+                - Bullets burn enemies
+                - Bullets freeze enemies
+                    - enemies are immobile for 5 seconds
+                - Automatic fire
+                - Grenade explodes on contact
+            
+            - Defense:
+                - Invulnerable for 10 seconds
+                - Temporary invincibility when hit (2 seconds)
+                - Damage Reduction (5%, 9%, 13%)
+
+            - Mobility:
+                - +10%, +6% movement speed
+                - +10% jump height
+                - +10% wall jump distance (requires wall jump)
+                - Spawn a platform beneath you (2 seconds)
+                - Ground pound with more force (requires Ground Pound skill)
+                - +10% phase distance (requires phase skill)
+                - Stick to walls (requires wall jump)
+                
+            

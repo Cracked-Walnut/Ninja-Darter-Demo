@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class EnemyCollision : MonoBehaviour {
 
-    // private bool isPlayerInvincible = false; /*Put this in Player.cs [DONE]*/
     private Player player;
     private AudioManager audioManager;
     private GameOverMenu gameOverMenu;
@@ -26,7 +25,6 @@ public class EnemyCollision : MonoBehaviour {
         if (!player.getPlayerInvincible()) {
             if (collision.gameObject.name == "Player") {
                 player.takeDamage(1, 25);
-                Debug.Log("It's this one!");
             }
         }
 	}

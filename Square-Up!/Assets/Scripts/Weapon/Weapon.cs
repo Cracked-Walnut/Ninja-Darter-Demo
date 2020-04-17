@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour {
 
-    public Transform firePoint;
-    public GameObject bulletPrefab;
-    public Text currentAmmoDisplay, maxAmmoDisplay;
-    public PlayerInput playerInput;
-    private int currentAmmo = 10, maxAmmo = 20;
-    private bool canFire = true;
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Text currentAmmoDisplay, maxAmmoDisplay;
+    private PlayerInput playerInput;
+    [SerializeField] private int currentAmmo = 10, maxAmmo = 20;
+    [SerializeField] private bool canFire = true;
 
     private void Awake() {
         playerInput = GetComponent<PlayerInput>();

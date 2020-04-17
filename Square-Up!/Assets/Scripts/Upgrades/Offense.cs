@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 /*
 Upgrades: 
 +10% bullet damage [X]
@@ -14,12 +13,6 @@ public class Offense : MonoBehaviour {
 
     private Bullet bullet;
     private Weapon weapon;
-    private const float FIRST_MULTIPLIER = 1.1f /* 10% */, 
-        SECOND_MULTIPLIER = 1.15f; /* 5% after you get the first upgrade, for a total of 15% */
-    
-    private const int TEN_BULLETS_UPGRADE = 10, 
-        FIVE_BULLETS_UPGRADE = 5;
-    
     
     void Awake () {
         bullet = FindObjectOfType<Bullet>();

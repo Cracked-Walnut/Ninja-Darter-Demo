@@ -411,13 +411,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 293278895}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef8691dbaff86a4bb2e28f9d0ca8736, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a9a1595b89c9d54984886e0d95b852b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsRoom:
-    serializedVersion: 2
-    m_Bits: 512
-  levelGeneration: {fileID: 658870183}
+  objects:
+  - {fileID: 6132564972785252691, guid: a928f1cd4b77dbe43a73050030634251, type: 3}
+  - {fileID: 3695744922816024036, guid: 8fa33e7ff2ee1cf48b3b973b7184ba1b, type: 3}
+  - {fileID: 58185570663541341, guid: 3d0ac508603f37e4eb4a16cae79d98d0, type: 3}
+  - {fileID: 2201170582074541275, guid: 3ba688356ed79c7438160eec7e46b69d, type: 3}
+  - {fileID: 8715221058238227018, guid: a101209a89bf5984c931fbcc0afcdc4a, type: 3}
+  - {fileID: 6515928343120785749, guid: 1f245be6642eedb43abc3b5f585258eb, type: 3}
 --- !u!1 &301325279
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 551750532}
-  - component: {fileID: 551750533}
+  - component: {fileID: 551750534}
   m_Layer: 0
   m_Name: Pose (14)
   m_TagString: Untagged
@@ -636,7 +639,7 @@ Transform:
   m_Father: {fileID: 1289665587}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &551750533
+--- !u!114 &551750534
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -645,13 +648,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 551750531}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef8691dbaff86a4bb2e28f9d0ca8736, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a9a1595b89c9d54984886e0d95b852b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsRoom:
-    serializedVersion: 2
-    m_Bits: 512
-  levelGeneration: {fileID: 658870183}
+  objects:
+  - {fileID: 6132564972785252691, guid: a928f1cd4b77dbe43a73050030634251, type: 3}
+  - {fileID: 3695744922816024036, guid: 8fa33e7ff2ee1cf48b3b973b7184ba1b, type: 3}
+  - {fileID: 58185570663541341, guid: 3d0ac508603f37e4eb4a16cae79d98d0, type: 3}
+  - {fileID: 2201170582074541275, guid: 3ba688356ed79c7438160eec7e46b69d, type: 3}
+  - {fileID: 8715221058238227018, guid: a101209a89bf5984c931fbcc0afcdc4a, type: 3}
+  - {fileID: 6515928343120785749, guid: 1f245be6642eedb43abc3b5f585258eb, type: 3}
 --- !u!1 &555151853
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,7 +1444,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 84.11223
+  orthographic size: 93.22005
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1638,13 +1644,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1778010451}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef8691dbaff86a4bb2e28f9d0ca8736, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a9a1595b89c9d54984886e0d95b852b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whatIsRoom:
-    serializedVersion: 2
-    m_Bits: 512
-  levelGeneration: {fileID: 658870183}
+  objects:
+  - {fileID: 6132564972785252691, guid: a928f1cd4b77dbe43a73050030634251, type: 3}
+  - {fileID: 3695744922816024036, guid: 8fa33e7ff2ee1cf48b3b973b7184ba1b, type: 3}
+  - {fileID: 58185570663541341, guid: 3d0ac508603f37e4eb4a16cae79d98d0, type: 3}
+  - {fileID: 2201170582074541275, guid: 3ba688356ed79c7438160eec7e46b69d, type: 3}
+  - {fileID: 8715221058238227018, guid: a101209a89bf5984c931fbcc0afcdc4a, type: 3}
+  - {fileID: 6515928343120785749, guid: 1f245be6642eedb43abc3b5f585258eb, type: 3}
 --- !u!1 &1921064123
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ aren't enemies, or the player*/
 public class ObjectCollision : MonoBehaviour {
 
 	private AudioManager audioManager;
+	
 	private void Awake() {
 		audioManager = FindObjectOfType<AudioManager>();
 	}

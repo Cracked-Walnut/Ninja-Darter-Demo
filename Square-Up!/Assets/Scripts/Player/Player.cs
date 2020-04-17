@@ -9,17 +9,15 @@ whether the player took damage, and whether the player gained hit point(s)*/
 
 public class Player : MonoBehaviour {
     
-    private bool isPickedUp = false,
-        isPlayerInvincible = false;
+    private bool isPickedUp = false, isPlayerInvincible = false;
+    private int coinCount = 0;
+    public int maxHealth = 5, currentHealth = 0;
     private Rigidbody2D playerRigidBody;
     private SceneLoader sceneLoader;
     private CharacterController2D characterController2D;
     private EnemyCollision enemyCollision;
     private AudioManager audioManager;
-    private int coinCount = 0;
-    public int maxHealth = 5, currentHealth = 0;
     public HealthBar healthBar;
-
 
     // Start is called before the first frame update
     void Start() {
@@ -54,7 +52,7 @@ public class Player : MonoBehaviour {
 
     public void gainHealth(int heartPoint) { /*Works with HeartCollision.cs*/
 
-        if (currentHealth < maxHealth) { 
+        if (currentHealth < maxHealth) {
             /*Play a sound here*/
             currentHealth = currentHealth + heartPoint; /*Add HP*/
             healthBar.setHealth(currentHealth);
@@ -105,26 +103,13 @@ public class Player : MonoBehaviour {
         coinCount += coin;
     }
 
-    /*----------------------------------------------------------------------------------*/
-    /*Here is some logic to save some data. Modify this to fit your game's needs when the
-    time comes*/
+    public int getCurrentHealth() {
+        return currentHealth;
+    }
 
-    // public void savePlayer() {
-    //     Save.save(this);
-    // }
-
-    // public void loadPlayer() {
-    //     PlayerData data = Save.loadPlayer();
-
-    //     healthBar = data.health;
-
-    //     Vector3 position;
-    //     position.x = data.position[0];
-    //     position.y = data.position[1];
-    //     position.z = data.position[2];
-    //     transform.position = position;
-        
-    // }
+    public int getMaxHealth() {
+        return maxHealth;
+    }
 }//end of class
 
 

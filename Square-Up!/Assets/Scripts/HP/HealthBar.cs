@@ -6,10 +6,23 @@ using UnityEngine.UI;
 /*This script sets up the health bar UI, lets the developer set the player health and set the max health*/
 
 public class HealthBar : MonoBehaviour {
-    public Slider slider;
-    public Gradient gradient;
-    public Image fill;
+    [SerializeField] private Slider slider;
+    [SerializeField] private Gradient gradient;
+    [SerializeField] private Image fill;
+    [SerializeField] private Text currentHP_Display;
+    [SerializeField] private Text maxHP_Display;
+    private Player player;
+
+    void Awake() {
+        player = FindObjectOfType<Player>();
+    }
+
     
+    void Update() {
+        currentHP_Display.text = player.getCurrentHealth().ToString();
+        maxHP_Display.text = player.getMaxHealth().ToString();
+    }
+
     public void setHealth(int health) {
         slider.value = health;
         fill.color = gradient.Evaluate(slider.normalizedValue);

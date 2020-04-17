@@ -26,6 +26,7 @@ public class CoinCollision : MonoBehaviour {
         audioManager = FindObjectOfType<AudioManager>();
         timer = FindObjectOfType<Timer>();
     }
+    
     void OnTriggerEnter2D(Collider2D collider) {
         if (collider.gameObject.name == "Bullet")
             return;
