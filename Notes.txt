@@ -2,11 +2,11 @@ ToDos:
         - Health pickup sound
     
     - Spawning:
-         - Randomly generate (need to reset everything when the player dies):
+         - Randomly generate (need to reset everything when the player dies): C-LRT-E-I-11
             - Heart
             - ammo 
             - grenades (launches from the player, 3s fuse)
-            - Nova Gems
+            - Nova Gems (used to progress to the next stage, or used to buy items, upgrades)
             - upgrades
             - enemies
         
@@ -34,6 +34,10 @@ ToDos:
             - These rooms will close shut until the player has killed the boss in the room
             - Implement for later levels
 
+    Enemy ideas:
+        - Tiny bugs which travel in groups
+            - Target the player
+
 --------------------------------------------------------------------------------------------------------------------------------------------
         
         Permanent Upgrades:
@@ -52,9 +56,6 @@ ToDos:
                 - +5, +10 max bullets
                 - +10% bullet velocity
                 - +10% bullet accuracy
-                - Bullets burn enemies
-                - Bullets freeze enemies
-                    - enemies are immobile for 5 seconds
                 - Automatic fire
                 - Grenade explodes on contact
             
