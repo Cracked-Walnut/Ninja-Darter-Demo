@@ -197,10 +197,10 @@ public class PlayerInput : MonoBehaviour {
           
           /*LEFT WALL JUMP*/
           if (Input.GetKeyDown(KeyCode.LeftArrow) && !characterController2D.getGrounded() && hitRight.collider != null)
-               wallJumpFunction(true, true, -1250f, 650f, true, "WallJump");
+               wallJumpFunction(true, true, -1250f, 900f, true, "WallJump");
           /*RIGHT WALL JUMP*/
           else if (Input.GetKeyDown(KeyCode.RightArrow) && !characterController2D.getGrounded() && hitLeft.collider != null)
-               wallJumpFunction(true, true, 1250f, 650f, true, "WallJump");
+               wallJumpFunction(true, true, 1250f, 900f, true, "WallJump");
 
           if (hitRight.collider != null || hitLeft.collider != null)
                canShoot = false; /*If you're clinging to a wall, you can't fire your weapon*/
@@ -232,6 +232,10 @@ public class PlayerInput : MonoBehaviour {
 
           if (characterController2D.getGrounded())
                setGravity(2f);
+     }
+
+     void checkPulseJump() {
+          
      }
 
      void setGravity(float gravity) {

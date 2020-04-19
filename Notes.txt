@@ -1,15 +1,11 @@
 ToDos:
+    - Tweak wall jump
         - Health pickup sound
     
     - Spawning:
-         - Randomly generate (need to reset everything when the player dies): C-LRT-E-I-11
-            - Heart
-            - ammo 
             - grenades (launches from the player, 3s fuse)
-            - Nova Gems (used to progress to the next stage, or used to buy items, upgrades)
             - upgrades
             - enemies
-        
         - Work on making varied levels (tunnels, drops, doors?, spikes, rotating spikes, ground enemies, airborne enemies)
     
     - Minimap: https://www.youtube.com/watch?v=kWhOMJMihC0&feature=emb_rel_pause
@@ -17,6 +13,8 @@ ToDos:
     - AI Path Finding: https://www.youtube.com/watch?v=jvtFUfJ6CP8
 
     Bugs:
+        - HP number not incrementing
+        - Enemy patrol broken
 
     Technical:
         Saving: https://www.youtube.com/watch?v=4oRVMCRCvN0
@@ -38,6 +36,9 @@ ToDos:
     Enemy ideas:
         - Tiny bugs which travel in groups
             - Target the player
+        - Stationary turrets
+            - Firing both ways/one way
+            - Wall mounted
 
 --------------------------------------------------------------------------------------------------------------------------------------------
         
@@ -45,8 +46,9 @@ ToDos:
             - Preserve up to 10% of your items when you die
                 - 15%
                 - 20%
-            - Phase (dash forward)
-            - Ground Pound
+            - Phase (dash forward, press Shift)
+            - Pulse Jump (catapult into the air, hold up arrow, call a function one second later)
+            - Ground Pound (hold down key, see dodge roll for better handling of this feature)
             - Increase skill inventory to 2, 3, 4 (assign skills to D-Pad)
         
         Skills:

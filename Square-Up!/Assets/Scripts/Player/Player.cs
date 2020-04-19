@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
     
     private bool isPickedUp = false, isPlayerInvincible = false;
     private int coinCount = 0;
-    public int maxHealth = 5, currentHealth = 0;
+    public int maxHealth = 5, currentHealth = 5;
     private Rigidbody2D playerRigidBody;
     private SceneLoader sceneLoader;
     private CharacterController2D characterController2D;
