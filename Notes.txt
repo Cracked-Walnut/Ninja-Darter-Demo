@@ -1,5 +1,4 @@
 ToDos:
-    - Tweak wall jump
         - Health pickup sound
     
     - Spawning:
@@ -11,6 +10,10 @@ ToDos:
     - Minimap: https://www.youtube.com/watch?v=kWhOMJMihC0&feature=emb_rel_pause
     - Dodge roll: https://www.youtube.com/watch?time_continue=448&v=ptPAg83fQ4M&feature=emb_title
     - AI Path Finding: https://www.youtube.com/watch?v=jvtFUfJ6CP8
+    - Make another script (Attack.cs), use Raycast to detect player
+        - If true, stop movement, instantiate two bullets
+        - If false, wait one second, resume patrol
+    - Adjust item drop rate: C-LR-E-I-5
 
     Bugs:
         - HP number not incrementing
@@ -35,10 +38,10 @@ ToDos:
 
     Enemy ideas:
         - Tiny bugs which travel in groups
-            - Target the player
+            - Target the player & fire at player
         - Stationary turrets
             - Firing both ways/one way
-            - Wall mounted
+            - Wall mounted/moving vertically
 
 --------------------------------------------------------------------------------------------------------------------------------------------
         
