@@ -234,9 +234,7 @@ public class PlayerInput : MonoBehaviour {
                setGravity(2f);
      }
 
-     void checkPulseJump() {
-          
-     }
+     void checkPulseJump() {/*...*/}
 
      void setGravity(float gravity) {
           rigidbody2D.gravityScale = gravity;

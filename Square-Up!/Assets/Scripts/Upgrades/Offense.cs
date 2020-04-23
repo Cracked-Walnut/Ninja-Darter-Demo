@@ -8,11 +8,19 @@ Upgrades:
 +5% bullet damage [X]
 +10 max bullets [X]
 +5 max bullets [X]
++5% bullet accuracy [X]
++10% bullet accuracy [X]
+Automatic fire
+    Fire rate
+Grenade explodes on contact
+Shots pierce their target
 */
 public class Offense : MonoBehaviour {
 
     private Bullet bullet;
     private Weapon weapon;
+    private bool accuracyBuff = false;
+    private bool automaticFire = false;
     
     void Awake () {
         bullet = FindObjectOfType<Bullet>();
@@ -27,6 +35,14 @@ public class Offense : MonoBehaviour {
     public void increaseMaxBullets(int bulletsToAdd) {
         int maxBulletUpgrade = weapon.getMaxAmmo() + bulletsToAdd;
         weapon.setMaxAmmo(maxBulletUpgrade);
+    }
+
+    public bool getAutomaticFire() {
+        return automaticFire;
+    }
+
+    public void setAutomaticFire(bool automaticFire) {
+        this.automaticFire = automaticFire;
     }
 
 }

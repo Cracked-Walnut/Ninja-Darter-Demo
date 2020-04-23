@@ -1,23 +1,36 @@
 ToDos:
-        - Health pickup sound
+    - Make a stage system
+        - Assign exclusive chunks to each stage, which means I need to make more chunks
+        - After x stages, we can have a boss battle, or a timed room
+        - How many chunks do I want assigned to each stage? Depends how large the level is
     
     - Spawning:
             - grenades (launches from the player, 3s fuse)
+                - Make a game object, position in front of the player, like firePoint
+                - Launch a grenade at a button press, grenade should obey gravity and have a Rigidbody2D
             - upgrades
             - enemies
-        - Work on making varied levels (tunnels, drops, doors?, spikes, rotating spikes, ground enemies, airborne enemies)
     
-    - Minimap: https://www.youtube.com/watch?v=kWhOMJMihC0&feature=emb_rel_pause
+    - Make a minimap to work with randomly generated levels
     - Dodge roll: https://www.youtube.com/watch?time_continue=448&v=ptPAg83fQ4M&feature=emb_title
-    - AI Path Finding: https://www.youtube.com/watch?v=jvtFUfJ6CP8
+    
     - Make another script (Attack.cs), use Raycast to detect player
         - If true, stop movement, instantiate two bullets
         - If false, wait one second, resume patrol
-    - Adjust item drop rate: C-LR-E-I-5
+    
+    - Use RNGCryptoServiceProvider for level generation:
+        https://www.youtube.com/watch?v=tCYxc-2-3fY&feature=youtu.be&t=14m31s
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
 
     Bugs:
         - HP number not incrementing
-        - Enemy patrol broken
+        - Player does not jump in starting room more than twice
+            - One jump available after wall jumping
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
 
     Technical:
         Saving: https://www.youtube.com/watch?v=4oRVMCRCvN0
@@ -25,7 +38,10 @@ ToDos:
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Notes:
-        - Bombs that arm when the player gets too close
+    - An Automatic gun upgrade?
+        - Make sure first bullet isn't delayed
+    - My own font?
+    
         - At the end of each level will be the Nova Room.
             - Nova Room will give the player the chance to allocate Nova Gems to skills to power them up, use Nova Gems to buy items, or invest in power ups
                 - Upgrading skills:
@@ -35,17 +51,35 @@ ToDos:
         - Endurance rooms? Should be LRT type.
             - These rooms will close shut until the player has killed the boss in the room
             - Implement for later levels
+        - AI Path Finding: https://www.youtube.com/watch?v=jvtFUfJ6CP8 (can't get it to work)
+        - 25-50 stages the player can choose from
+            - All pseudo-randomly generated (core visual design stays the same but rooms can be swapped out for other rooms)
+                - This will give me more control on how to design a level, while offering a somewhat new experience to the player when they revisit the level
+                - XP is awarded per enemy kill. XP can be applied to the player's overall level at the end of a level
+                - To keep things simple, I might offer a % based system of XP. Each enemy will offer x% XP, instead of a flat value
+
+        - Health pickup sound
+
+        - Make an XP system
+        - XP applies after stage completion
+        - Each level up will have the player unlocking abilities
+            - These abilities will have attributes, which are smaller upgrades (randomly generated)
+            - Core abilities need to be unlocked before their upgraded versions
+
+--------------------------------------------------------------------------------------------------------------------------------------------
 
     Enemy ideas:
-        - Tiny bugs which travel in groups
+        - Tiny bugs which travel in groups (requires AI Path Finding to work)
             - Target the player & fire at player
+                - Slower moving bullets
         - Stationary turrets
             - Firing both ways/one way
             - Wall mounted/moving vertically
+        - Bombs that arm when the player gets too close
 
 --------------------------------------------------------------------------------------------------------------------------------------------
         
-        Permanent Upgrades:
+        Core Abilities:
             - Preserve up to 10% of your items when you die
                 - 15%
                 - 20%
@@ -54,7 +88,7 @@ ToDos:
             - Ground Pound (hold down key, see dodge roll for better handling of this feature)
             - Increase skill inventory to 2, 3, 4 (assign skills to D-Pad)
         
-        Skills:
+        Upgraded Abilities:
             - Offense:
                 - Spinning spike ball around the player (20 seconds) deals damage to enemies it touches
                 - Phase deals damage (+10%, +5%, requires Phase skill)
@@ -64,6 +98,7 @@ ToDos:
                 - +10% bullet accuracy
                 - Automatic fire
                 - Grenade explodes on contact
+                - Shots pierce their targets
             
             - Defense:
                 - Invulnerable for 10 seconds

@@ -42,7 +42,7 @@ public class Player : MonoBehaviour {
         healthBar.setHealth(currentHealth);
 
         StartCoroutine(knockBackX(0.02f, knockBackHeight, transform.position));
-        Invoke("resetInvincibilityState", 0.5f); /*Wait one second then execute function*/
+        Invoke("resetInvincibilityState", 1.0f); /*Wait one second then execute function*/
         enemyCollision.checkGameOver();
     }
 
