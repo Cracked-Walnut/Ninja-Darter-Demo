@@ -21,25 +21,29 @@ public class Weapon : MonoBehaviour {
     void Update() {
         currentAmmoDisplay.text = currentAmmo.ToString();
         maxAmmoDisplay.text = maxAmmo.ToString();
-        // singleFire();
+        fireSingle();
         // automaticFire();
-        checkFire();
+        // StartCoroutine(checkFire());
     }
 
-    void checkFire() {
+    void fireSingle() {
         if (!playerInput.getCanShoot())
             return;
         else {
 
-            if (Input.GetButton("Fire1")) {
+            if (Input.GetButtonDown("Fire1")) {
                 if (canFire && currentAmmo > 0) {
                     
                     currentAmmo -= 1;
-                    if (characterController2D.getFacingRight())
-                        Invoke("automaticFire", 0.3f);
-                    else
-                        Invoke("automaticFireBackwards", 0.3f);
-                    
+                    if (characterController2D.getFacingRight()) {
+                        // Invoke("automaticFire", 0.3f);
+                        accuracy(-10.0f, 10.0f);
+                    }
+                    else {
+                        // Invoke("automaticFireBackwards", 0.3f);
+                        accuracy(-170.0f, -190.0f);
+                    }
+
                     if (currentAmmo <= 0) {
                         if (currentAmmo < 0)
                             currentAmmo = 0;
@@ -50,41 +54,61 @@ public class Weapon : MonoBehaviour {
             if (currentAmmo > 0)
                 canFire = true;
             }
-            // if (Input.GetButtonDown("Fire1")) {
-            //     if (canFire && currentAmmo > 0) {
+    }
+
+    // IEnumerator checkFire() {
+    //     if (!playerInput.getCanShoot())
+    //         yield return null;
+    //     else {
+
+    //         if (Input.GetButton("Fire1")) {
+    //             if (canFire && currentAmmo > 0) {
                     
-            //         currentAmmo -= 1;
-            //         if (characterController2D.getFacingRight())
-            //             singleFire();
-            //         else
-            //             singleFireBackwards();
+    //                 currentAmmo -= 1;
+    //                 if (characterController2D.getFacingRight()) {
+    //                     // Invoke("automaticFire", 0.3f);
+    //                     automaticFire();
+    //                     yield return new WaitForSeconds(10);
+    //                 }
+    //                 else {
+    //                     // Invoke("automaticFireBackwards", 0.3f);
+    //                     automaticFireBackwards();
+    //                     yield return new WaitForSeconds(1);
+    //                 }
+
+    //                 if (currentAmmo <= 0) {
+    //                     if (currentAmmo < 0)
+    //                         currentAmmo = 0;
+    //                     canFire = false;
+    //                 }
+    //             }
+    //         }
+    //         if (currentAmmo > 0)
+    //             canFire = true;
+    //         }
+    //         // if (Input.GetButtonDown("Fire1")) {
+    //         //     if (canFire && currentAmmo > 0) {
                     
-            //         if (currentAmmo <= 0) {
-            //             if (currentAmmo < 0)
-            //                 currentAmmo = 0;
-            //             canFire = false;
-            //         }
-            //     }
-            // }
-            // if (currentAmmo > 0)
-            //     canFire = true; 
-        }
+    //         //         currentAmmo -= 1;
+    //         //         if (characterController2D.getFacingRight())
+    //         //             generateAccuracy(float lowAngle, float highAngle);
+    //         //         else
+    //         //             singleFireBackwards();
+                    
+    //         //         if (currentAmmo <= 0) {
+    //         //             if (currentAmmo < 0)
+    //         //                 currentAmmo = 0;
+    //         //             canFire = false;
+    //         //         }
+    //         //     }
+    //         // }
+    //         // if (currentAmmo > 0)
+    //         //     canFire = true; 
+    //     }
     
 
-    void singleFire() {
-        accuracy(-10.0f, 10.0f);
-    }
-
-    void singleFireBackwards() {
-        accuracy(-170.0f, -190.0f);
-    }
-
-    void automaticFire() {
-        accuracy(-10.0f, 10.0f);
-    }
-
-    void automaticFireBackwards() {
-        accuracy(-170.0f, -190.0f);
+    void generateAccuracy(float lowAngle, float highAngle) {
+        accuracy(lowAngle, highAngle);
     }
 
     public void accuracy(float highAngle, float lowAngle) {

@@ -14,6 +14,8 @@ Automatic fire
     Fire rate
 Grenade explodes on contact
 Shots pierce their target
+Two barrels to fire gun
+Shoot in front as well as behind
 */
 public class Offense : MonoBehaviour {
 
