@@ -22,8 +22,6 @@ public class Weapon : MonoBehaviour {
         currentAmmoDisplay.text = currentAmmo.ToString();
         maxAmmoDisplay.text = maxAmmo.ToString();
         fireSingle();
-        // automaticFire();
-        // StartCoroutine(checkFire());
     }
 
     void fireSingle() {
@@ -36,11 +34,9 @@ public class Weapon : MonoBehaviour {
                     
                     currentAmmo -= 1;
                     if (characterController2D.getFacingRight()) {
-                        // Invoke("automaticFire", 0.3f);
                         accuracy(-10.0f, 10.0f);
                     }
                     else {
-                        // Invoke("automaticFireBackwards", 0.3f);
                         accuracy(-170.0f, -190.0f);
                     }
 
@@ -55,62 +51,7 @@ public class Weapon : MonoBehaviour {
                 canFire = true;
             }
     }
-
-    // IEnumerator checkFire() {
-    //     if (!playerInput.getCanShoot())
-    //         yield return null;
-    //     else {
-
-    //         if (Input.GetButton("Fire1")) {
-    //             if (canFire && currentAmmo > 0) {
-                    
-    //                 currentAmmo -= 1;
-    //                 if (characterController2D.getFacingRight()) {
-    //                     // Invoke("automaticFire", 0.3f);
-    //                     automaticFire();
-    //                     yield return new WaitForSeconds(10);
-    //                 }
-    //                 else {
-    //                     // Invoke("automaticFireBackwards", 0.3f);
-    //                     automaticFireBackwards();
-    //                     yield return new WaitForSeconds(1);
-    //                 }
-
-    //                 if (currentAmmo <= 0) {
-    //                     if (currentAmmo < 0)
-    //                         currentAmmo = 0;
-    //                     canFire = false;
-    //                 }
-    //             }
-    //         }
-    //         if (currentAmmo > 0)
-    //             canFire = true;
-    //         }
-    //         // if (Input.GetButtonDown("Fire1")) {
-    //         //     if (canFire && currentAmmo > 0) {
-                    
-    //         //         currentAmmo -= 1;
-    //         //         if (characterController2D.getFacingRight())
-    //         //             generateAccuracy(float lowAngle, float highAngle);
-    //         //         else
-    //         //             singleFireBackwards();
-                    
-    //         //         if (currentAmmo <= 0) {
-    //         //             if (currentAmmo < 0)
-    //         //                 currentAmmo = 0;
-    //         //             canFire = false;
-    //         //         }
-    //         //     }
-    //         // }
-    //         // if (currentAmmo > 0)
-    //         //     canFire = true; 
-    //     }
-    
-
-    void generateAccuracy(float lowAngle, float highAngle) {
-        accuracy(lowAngle, highAngle);
-    }
-
+ 
     public void accuracy(float highAngle, float lowAngle) {
         float randomAccuracyNum = Random.Range(highAngle, lowAngle);
         Quaternion accuracy = Quaternion.Euler(0, 0, randomAccuracyNum);
