@@ -55,6 +55,10 @@ public class SceneLoader : MonoBehaviour {
 	public void showGameComplete() {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
+
+	public void loadStage(int stage) {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + stage);
+	}
 }//end of class
 
 

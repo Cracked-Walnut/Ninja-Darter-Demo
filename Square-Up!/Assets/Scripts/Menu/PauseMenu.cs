@@ -12,9 +12,6 @@ public class PauseMenu : MonoBehaviour {
     private const float NORMAL_TIME_FLOW = 1f;
     private const float FROZEN_TIME_FLOW = 0f;
 
-    // Update is called once per frame
-    void Update() { }
-
     public void ResumeGame() {
         pauseMenuUI.SetActive(false);
         Time.timeScale = NORMAL_TIME_FLOW;

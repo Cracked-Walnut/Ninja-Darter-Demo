@@ -15,7 +15,7 @@ public class AttackDetection : MonoBehaviour {
     [SerializeField] private float enemyBulletSpeed  = 40f;
     
     [SerializeField] private Transform playerDetection; /*Using this to find the player*/
-    [SerializeField] private RigidBody2D bulletRb;
+    [SerializeField] private Rigidbody2D bulletRb;
     [SerializeField] private Transform enemyFirePoint;
     [SerializeField] private GameObject enemyBulletPrefab;
     
@@ -30,14 +30,14 @@ public class AttackDetection : MonoBehaviour {
 
     void checkEnemySight() {
         raycastHit2D = Physics2D.Raycast(playerDetection.position, Vector2.right, sightDistance);
-        if (raycastHit2D.collider == player)
-            StartCoroutine(fireBullet(2.0f));
+        // if (raycastHit2D.collider == player)
+            // StartCoroutine(fireBullet(2.0f));
     }
 
-    IEnumerator fireBullet(float bulletCount) {
-        for (float i = 0; i <= bulletCount; i++) {
-            yield return new WaitForSeconds(1);
-            Instantiate(enemyBulletPrefab, enemyFirePoint.position, 0.0f);
-        }
-    }
+    // IEnumerator fireBullet(float bulletCount) {
+    //     for (float i = 0; i <= bulletCount; i++) {
+    //         yield return new WaitForSeconds(1);
+    //         Instantiate(enemyBulletPrefab, enemyFirePoint.position);
+    //     }
+    // }
 }
