@@ -85,13 +85,16 @@ public class PlayerInput : MonoBehaviour {
 
      void checkPhysics() {
           horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
+
+
           checkJump();
           checkAltJump();
-          // checkPhase();
+          checkPhase();
           checkWallJump();
           // checkGroundPound();
-          
+
           checkSceneRestart();
+
      }//end of checkPhysics()
 
      void checkXboxPhysics() { 

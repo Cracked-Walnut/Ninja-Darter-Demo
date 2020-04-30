@@ -10,35 +10,10 @@ public class Patrol : MonoBehaviour {
     private bool movingRight_ground = true, movingRight_wall = true;
 
     public Transform groundDetection, wallDetection;
-    // private RaycastHit2D groundInfo, wallInfo;
-
-    void Awake() {
-        // groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
-        // wallInfo = Physics2D.Raycast(wallDetection.position, Vector2.right, wallDistance);
-    }
-
-    void Start() {
-        // groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
-        // wallInfo = Physics2D.Raycast(wallDetection.position, Vector2.right, wallDistance);
-    }
 
     void Update() {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
-
-        // RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
         checkGround();
-        // checkWall();
-        // RaycastHit2D wallInfo = Physics2D.Raycast(wallDetection.position, Vector2.right, wallDistance);
-
-        // if (wallInfo.collider != false) {
-        //     if (movingRight_wall) {
-        //         transform.eulerAngles = new Vector3(0, -180, 0);
-        //         movingRight_wall = false;
-        //     } else {
-        //         transform.eulerAngles = new Vector3(0, 0, 0);
-        //         movingRight_wall = true;
-        //     }
-        // }
     }
 
     void checkGround() {
@@ -46,30 +21,15 @@ public class Patrol : MonoBehaviour {
 
         if (groundInfo.collider == false) {
             if (movingRight_ground) {
-                // movingRight = false;
                 transform.eulerAngles = new Vector3(0, -180, 0);
                 movingRight_ground = false;
+                
             } else {
-                // movingRight = true;
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 movingRight_ground = true;
             }
         }
     }
-
-    // void checkWall() {
-    //     RaycastHit2D wallInfo = Physics2D.Raycast(wallDetection.position, Vector2.right, wallDistance);
-
-    //     if (wallInfo.collider != false) {
-    //         if (movingRight_wall) {
-    //             transform.eulerAngles = new Vector3(0, -180, 0);
-    //             movingRight_wall = false;
-    //         } else {
-    //             transform.eulerAngles = new Vector3(0, 0, 0);
-    //             movingRight_wall = true;
-    //         }
-    //     }
-    // }
 }
 
 /*
