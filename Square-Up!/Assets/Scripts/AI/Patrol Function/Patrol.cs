@@ -6,9 +6,7 @@ public class Patrol : MonoBehaviour {
 
     public float speed;
     public float groundDistance, wallDistance;
-
     private bool movingRight_ground = true, movingRight_wall = true;
-
     public Transform groundDetection, wallDetection;
 
     void Update() {
