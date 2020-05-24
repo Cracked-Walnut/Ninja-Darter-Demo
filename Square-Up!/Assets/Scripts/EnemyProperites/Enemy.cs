@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-    public float health = 100f;
+    [SerializeField] private float health = 100f;
+    private bool isAlive = true;
     // public GameObject deathEffect;
 
     public void takeDamage(float damage) {
@@ -13,8 +14,13 @@ public class Enemy : MonoBehaviour {
             Die();
     }
 
-    void Die () {
+    void Die() {
         // Instantiate(deathEffect, transform.position, Quaternion.identity);
+        isAlive = false;
         Destroy(gameObject);
+    }
+
+    public bool getIsAlive() {
+        return isAlive;
     }
 }
