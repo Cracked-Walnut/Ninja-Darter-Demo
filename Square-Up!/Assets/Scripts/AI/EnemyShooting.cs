@@ -20,7 +20,7 @@ public class EnemyShooting : MonoBehaviour {
     }
     
     void Start() {
-        timer = 1.5f;
+        timer = 1.0f;
         isTimerRunning = true;
     }
 
@@ -29,28 +29,23 @@ public class EnemyShooting : MonoBehaviour {
     }
 
     private void shoot() {
-        RaycastHit2D enemyInfoRight = Physics2D.Raycast(enemyVisionRight.position, Vector2.right, 10.0f);
-        RaycastHit2D enemyInfoLeft = Physics2D.Raycast(enemyVisionLeft.position, Vector2.left, 10.0f);
+        // RaycastHit2D enemyInfoRight = Physics2D.Raycast(enemyVisionRight.position, Vector2.right, 10.0f);
+        // RaycastHit2D enemyInfoLeft = Physics2D.Raycast(enemyVisionLeft.position, Vector2.left, 10.0f);
+        
             
-        if (enemyInfoRight.collider == true && enemyInfoLeft.collider == true && shootAgain) {
-            Instantiate(bulletPrefab, firePointLeft.position, shootRight);
-            Instantiate(bulletPrefab, firePointRight.position, shootLeft);
-            shootAgain = false;
+        // if (enemyInfoRight.collider == true && enemyInfoLeft.collider == true && shootAgain) {
+        //     Instantiate(bulletPrefab, firePointLeft.position, shootRight);
+        //     Instantiate(bulletPrefab, firePointRight.position, shootLeft);
+        //     // shootAgain = false;
+        // }
+    
+        timer -= Time.deltaTime;
+
+        if (timer <= 0.0f) {
+            Instantiate(bulletPrefab, firePointLeft.position, shootLeft);
+            Instantiate(bulletPrefab, firePointRight.position, shootRight);
+            timer = 1.0f;
         }
-
-        if (enemyInfoRight.collider == false && enemyInfoLeft.collider == false)
-            shootAgain = true;
+    
     }
-
-    // private void shootLeft_() {
-    //     RaycastHit2D enemyInfoLeft = Physics2D.Raycast(enemyVisionLeft.position, Vector2.left, 10.0f);
-            
-    //     if (enemyInfoLeft.collider == true && shootAgainLeft) {
-    //         Instantiate(bulletPrefab, firePointRight.position, shootLeft);
-    //         shootAgainLeft = false;
-    //     }
-
-    //     if (enemyInfoLeft.collider == false)
-    //         shootAgainLeft = true;
-    // }
 }

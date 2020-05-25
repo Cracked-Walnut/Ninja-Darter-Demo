@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    private CharacterController2D characterController2D;
-    private float damage = 34f;
+    private float damage = 34f, speed = 40f, timer = 2.0f;
     private bool isItemPickUp = false;
+    private CharacterController2D characterController2D;
     private Enemy enemy;
     private CoinCollision coinCollision;
     private HeartCollision heartCollision;
-    public float speed  = 40f;
     public Rigidbody2D rigidbody2D;
     
     void Awake() {
@@ -19,6 +18,12 @@ public class Bullet : MonoBehaviour {
 
     void Start() {
         rigidbody2D.velocity = transform.right * speed;
+    }
+
+    void Update() {
+        timer -= Time.deltaTime;
+        if (timer <= 0.0f)
+            Destroy(gameObject);
     }
 
     void OnTriggerEnter2D (Collider2D collider) {
@@ -31,6 +36,7 @@ public class Bullet : MonoBehaviour {
         
         if (coinCollision != null || heartCollision != null)
             return; /*Bullets will not disappear when colliding with coins or hearts*/
+        
         Destroy(gameObject);
     }
 

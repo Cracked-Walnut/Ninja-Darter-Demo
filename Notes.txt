@@ -1,6 +1,8 @@
 ToDos:
 
     - Some chunks have black boxes on spawn points
+    - Make dedicated last rooms for each stage, so you can easily write code to transport the player to the
+        next stage
     - Make a stage system
         - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a 
             boss battle, or a timed room
@@ -11,6 +13,8 @@ ToDos:
             - enemies
     
     - Make a minimap to work with randomly generated levels
+        - Make the map very simple; show only the rooms present in the level
+        - The player will be in the highlighted room
     
     - Make another script (Attack.cs), use Raycast to detect player
         - If true, stop movement, instantiate two bullets
@@ -26,8 +30,6 @@ ToDos:
         - HP number not incrementing
         - Player does not jump in starting room more than twice
             - One jump available after wall jumping
-        - Level Generation broken if start room spawns in top left or top right
-        - Destroy bullets if they don't hit something within x seconds or x units
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
