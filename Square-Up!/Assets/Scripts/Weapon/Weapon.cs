@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour {
 
     private PlayerInput playerInput;
     private CharacterController2D characterController2D;
+    private CameraShake cameraShake;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Text currentAmmoDisplay, maxAmmoDisplay;
