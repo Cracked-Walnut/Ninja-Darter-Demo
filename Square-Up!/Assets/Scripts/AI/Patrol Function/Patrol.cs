@@ -5,9 +5,9 @@ using UnityEngine;
 public class Patrol : MonoBehaviour {
 
     public float speed;
-    public float groundDistance, wallDistance;
-    private bool movingRight_ground = true, movingRight_wall = true;
-    public Transform groundDetection, wallDetection;
+    public float groundDistance;
+    private bool movingRight = true;
+    public Transform groundDetection;
 
     void Update() {
         transform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -18,13 +18,13 @@ public class Patrol : MonoBehaviour {
         RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
 
         if (groundInfo.collider == false) {
-            if (movingRight_ground) {
+            if (movingRight) {
                 transform.eulerAngles = new Vector3(0, -180, 0);
-                movingRight_ground = false;
+                movingRight = false;
                 
             } else {
                 transform.eulerAngles = new Vector3(0, 0, 0);
-                movingRight_ground = true;
+                movingRight = true;
             }
         }
     }
