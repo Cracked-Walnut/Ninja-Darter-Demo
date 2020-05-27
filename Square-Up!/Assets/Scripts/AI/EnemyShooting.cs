@@ -2,25 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*This class sets up different types of horizontally based enemy shooting logic*/
 public class EnemyShooting : MonoBehaviour {
     
-    private float timer;
-    private bool isTimerRunning, shootAgain = true;
+    [Header("Rate of Fire & Barrel Angles")]
+    [SerializeField] private float rateOfFire; 
+    [SerializeField] private float leftBarrelAngle, rightBarrelAngle;
+
+    private bool isTimerRunning;
     private Quaternion shootRight, shootLeft;
+    private Enemy enemy;
+
+    [Header("Bullet Type, Fire Points & Enemy Vision")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePointLeft, firePointRight;
     [SerializeField] private Transform enemyVisionRight, enemyVisionLeft;
-    private Enemy enemy;
-
+    
 
     void Awake() {
         enemy = FindObjectOfType<Enemy>();
-        shootRight = Quaternion.Euler(0, 0, 0);
-        shootLeft = Quaternion.Euler(0, 0, -180);
+        shootRight = Quaternion.Euler(0, 0, rightBarrelAngle);
+        shootLeft = Quaternion.Euler(0, 0, leftBarrelAngle);
     }
     
     void Start() {
-        timer = 1.0f;
+        rateOfFire = 1.0f;
         isTimerRunning = true;
     }
 
@@ -29,23 +35,31 @@ public class EnemyShooting : MonoBehaviour {
     }
 
     private void shoot() {
-        // RaycastHit2D enemyInfoRight = Physics2D.Raycast(enemyVisionRight.position, Vector2.right, 10.0f);
-        // RaycastHit2D enemyInfoLeft = Physics2D.Raycast(enemyVisionLeft.position, Vector2.left, 10.0f);
-        
-            
-        // if (enemyInfoRight.collider == true && enemyInfoLeft.collider == true && shootAgain) {
-        //     Instantiate(bulletPrefab, firePointLeft.position, shootRight);
-        //     Instantiate(bulletPrefab, firePointRight.position, shootLeft);
-        //     // shootAgain = false;
-        // }
     
-        timer -= Time.deltaTime;
+        rateOfFire -= Time.deltaTime;
 
-        if (timer <= 0.0f) {
+        if (rateOfFire <= 0.0f) {
             Instantiate(bulletPrefab, firePointLeft.position, shootLeft);
             Instantiate(bulletPrefab, firePointRight.position, shootRight);
-            timer = 1.0f;
+            rateOfFire = 1.0f;
         }
     
     }
+
+    private void shootWithVision() {
+        // RaycastHit2D enemyInfoRight = Physics2D.Raycast(enemyVisionRight.position, Vector2.right, 10.0f);
+        // RaycastHit2D enemyInfoLeft = Physics2D.Raycast(enemyVisionLeft.position, Vector2.left, 10.0f);
+        
+        // if (enemyInfoRight.collider == true && enemyInfoLeft.collider == true) {
+        //     Instantiate(bulletPrefab, firePointLeft.position, shootRight);
+        //     Instantiate(bulletPrefab, firePointRight.position, shootLeft);
+        // }
+
+        shoot();
+    }
 }
+
+/*
+Sources:
+1) B., Brackeys, '2D Shooting in Unity (Tutorial)', 2018. [Online]. Available: https://www.youtube.com/watch?v=wkKsl1Mfp5M [Accessed: 21-Mar-2020].
+*/

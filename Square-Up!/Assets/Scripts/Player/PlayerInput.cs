@@ -211,7 +211,7 @@ public class PlayerInput : MonoBehaviour {
 
                pulseJumpTimer -= Time.deltaTime;/*Decrease the timer*/
 
-               if (PlayerInput.GetButtonUp("Jump")) { /*If the player releases the jump key*/
+               if (Input.GetButtonUp("Jump")) { /*If the player releases the jump key*/
                     pulseJumpTimer = 1.0f;
                     return;
                }

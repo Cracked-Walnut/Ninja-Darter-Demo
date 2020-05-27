@@ -62,7 +62,10 @@ ToDos:
                 - Slower moving bullets
         - Stationary turrets
             - Firing both ways/one way
-            - Wall mounted/moving vertically
+            - Wall mounted/moving vertically/horizontally
+        - Turret with moving barrel
+            - Use Vector2 object, run it through a for loop to iterate z value till it reaches
+                a certain point. Reverse
         - Bombs that arm when the player gets too close
 
 --------------------------------------------------------------------------------------------------------------------------------------------
