@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour {
             return;
         else {
 
-            if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) {
+            if (Input.GetButtonDown("Fire1")) {
                 if (canFire && currentAmmo > 0) {
 
                     currentAmmo -= 1;

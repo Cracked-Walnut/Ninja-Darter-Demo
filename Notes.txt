@@ -19,6 +19,9 @@ ToDos:
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Bugs:
+        - Enemy bullets aren't dealing damage to player
+            - Just like Weapon.cs, make EnemyWeapon.cs.
+            - Make EnemyBullet.cs
         - HP number not incrementing
         - Player does not jump in starting room more than twice
             - One jump available after wall jumping
@@ -57,9 +60,6 @@ ToDos:
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Enemy ideas:
-        - Tiny bugs which travel in groups (requires AI Path Finding to work)
-            - Target the player & fire at player
-                - Slower moving bullets
         - Stationary turrets
             - Firing both ways/one way
             - Wall mounted/moving vertically/horizontally
@@ -93,7 +93,7 @@ ToDos:
                 - Shots pierce their targets
             
             - Defense:
-                - Invulnerable for 10 seconds
+                - Invulnerable for 2 seconds
                 - Temporary invincibility when hit (2 seconds)
                 - Damage Reduction (5%, 9%, 13%)
 
@@ -105,5 +105,3 @@ ToDos:
                 - Ground pound with more force (requires Ground Pound skill)
                 - +10% phase distance (requires phase skill)
                 - Stick to walls (requires wall jump)
-                
-            
