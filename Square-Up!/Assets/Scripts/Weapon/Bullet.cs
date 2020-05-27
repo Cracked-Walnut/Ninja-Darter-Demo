@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    private float damage = 34f, speed = 40f, timer = 2.0f;
+    private float damage = 34f, timer = 2.0f;
+    [SerializeField] private float speed = 40f;
     private bool isItemPickUp = false;
     private CharacterController2D characterController2D;
     private Enemy enemy;

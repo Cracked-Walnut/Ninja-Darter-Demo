@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour {
     private PlayerInput playerInput;
     private CharacterController2D characterController2D;
     private CameraShake cameraShake;
+    private float timer;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Text currentAmmoDisplay, maxAmmoDisplay;
@@ -25,15 +26,21 @@ public class Weapon : MonoBehaviour {
         fireSingle();
     }
 
+    void Start() {
+        timer = 0.2f;
+    }
+
     void fireSingle() {
         if (!playerInput.getCanShoot())
             return;
         else {
 
-            if (Input.GetButtonDown("Fire1")) {
+            if (Input.GetButtonDown("Fire1") || Input.GetButton("Fire1")) {
                 if (canFire && currentAmmo > 0) {
-                    
+
                     currentAmmo -= 1;
+                    timer -= Time.deltaTime;
+                    
                     if (characterController2D.getFacingRight()) {
                         accuracy(-10.0f, 10.0f);
                     }

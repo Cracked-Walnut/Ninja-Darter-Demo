@@ -1,8 +1,4 @@
 ToDos:
-
-    - Make dedicated last rooms for each stage, so you can easily write code to transport the player to the
-        next stage
-    - Bullet richochet
     - Make a stage system
         - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a 
             boss battle, or a timed room
@@ -11,16 +7,12 @@ ToDos:
     - Spawning:
             - upgrades
             - enemies
+            - items
     
     - Make a minimap to work with randomly generated levels
         - Make the map very simple; show only the rooms present in the level
         - The player will be in the highlighted room
-    
-    - Make another script (Attack.cs), use Raycast to detect player
-        - If true, stop movement, instantiate two bullets
-        - If false, wait one second, resume patrol
-            - I need to connect the AttackDetection and Patrol scripts, possibly with a boolean for this to work
-    
+
     - Use RNGCryptoServiceProvider for level generation:
         https://www.youtube.com/watch?v=tCYxc-2-3fY&feature=youtu.be&t=14m31s
 

@@ -14,6 +14,7 @@ public class PlayerInput : MonoBehaviour {
      private bool jump, isGameOver, isGamePaused, isGrounded, isFacingRight, 
           crouch = false, canDoubleJump = true, canAltJump = true, escapeKey = true, canPhase = true, rayCast, isFlipped, canShoot;
      
+     private float pulseJumpTimer;
      private CharacterController2D characterController2D;
      private EnemyCollision enemyCollision;
      private PauseMenu pauseMenu;
@@ -28,7 +29,6 @@ public class PlayerInput : MonoBehaviour {
     // Update is called once per frame
     void Update() {
           characterController2D.highJump();
-          // checkXboxPhysics();
           checkPhysics();
      
           if (escapeKey)
@@ -36,7 +36,16 @@ public class PlayerInput : MonoBehaviour {
           else
                return;
      
-     }//end of Update()
+     }
+
+     void Start() {
+          pulseJumpTimer = 1.0f;
+     }
+
+     void FixedUpdate() {
+        controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump); //crouch, jump
+        jump = false;
+    }
 
      private void Awake() {
           characterController2D = FindObjectOfType<CharacterController2D>();
@@ -51,72 +60,29 @@ public class PlayerInput : MonoBehaviour {
           weapon = FindObjectOfType<Weapon>();
      }
 
-     public float getRunSpeed() {
-          return runSpeed;
-     }
-
-     public void setRunSpeed(float runSpeed) {
-          this.runSpeed = runSpeed;
-     }
-
-     public float getPhaseSpeed() {
-          return phaseSpeed;
-     }
-
-     public void setPhaseSpeed(float phaseSpeed) {
-          this.phaseSpeed = phaseSpeed;
-     }
-
-     public float getNegativePhaseSpeed() {
-          return phaseSpeedNegative;
-     }
-
-     public void setPhaseSpeedNegative(float phaseSpeedNegative) {
-          this.phaseSpeedNegative = phaseSpeedNegative;
-     }
-
-     public bool getCanShoot() {
-          return canShoot;
-     }
-
-     public void setCanShoot(bool canShoot){ 
-          this.canShoot = canShoot;
-     }
-
      void checkPhysics() {
           horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-
 
           checkJump();
           checkAltJump();
           checkPhase();
           checkWallJump();
           // checkGroundPound();
-
           checkSceneRestart();
-
-     }//end of checkPhysics()
-
-     void checkXboxPhysics() { 
-          if (Time.timeScale != 0.0f) {
-               // checkJumpController();
-               // checkPhaseController();
-               // checkWallJumpController();
-          }
      }
 
      private void checkEscapeKey() {
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (pauseMenu.getGameIsPaused()) 
-               pauseMenu.ResumeGame();
-            else 
-               pauseMenu.PauseGame();
+               if (pauseMenu.getGameIsPaused()) 
+                    pauseMenu.ResumeGame();
+               else 
+                    pauseMenu.PauseGame();
         }
     }
 
     public void setEscapeKey(bool escapeKey) {
-        this.escapeKey = escapeKey;
+          this.escapeKey = escapeKey;
     }
 
      void checkJump() {
@@ -147,7 +113,8 @@ public class PlayerInput : MonoBehaviour {
           }
      }
 
-     private bool checkAltJump() {
+     /*If the player walks off a platform and wants to jump before touching the ground...*/
+     private bool checkAltJump() { 
           isGrounded = characterController2D.getGrounded();
 
           if (!isGrounded && canAltJump) {
@@ -205,6 +172,7 @@ public class PlayerInput : MonoBehaviour {
           else if (Input.GetKeyDown(KeyCode.RightArrow) && !characterController2D.getGrounded() && hitLeft.collider != null)
                wallJumpFunction(true, true, 1250f, 900f, true, "WallJump");
 
+          /*Implementing this was easier and less bugs than figuring out how to get shooting to work while wall clinging*/
           if (hitRight.collider != null || hitLeft.collider != null)
                canShoot = false; /*If you're clinging to a wall, you can't fire your weapon*/
           else
@@ -237,10 +205,24 @@ public class PlayerInput : MonoBehaviour {
                setGravity(2f);
      }
 
-     void checkPulseJump() {/*...*/}
+     void checkPulseJump() {
 
-     void setGravity(float gravity) {
-          rigidbody2D.gravityScale = gravity;
+          if (Input.GetButton("Jump")) {/*Holding down jump button*/
+
+               pulseJumpTimer -= Time.deltaTime;/*Decrease the timer*/
+
+               if (PlayerInput.GetButtonUp("Jump")) { /*If the player releases the jump key*/
+                    pulseJumpTimer = 1.0f;
+                    return;
+               }
+               
+               if (pulseJumpTimer <= 0.0f) { /*If the player successfully holds onto jump key
+               longer than 0.0 seconds, launch them into the air, then reset pulse jump timer*/
+                    if (Input.GetButton("Jump"))
+                         applyForce(0, 1000);
+                         pulseJumpTimer = 1.0f;
+               }
+          }
      }
 
      public void applyForce(float phaseValue, float jumpValue) {
@@ -252,17 +234,49 @@ public class PlayerInput : MonoBehaviour {
      
      void checkSceneRestart() {
           if (Input.GetKeyDown(KeyCode.R)) {
-               if (!isGameOver && !isGamePaused && playerPosition.getCheckPointSwitch()) {/*If the game isn't over AND the game isn't paused...*/
+               /*If the game isn't over AND the game isn't paused...*/
+               if (!isGameOver && !isGamePaused && playerPosition.getCheckPointSwitch()) {
                     playerPosition.applyCheckPoint();
                } else if (!isGameOver && !isGamePaused && !playerPosition.getCheckPointSwitch())
                     playerPosition.applyInitialPoint();
           }
      }
 
-    void FixedUpdate() {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump); //crouch, jump
-        jump = false;
-    }
+     void setGravity(float gravity) {
+          rigidbody2D.gravityScale = gravity;
+     }
+
+     public float getRunSpeed() {
+          return runSpeed;
+     }
+
+     public void setRunSpeed(float runSpeed) {
+          this.runSpeed = runSpeed;
+     }
+
+     public float getPhaseSpeed() {
+          return phaseSpeed;
+     }
+
+     public void setPhaseSpeed(float phaseSpeed) {
+          this.phaseSpeed = phaseSpeed;
+     }
+
+     public float getNegativePhaseSpeed() {
+          return phaseSpeedNegative;
+     }
+
+     public void setPhaseSpeedNegative(float phaseSpeedNegative) {
+          this.phaseSpeedNegative = phaseSpeedNegative;
+     }
+
+     public bool getCanShoot() {
+          return canShoot;
+     }
+
+     public void setCanShoot(bool canShoot){ 
+          this.canShoot = canShoot;
+     }
 }//end of class
 
 
