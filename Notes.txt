@@ -19,9 +19,7 @@ ToDos:
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Bugs:
-        - Enemy bullets aren't dealing damage to player
-            - Just like Weapon.cs, make EnemyWeapon.cs.
-            - Make EnemyBullet.cs
+        - NullReferenceException when player is hit with enemy bullet
         - HP number not incrementing
         - Player does not jump in starting room more than twice
             - One jump available after wall jumping
@@ -90,6 +88,8 @@ ToDos:
                 - +10% bullet accuracy
                 - Automatic fire
                 - Grenade explodes on contact
+                    - Run a timer, spawn a circle collider upon explosion, apply damage if player is within
+                        this collider
                 - Shots pierce their targets
             
             - Defense:

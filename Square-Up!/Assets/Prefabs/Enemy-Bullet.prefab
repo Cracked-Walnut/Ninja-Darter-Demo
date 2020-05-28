@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1600888995410794484}
   - component: {fileID: 7861636163634922772}
   - component: {fileID: 8562806925814777502}
+  - component: {fileID: 6305026022321005117}
   m_Layer: 0
   m_Name: Enemy-Bullet
   m_TagString: Untagged
@@ -136,10 +137,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1600888995410794487}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eb35e3e6e8f93a499066b5991845aa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  rigidbody2D: {fileID: 1600888995410794484}
+--- !u!114 &6305026022321005117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600888995410794487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6e0f8caec21504e91386ef87c43aff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  bulletRange: 2
+  speed: 40
   rigidbody2D: {fileID: 1600888995410794484}

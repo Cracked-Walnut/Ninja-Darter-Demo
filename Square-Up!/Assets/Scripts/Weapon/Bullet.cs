@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
-    private float damage = 34f, timer = 2.0f;
+    private float damage = 34f, bulletRange = 2.0f;
     [SerializeField] private float speed = 40f;
-    private bool isItemPickUp = false;
+    // private bool isItemPickUp = false;
     private CharacterController2D characterController2D;
     private Enemy enemy;
     private CoinCollision coinCollision;
@@ -22,8 +22,9 @@ public class Bullet : MonoBehaviour {
     }
 
     void Update() {
-        timer -= Time.deltaTime;
-        if (timer <= 0.0f)
+        /*Destroy bullet after two seconds of not colliding*/
+        bulletRange -= Time.deltaTime; 
+        if (bulletRange <= 0.0f)
             Destroy(gameObject);
     }
 
