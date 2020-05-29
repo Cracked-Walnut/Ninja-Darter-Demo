@@ -35,15 +35,15 @@ public class Player : MonoBehaviour {
 
     public void takeDamage(int damage, int knockBackHeight) { /*Works with EnemyCollision.cs*/
 
-        setPlayerInvincible(true);
+        // setPlayerInvincible(true);
         audioManager.Play("Damage");
 
         currentHealth = currentHealth - damage;
         healthBar.setHealth(currentHealth);
 
-        StartCoroutine(knockBackX(0.02f, knockBackHeight, transform.position));
-        Invoke("resetInvincibilityState", 1.0f); /*Wait one second then execute function*/
-        enemyCollision.checkGameOver();
+        // StartCoroutine(knockBackX(0.02f, knockBackHeight, transform.position));
+        // Invoke("resetInvincibilityState", 1.0f); /*Wait one second then execute function*/
+        // enemyCollision.checkGameOver();
     }
 
     void resetInvincibilityState() {
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour {
     public int getMaxHealth() {
         return maxHealth;
     }
-}//end of class
+} //end of class
 
 
 /*

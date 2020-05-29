@@ -5,6 +5,8 @@ ToDos:
             boss battle, or a timed room
             - Use the pause menu as a reference to build this stage selector
         
+    - Look at Player.takeDamage.cs. It's got invincibility properties for the player
+    
     - Spawning:
             - upgrades
             - enemies
@@ -20,14 +22,12 @@ ToDos:
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Bugs:
-        - NullReferenceException when player is hit with enemy bullet
-            - There is no working canvas in L-Start-Room-1.
-                - The game is trying to check for the game over screen, but there is no canvas!
-                    - However, the game still gives me this error if I comment out the function which checks for game over screen
         - HP number not incrementing
             - Removed for now. Not as important to fix as other bugs
         - Player does not jump in starting room more than twice
-            - One jump available after wall jumping
+            - First it calls altjump, then double jump
+            - Try spawning the player separate from the room
+                - Turn the player into a prefab and use Instantiate function
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 

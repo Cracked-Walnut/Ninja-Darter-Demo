@@ -14,6 +14,10 @@ public class EnemyBullet : MonoBehaviour {
         rigidbody2D.velocity = transform.right * speed;
     }
 
+    void Awake() {
+        player = FindObjectOfType<Player>();
+    }
+
     void Update() {
         /*Destroy bullet after two seconds of not colliding*/
         bulletRange -= Time.deltaTime; 
@@ -21,12 +25,13 @@ public class EnemyBullet : MonoBehaviour {
             Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D (Collider2D collider) {
-        player = collider.GetComponent<Player>();
-
-        if (player != null)
-            player.takeDamage(damage, 1);
-        
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (!player.getPlayerInvincible()) {
+            if (collision.gameObject.name == "Player") {
+                player.takeDamage(1, 25);
+            }
+        }
         Destroy(gameObject);
-    }
+	}
+
 }

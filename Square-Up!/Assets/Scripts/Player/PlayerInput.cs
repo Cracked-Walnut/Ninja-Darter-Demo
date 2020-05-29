@@ -99,11 +99,13 @@ public class PlayerInput : MonoBehaviour {
           if (Input.GetButtonDown("Jump")) {
                if (Time.timeScale != 0.0f) { /*If the game isn't paused...*/
                     if (isGrounded && !checkAltJump()) { /*Single jump*/
+                         Debug.Log("Single Jump");
                          audioManager.Play("Jump");
                          // characterController2D.highJump();
                          jump = true; /*addForce is being called in CharacterController2D.cs*/
                     }
                     if (!isGrounded && canDoubleJump && !checkAltJump()) { /*Double jump*/
+                         Debug.Log("Double Jump");
                          audioManager.Play("DoubleJump");
                          applyForce(0f, 800f); /*To upgrade the jump height, check if upgrade is active with a boolean*/
                          canDoubleJump = false;
@@ -124,6 +126,7 @@ public class PlayerInput : MonoBehaviour {
 
           if (!isGrounded && canAltJump) {
                if (Input.GetButtonDown("Jump")) {
+                    Debug.Log("AltJump");
                     audioManager.Play("DoubleJump");
                     applyForce(0f, 800f); /*This emulates the force of the double jump, which is slightly more powerful than the single jump*/
                     canAltJump = false;
