@@ -1103,51 +1103,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objects:
   - {fileID: 3599004704305673477, guid: 76df13de93fb7644089def97eb074595, type: 3}
---- !u!1 &2280351993571625804
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7995138939845477701}
-  - component: {fileID: 4860279720584177454}
-  m_Layer: 0
-  m_Name: Spawn Point (206)
-  m_TagString: Untagged
-  m_Icon: {fileID: 2800000, guid: 64537d6872dc2b04b9d978a61b141f00, type: 3}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7995138939845477701
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2280351993571625804}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.5, y: 5.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5077453217632669936}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4860279720584177454
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2280351993571625804}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a9a1595b89c9d54984886e0d95b852b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objects:
-  - {fileID: 3599004704305673477, guid: 76df13de93fb7644089def97eb074595, type: 3}
 --- !u!1 &2331815677572636465
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,7 +2910,7 @@ GameObject:
   - component: {fileID: 1529732786344268416}
   - component: {fileID: 3605679560204293827}
   - component: {fileID: 4971221004626035589}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12558,7 +12513,6 @@ Transform:
   - {fileID: 5537581636906134242}
   - {fileID: 4480547164762457366}
   - {fileID: 531643651475020183}
-  - {fileID: 7995138939845477701}
   m_Father: {fileID: 3391147969328368822}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
