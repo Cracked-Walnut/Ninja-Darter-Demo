@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*Controls player movement (running, jumping, wall jumping)*/
 public class PlayerInput : MonoBehaviour {
 
      public CharacterController2D controller;
      public float wallKickDistance = 0.5f;
 
      [Header("Player Property")]
-     [SerializeField] private float horizontalMove = 0f, runSpeed = 240f, phaseSpeed = 3000f, phaseSpeedNegative = -3000f, dropSpeed = 1f;
+     [SerializeField] private float horizontalMove = 0f, runSpeed = 240f, phaseSpeed = 3000f, 
+          phaseSpeedNegative = -3000f, dropSpeed = 1f;
      
      private bool jump, isGameOver, isGamePaused, isGrounded, isFacingRight, 
           crouch = false, canDoubleJump = true, canAltJump = true, escapeKey = true, canPhase = true, rayCast, isFlipped, canShoot;
@@ -28,25 +30,27 @@ public class PlayerInput : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-          characterController2D.highJump();
+          characterController2D.highJump(); // Used to add some weight to the player as they're falling
           checkPhysics();
      
-          if (escapeKey)
+          if (escapeKey) // Check if the escape key is enabled. Useful for instance when the player, they shouldn't be able to pause
                checkEscapeKey();
           else
-               return;
-     
+               return; // I don't rhink this is needed but I've kept it here anyway
      }
 
+     // Called at before the first frame
      void Start() {
           pulseJumpTimer = 1.0f;
      }
 
+     /*Also called once per frame like Update but I think it's used for time sensitive variables*/
      void FixedUpdate() {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump); //crouch, jump
-        jump = false;
+        controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+        jump = false; // At the start of each frame, jump is false
     }
 
+     // Used to initialize variables. Can also be done in Start()
      private void Awake() {
           characterController2D = FindObjectOfType<CharacterController2D>();
           enemyCollision = FindObjectOfType<EnemyCollision>();
@@ -60,6 +64,7 @@ public class PlayerInput : MonoBehaviour {
           weapon = FindObjectOfType<Weapon>();
      }
 
+     // This is the only function I'm calling in Update(), so all frame dependent functions are called in here
      void checkPhysics() {
           horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
@@ -120,38 +125,40 @@ public class PlayerInput : MonoBehaviour {
           if (!isGrounded && canAltJump) {
                if (Input.GetButtonDown("Jump")) {
                     audioManager.Play("DoubleJump");
-                    applyForce(0f, 800f);
+                    applyForce(0f, 800f); /*This emulates the force of the double jump, which is slightly more powerful than the single jump*/
                     canAltJump = false;
                     return true;
                }
           }
-          if (isGrounded)
+          if (isGrounded) /*resets alt jump*/
                canAltJump = true;
                return false;
      }
 
-     void checkPhase() {
+     void checkPhase() { // dash ability for the player
           isGrounded = characterController2D.getGrounded();
           isFacingRight = characterController2D.getFacingRight();
 
-          if (Time.timeScale != 0.0f) {
+          if (Time.timeScale != 0.0f) { // right dash
                if (Input.GetKeyDown(KeyCode.RightShift) && isFacingRight && !isGrounded && canPhase) {
                     audioManager.Play("Phase");
                     // applyForce(phaseSpeed, 0f);
                     rigidbody2D.velocity = new Vector2(110f, 0f);
-                    canPhase = false;
+                    canPhase = false; // you can only use the ability once in the air. must touch the ground to reset
                }
                else if (Input.GetKeyDown(KeyCode.RightShift) && !isFacingRight && !isGrounded && canPhase) {
+                    // left dash
                     audioManager.Play("Phase");
                     // applyForce(phaseSpeedNegative, 0f);
                     rigidbody2D.velocity = new Vector2(-110f, 0f);
                     canPhase = false;
                }    
-               if (isGrounded)
+               if (isGrounded) // touch the ground to reset dash
                     canPhase = true;
           }
      }
 
+     // I'm going to take the wall cling functions out of here and put them into their own function
      void checkWallJump() {
           hitRight = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallKickDistance);
           hitLeft = Physics2D.Raycast(transform.position, Vector2.left * transform.localScale.x, wallKickDistance);
@@ -192,6 +199,7 @@ public class PlayerInput : MonoBehaviour {
                soundFile = null;
      }
 
+     // currently not in use. There's a bug where you can clip through the floor if you move fast enough
      void checkGroundPound() {
           if (!characterController2D.getGrounded() && Input.GetKey(KeyCode.DownArrow)) {
                // setGravity(10f);
@@ -205,6 +213,7 @@ public class PlayerInput : MonoBehaviour {
                setGravity(2f);
      }
 
+     // this is being worked on
      void checkPulseJump() {
 
           if (Input.GetButton("Jump")) {/*Holding down jump button*/

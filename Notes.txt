@@ -1,4 +1,5 @@
 ToDos:
+    - Keep working on pulse jump
     - Make a stage system
         - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a 
             boss battle, or a timed room
@@ -20,7 +21,11 @@ ToDos:
 
     Bugs:
         - NullReferenceException when player is hit with enemy bullet
+            - There is no working canvas in L-Start-Room-1.
+                - The game is trying to check for the game over screen, but there is no canvas!
+                    - However, the game still gives me this error if I comment out the function which checks for game over screen
         - HP number not incrementing
+            - Removed for now. Not as important to fix as other bugs
         - Player does not jump in starting room more than twice
             - One jump available after wall jumping
 
