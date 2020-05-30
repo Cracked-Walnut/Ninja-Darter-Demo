@@ -99,6 +99,7 @@ public class PlayerInput : MonoBehaviour {
           if (Input.GetButtonDown("Jump")) {
                if (Time.timeScale != 0.0f) { /*If the game isn't paused...*/
                     if (isGrounded && !checkAltJump()) { /*Single jump*/
+
                          Debug.Log("Single Jump");
                          audioManager.Play("Jump");
                          // characterController2D.highJump();
@@ -238,11 +239,13 @@ public class PlayerInput : MonoBehaviour {
      }
 
      public void applyForce(float phaseValue, float jumpValue) {
+          
           characterController2D.addForce(phaseValue, jumpValue);
+     }
           /*Try this:
           rigidbody2d.velocity = new Vector2(dashSpeed, 0)
           This might solve your clipping issue*/
-     }
+     
      
      void checkSceneRestart() {
           if (Input.GetKeyDown(KeyCode.R)) {
@@ -286,7 +289,7 @@ public class PlayerInput : MonoBehaviour {
           return canShoot;
      }
 
-     public void setCanShoot(bool canShoot){ 
+     public void setCanShoot(bool canShoot) { 
           this.canShoot = canShoot;
      }
 }//end of class

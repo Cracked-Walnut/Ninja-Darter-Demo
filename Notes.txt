@@ -26,6 +26,7 @@ ToDos:
             - Removed for now. Not as important to fix as other bugs
         - Player does not jump in starting room more than twice
             - First it calls altjump, then double jump
+                - It's doing this because the game believes the player isn't grounded in the starting chunk
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
