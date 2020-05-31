@@ -21,12 +21,12 @@ public class XP : MonoBehaviour {
     void assignXP(int xpType, bool enemyKilled) {
         currentXP += xpType;
 
-        if (enemyKilled)
+        if (enemyKilled) /* The enemy kill count won't increase if the player completes a quest, because they hadn't killed an enemy*/
             enemiesKilled++;
         
         if (currentXP >= TO_NEXT_LEVEL) { /*level up*/
 
-            if (currentXP == TO_NEXT_LEVEL) {
+            if (currentXP == TO_NEXT_LEVEL) { //apply level up, and reset current XP to 0. Nothing else is needed
                 levelUp();
                 currentXP = 0;
                 return;
@@ -34,16 +34,16 @@ public class XP : MonoBehaviour {
 
             /*Add remaining XP to next level*/
             if (currentXP > TO_NEXT_LEVEL) {
-                remainingXP = currentXP - TO_NEXT_LEVEL;
+                remainingXP = currentXP - TO_NEXT_LEVEL; // trim the excess XP and store it in a variable
                 levelUp();
-                currentXP = 0;
-                currentXP += remainingXP;
+                remainingXP = currentXP; // the trimmed XP, after levelling up, is now the current xp
+                remainingXP = 0; // reset this. I don't want its value messing anything up
             }
         }
 
     }
 
-    void levelUp() {
+    void levelUp() { // increase level and apply skill points for new abilities
         currentLevel += 1;
         skillPoints += 1;
     }
