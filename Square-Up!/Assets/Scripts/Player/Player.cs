@@ -21,8 +21,8 @@ public class Player : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        currentHealth = maxHealth;
-        healthBar.setMaxHealth(maxHealth);
+        // currentHealth = maxHealth;
+        // healthBar.setMaxHealth(maxHealth);
     }
 
     private void Awake() {

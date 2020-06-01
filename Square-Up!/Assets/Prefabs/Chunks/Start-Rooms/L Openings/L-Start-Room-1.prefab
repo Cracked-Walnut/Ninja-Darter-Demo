@@ -496,7 +496,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3391147969328368822}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8648999174742315527
 MonoBehaviour:
@@ -878,7 +878,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3391147969328368822}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7489287436855903500
 MonoBehaviour:
@@ -1734,11 +1734,11 @@ Transform:
   m_LocalPosition: {x: 20, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 3989695396740362451}
   - {fileID: 6095123623904251144}
   - {fileID: 7608425413895183908}
   - {fileID: 8734030200234630253}
   - {fileID: 5077453217632669936}
-  - {fileID: 3989695396740362451}
   - {fileID: 659407519480935157}
   - {fileID: 2651984365353504018}
   - {fileID: 3806756760798093823}
@@ -1927,7 +1927,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3391147969328368822}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2278432268670647503
 Camera:
@@ -2040,14 +2040,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3933753468091198029}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.89, y: 12.946, z: -0}
+  m_LocalPosition: {x: -2.89, y: 12.946, z: 0}
   m_LocalScale: {x: 0.7, y: 1.5, z: 1}
   m_Children:
   - {fileID: 1094000661006997787}
   - {fileID: 1990481704061603591}
   - {fileID: 4695419043843418197}
   m_Father: {fileID: 3391147969328368822}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2263656165653594518
 Rigidbody2D:
@@ -12514,7 +12514,7 @@ Transform:
   - {fileID: 4480547164762457366}
   - {fileID: 531643651475020183}
   m_Father: {fileID: 3391147969328368822}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6557047748027523653
 GameObject:
