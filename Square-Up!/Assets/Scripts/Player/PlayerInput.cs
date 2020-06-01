@@ -217,27 +217,6 @@ public class PlayerInput : MonoBehaviour {
                setGravity(2f);
      }
 
-     // this is being worked on
-     void checkPulseJump() {
-
-          if (Input.GetButton("Jump")) {/*Holding down jump button*/
-
-               pulseJumpTimer -= Time.deltaTime;/*Decrease the timer*/
-
-               if (Input.GetButtonUp("Jump")) { /*If the player releases the jump key*/
-                    pulseJumpTimer = 1.0f;
-                    return;
-               }
-               
-               if (pulseJumpTimer <= 0.0f) { /*If the player successfully holds onto jump key
-               longer than 0.0 seconds, launch them into the air, then reset pulse jump timer*/
-                    if (Input.GetButton("Jump"))
-                         applyForce(0, 1000);
-                         pulseJumpTimer = 1.0f;
-               }
-          }
-     }
-
      public void applyForce(float phaseValue, float jumpValue) {
           
           characterController2D.addForce(phaseValue, jumpValue);
