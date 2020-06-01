@@ -13,9 +13,17 @@ public class PlayerInputV2 : MonoBehaviour {
             - WallJump
         - Scene Restarts*/
 
-    private CharacterController2D characterController2D;
+    [SerializeField] private CharacterController2D characterController2D;
     private AudioManager audioManager;
     private RaycastHit2D hitRight, hitLeft;
+    private PlayerPosition playerPosition;
+    [SerializeField] private float horizontalMove = 0f, 
+        wallKickDistance = 0.5f, 
+        dropSpeed = 1f, 
+        runSpeed = 240f, 
+        phaseSpeed = 3000f,
+        phaseSpeedNegative = -3000f;
+
     private bool jump, 
 
             isGameOver, 
@@ -46,6 +54,7 @@ public class PlayerInputV2 : MonoBehaviour {
 
     void Awake() {
         characterController2D = FindObjectOfType<CharacterController2D>();
+        playerPosition = FindObjectOfType<PlayerPosition>();
     }
 
     // Update is called once per frame
@@ -67,7 +76,7 @@ public class PlayerInputV2 : MonoBehaviour {
     }
 
     void Jump() {
-        if (characterController2D.getGrounded() && PlayerInput.GetButtonDown("Jump")) {
+        if (characterController2D.getGrounded() && Input.GetButtonDown("Jump")) {
             audioManager.Play("Jump");
             characterController2D.addForce(0, 600);
             jump = true;
@@ -75,10 +84,10 @@ public class PlayerInputV2 : MonoBehaviour {
     }
 
     void DoubleJump() {
-        if (!characterController2D.getGrounded() && canDoubleJump && !checkAltJump()) { /*Double jump*/
+        if (!characterController2D.getGrounded() && canDoubleJump && !AltJump()) { /*Double jump*/
             Debug.Log("Double Jump");
             audioManager.Play("DoubleJump");
-            applyForce(0f, 800f); /*To upgrade the jump height, check if upgrade is active with a boolean*/
+            characterController2D.addForce(0, 800); /*To upgrade the jump height, check if upgrade is active with a boolean*/
             canDoubleJump = false;
         }
 
@@ -95,7 +104,7 @@ public class PlayerInputV2 : MonoBehaviour {
             if (Input.GetButtonDown("Jump")) {
                 Debug.Log("AltJump");
                 audioManager.Play("DoubleJump");
-                applyForce(0f, 800f); /*This emulates the force of the double jump, which is slightly more powerful than the single jump*/
+                characterController2D.addForce(0, 800); /*This emulates the force of the double jump, which is slightly more powerful than the single jump*/
                 canAltJump = false;
                 return true;
             }
@@ -137,7 +146,7 @@ public class PlayerInputV2 : MonoBehaviour {
     void GroundPound() {
         if (!characterController2D.getGrounded() && Input.GetKey(KeyCode.DownArrow)) {
             // setGravity(10f);
-            rigidbody2D.AddForce(Vector2.down * dropSpeed, ForceMode2D.Impulse);
+            GetComponent<Rigidbody2D>().AddForce(Vector2.down * dropSpeed, ForceMode2D.Impulse);
             Debug.Log(Vector2.down * dropSpeed);
         }
         else if (!characterController2D.getGrounded() && Input.GetKeyUp(KeyCode.DownArrow))
@@ -152,7 +161,7 @@ public class PlayerInputV2 : MonoBehaviour {
 
         this.canDoubleJump = canDoubleJump;
         this.canPhase = canPhase;
-        applyForce(x, y);
+        characterController2D.addForce( x, y);
           
         if (isSound)
             audioManager.Play(soundFile);
@@ -171,7 +180,7 @@ public class PlayerInputV2 : MonoBehaviour {
     }
 
     void setGravity(float gravity) {
-          rigidbody2D.gravityScale = gravity;
+          GetComponent<Rigidbody2D>().gravityScale = gravity;
      }
 
      public float getRunSpeed() {

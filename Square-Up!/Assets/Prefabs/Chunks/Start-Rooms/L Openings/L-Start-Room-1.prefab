@@ -2019,12 +2019,12 @@ GameObject:
   - component: {fileID: 2263656165653594518}
   - component: {fileID: 8016065290634336075}
   - component: {fileID: 6481182047481486620}
-  - component: {fileID: 9192474158882577667}
   - component: {fileID: 6842087869513659691}
   - component: {fileID: 5783119106655207455}
   - component: {fileID: 731227215765936379}
   - component: {fileID: 3844467922290738246}
   - component: {fileID: 6343998852347015836}
+  - component: {fileID: 9192474158882577667}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2144,25 +2144,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9192474158882577667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3933753468091198029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d32aa65bfbd7b47a7c4329fc2624f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 5783119106655207455}
-  wallKickDistance: 0.7
-  horizontalMove: 0
-  runSpeed: 180
-  phaseSpeed: 3000
-  phaseSpeedNegative: -3000
-  dropSpeed: 50
 --- !u!114 &6842087869513659691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,6 +2236,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerDisplay: {fileID: 1384377670610557366}
+--- !u!114 &9192474158882577667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3933753468091198029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d32aa65bfbd7b47a7c4329fc2624f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterController2D: {fileID: 0}
+  horizontalMove: 0
+  runSpeed: 180
+  phaseSpeed: 1000
+  phaseSpeedNegative: -1000
+  dropSpeed: 50
+  wallKickDistance: 0.7
 --- !u!1 &4194833356409518859
 GameObject:
   m_ObjectHideFlags: 0
