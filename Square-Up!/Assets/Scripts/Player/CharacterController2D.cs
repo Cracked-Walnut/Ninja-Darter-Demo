@@ -119,10 +119,9 @@ public class CharacterController2D : MonoBehaviour {
 		}
 		// If the player should jump...
 		if (m_Grounded && jump) {
-			// Add a vertical force to the player.
 			m_Grounded = false;
 			// m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-			addForce(0f, 600f); /*Check if upgrade is active with a boolean*/
+			// addForce(0f, 600f); /*Check if upgrade is active with a boolean*/
 		}
 	}//end of Move()
 
