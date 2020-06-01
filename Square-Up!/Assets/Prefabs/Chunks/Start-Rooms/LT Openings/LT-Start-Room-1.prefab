@@ -1262,7 +1262,7 @@ GameObject:
   - component: {fileID: 6508765796816425432}
   - component: {fileID: 2893550943699876308}
   m_Layer: 9
-  m_Name: Start-Room-1
+  m_Name: LT-Start-Room-1
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2131,13 +2131,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d32aa65bfbd7b47a7c4329fc2624f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 6771212638833730423}
-  wallKickDistance: 0.7
+  characterController2D: {fileID: 6771212638833730423}
   horizontalMove: 0
   runSpeed: 180
   phaseSpeed: 3000
   phaseSpeedNegative: -3000
   dropSpeed: 50
+  wallKickDistance: 0.7
 --- !u!114 &6001627597278697027
 MonoBehaviour:
   m_ObjectHideFlags: 0

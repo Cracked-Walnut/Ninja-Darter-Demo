@@ -100,27 +100,23 @@ public class PlayerInput : MonoBehaviour {
 
      void checkJump() {
           /*If the player jumps...*/
-          if (Input.GetButtonDown("Jump")) {
-               if (Time.timeScale != 0.0f) { /*If the game isn't paused...*/
-                    if (characterController2D.getGrounded() && !checkAltJump()) { /*Single jump*/
-
-                         Debug.Log("Single Jump");
-                         audioManager.Play("Jump");
-                         // characterController2D.highJump();
-                         characterController2D.addForce(0, 600);
-                         jump = true; /*addForce is being called in CharacterController2D.cs*/
-                    }
+          if (Input.GetButtonDown("Jump") && Time.timeScale != 0.0f && 
+               characterController2D.getGrounded() && !checkAltJump()) 
+          {
+               audioManager.Play("Jump");
+               // characterController2D.highJump();
+               characterController2D.addForce(0, 600);
+               jump = true; /*addForce is being called in CharacterController2D.cs*/
                     
-                    if (jump) /*Not sure why I included this...*/
-                         return;
-               }
+               if (jump) /*Not sure why I included this...*/
+                    return;
+               
           }
      }
 
      void checkDoubleJump() {
           if (Input.GetButtonDown("Jump")) {
                if (!characterController2D.getGrounded() && canDoubleJump && !checkAltJump()) { /*Double jump*/
-                    Debug.Log("Double Jump");
                     audioManager.Play("DoubleJump");
                     characterController2D.addForce(0, 800); /*To upgrade the jump height, check if upgrade is active with a boolean*/
                     canDoubleJump = false;
@@ -137,14 +133,11 @@ public class PlayerInput : MonoBehaviour {
      private bool checkAltJump() { 
           isGrounded = characterController2D.getGrounded();
 
-          if (!isGrounded && canAltJump) {
-               if (Input.GetButtonDown("Jump")) {
-                    Debug.Log("AltJump");
-                    audioManager.Play("DoubleJump");
-                    characterController2D.addForce(0, 800); /*This emulates the force of the double jump, which is slightly more powerful than the single jump*/
-                    canAltJump = false;
-                    return true;
-               }
+          if (Input.GetButtonDown("Jump") && !isGrounded && canAltJump) {
+               audioManager.Play("DoubleJump");
+               characterController2D.addForce(0, 800); /*This emulates the force of the double jump, which is slightly more powerful than the single jump*/
+               canAltJump = false;
+               return true;
           }
           if (isGrounded) /*resets alt jump*/
                canAltJump = true;

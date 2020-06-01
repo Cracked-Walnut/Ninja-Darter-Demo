@@ -4,13 +4,6 @@ ToDos:
         - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a
             boss battle, or a timed room
             - Use the pause menu as a reference to build this stage selector
-        
-    - Look at Player.takeDamage.cs. It's got invincibility properties for the player
-    
-    - Spawning:
-            - upgrades
-            - enemies
-            - items
     
     - Make a minimap to work with randomly generated levels
         - Make the map very simple; show only the rooms present in the level
@@ -18,6 +11,9 @@ ToDos:
 
     - Use RNGCryptoServiceProvider for level generation:
         https://www.youtube.com/watch?v=tCYxc-2-3fY&feature=youtu.be&t=14m31s
+
+    - AI:
+        - https://www.youtube.com/watch?v=dYi-i83sq5g
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -51,7 +47,6 @@ ToDos:
         - Endurance rooms? Should be LRT type.
             - These rooms will close shut until the player has killed the boss in the room
             - Implement for later levels
-        - AI Path Finding: https://www.youtube.com/watch?v=jvtFUfJ6CP8 (can't get it to work)
         - 25-50 stages the player can choose from
             - All pseudo-randomly generated (core visual design stays the same but rooms can be swapped out for other rooms)
                 - This will give me more control on how to design a level, while offering a somewhat new experience to the player when they revisit the level
