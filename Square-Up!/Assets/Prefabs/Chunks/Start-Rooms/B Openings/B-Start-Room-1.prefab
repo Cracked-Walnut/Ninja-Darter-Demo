@@ -9178,13 +9178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d32aa65bfbd7b47a7c4329fc2624f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 2664357969283561271}
-  wallKickDistance: 0.7
+  characterController2D: {fileID: 0}
   horizontalMove: 0
   runSpeed: 180
   phaseSpeed: 3000
   phaseSpeedNegative: -3000
   dropSpeed: 50
+  wallKickDistance: 0.7
 --- !u!114 &3689822945789008295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10873,7 +10873,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8533615519205430954}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.55, y: 9.068031, z: 23.89549}
+  m_LocalPosition: {x: 4.55, y: 2.07, z: 23.89549}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7268931001976995182}

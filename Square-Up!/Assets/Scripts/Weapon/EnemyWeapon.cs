@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class EnemyWeapon : MonoBehaviour {
 
+    [SerializeField] private int numberOfBarrels;
+    
     [Header("Rate of Fire & Barrel Angles")]
     [SerializeField] private float rateOfFire; 
-    [SerializeField] private float leftBarrelAngle, rightBarrelAngle;
-
-    private bool isTimerRunning;
-    private Quaternion rightBarrel, leftBarrel;
-    private Enemy enemy;
-
+    [SerializeField] private float leftBarrelAngle, rightBarrelAngle, topBarrelAngle, bottomBarrelAngle;
+    
     [Header("Bullet Type, Fire Points & Enemy Vision")]
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePointLeft, firePointRight;
-    [SerializeField] private Transform enemyVisionRight, enemyVisionLeft;
+    [SerializeField] private Transform firePointLeft, firePointRight, firePointTop, firePointBottom;
 
+    private bool isTimerRunning;
+    private Quaternion rightBarrel, leftBarrel, topBarrel, bottomBarrel;
 
     void Awake() {
-        enemy = FindObjectOfType<Enemy>();
-        rightBarrel = Quaternion.Euler(0, 0, rightBarrelAngle);
-        leftBarrel = Quaternion.Euler(0, 0, leftBarrelAngle);
+        initBarrels();
     }
 
     void Start() {
@@ -30,19 +27,71 @@ public class EnemyWeapon : MonoBehaviour {
     }
 
     void Update() {
-        shoot();
+        shoot(numberOfBarrels);
     }
 
-    private void shoot() {
+    void initBarrels() {
+        switch(numberOfBarrels) {
+            case 1:
+                rightBarrel = Quaternion.Euler(0, 0, rightBarrelAngle);
+                firePointLeft = null; firePointTop = null; firePointBottom = null;
+                break;
+            
+            case 2:
+                rightBarrel = Quaternion.Euler(0, 0, rightBarrelAngle);
+                leftBarrel = Quaternion.Euler(0, 0, leftBarrelAngle);
+                firePointTop = null; firePointBottom = null;
+                break;
+            
+            case 3:
+                rightBarrel = Quaternion.Euler(0, 0, rightBarrelAngle);
+                leftBarrel = Quaternion.Euler(0, 0, leftBarrelAngle);
+                topBarrel = Quaternion.Euler(0, 0, topBarrelAngle);
+                firePointBottom = null;
+                break;
+
+            case 4:
+                rightBarrel = Quaternion.Euler(0, 0, rightBarrelAngle);
+                leftBarrel = Quaternion.Euler(0, 0, leftBarrelAngle);
+                topBarrel = Quaternion.Euler(0, 0, topBarrelAngle);
+                bottomBarrel = Quaternion.Euler(0, 0, bottomBarrelAngle);
+                break;
+        }
+    }
+
+    public void shoot(int numberOfBarrels) {
     
         rateOfFire -= Time.deltaTime;
 
         if (rateOfFire <= 0.0f) {
-            Instantiate(bulletPrefab, firePointLeft.position, leftBarrel);
-            Instantiate(bulletPrefab, firePointRight.position, rightBarrel);
-            rateOfFire = 1.0f;
+            switch(numberOfBarrels) {
+                case 1:
+                    Instantiate(bulletPrefab, firePointRight.position, rightBarrel);
+                    rateOfFire = 1.0f;
+                    break;
+
+                case 2:
+                    Instantiate(bulletPrefab, firePointRight.position, rightBarrel);
+                    Instantiate(bulletPrefab, firePointLeft.position, leftBarrel);
+                    rateOfFire = 1.0f;
+                    break;
+
+                case 3:
+                    Instantiate(bulletPrefab, firePointRight.position, rightBarrel);
+                    Instantiate(bulletPrefab, firePointLeft.position, leftBarrel);
+                    Instantiate(bulletPrefab, firePointTop.position, topBarrel);
+                    rateOfFire = 1.0f;
+                    break;
+
+                case 4:
+                    Instantiate(bulletPrefab, firePointRight.position, rightBarrel);
+                    Instantiate(bulletPrefab, firePointLeft.position, leftBarrel);
+                    Instantiate(bulletPrefab, firePointTop.position, topBarrel);
+                    Instantiate(bulletPrefab, firePointBottom.position, bottomBarrel);
+                    rateOfFire = 1.0f;
+                    break;
+            }
         }
-    
     }
 
     private void shootWithVision() {
@@ -54,6 +103,6 @@ public class EnemyWeapon : MonoBehaviour {
         //     Instantiate(bulletPrefab, firePointRight.position, leftBarrel);
         // }
 
-        shoot();
+        shoot(numberOfBarrels);
     }
 }
