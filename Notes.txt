@@ -1,9 +1,11 @@
 ToDos:
-    - Pads that launch the player up (make a new branch)
-    - Populate levels with enemies (new branch)
-    - Assign longer chunks to levels (new branch)
-    - Keep working on pulse jump (make a new branch)
-    - Make a stage system (new branch)
+    - XP for clearing a room of enemies
+    - An upgrade that locks onto targets
+    - Pads that launch the player up
+    - Populate levels with enemies
+    - Assign longer chunks to levels
+    - Keep working on pulse jump
+    - Make a stage system
         - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a
             boss battle, or a timed room
             - Use the pause menu as a reference to build this stage selector
@@ -32,6 +34,8 @@ ToDos:
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Notes:
+    - Make an algorithm that dynamically chooses which room type to place on each spawn point
+        - This can help speed up level development and will make it easier to develop larger levels + more levels, potentially hundreds
 
     Game loop:
         - Pick a stage, run, jump, walljump your way to the end
