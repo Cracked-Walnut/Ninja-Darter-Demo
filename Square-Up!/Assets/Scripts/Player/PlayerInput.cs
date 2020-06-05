@@ -23,7 +23,8 @@ public class PlayerInput : MonoBehaviour {
           isFacingRight, 
           crouch = false, 
           canDoubleJump = true, 
-          canAltJump = true, 
+          canAltJump = true,
+          canPulseJump = true, 
           escapeKey = true, 
           canPhase = true, 
           rayCast, 
@@ -228,9 +229,34 @@ public class PlayerInput : MonoBehaviour {
                setGravity(2f);
      }
 
+     // player must be grounded to perform pulse jump!
      void checkPulseJump() {
-          if (Input.GetKeyDown(KeyCode.X))
-               rigidbody2D.AddForce(Vector2.up * 25, ForceMode2D.Impulse);
+          // if the player holds down the X key, start the countdown
+          if (Input.GetKey(KeyCode.X) && canPulseJump) { 
+               pulseJumpTimer -= Time.deltaTime;
+
+               // if the player succeeds in holding down X till the countdown reaches 0.0, launch the player upwards, 
+               // reset the timer and make the bool false so they can't jump till they land
+               if (pulseJumpTimer <= 0.0f) {
+                    characterController2D.addForce(0, 1600);
+                    pulseJumpTimer = 1.0f;
+                    canPulseJump = false;
+               }
+
+               // if the player is in the air and continue to hold X, make sure pulseJump doesn't 
+               // decrement
+               if (Input.GetKey(KeyCode.X) && !characterController2D.getGrounded())
+                    pulseJumpTimer = 1.0f;
+          }
+
+          // if the player lets the X key go before the countdown ends, reset the countdown and return
+          if (Input.GetKeyUp(KeyCode.X) && pulseJumpTimer > 0.0f && characterController2D.getGrounded())
+               pulseJumpTimer = 1.0f;
+          
+          if (characterController2D.getGrounded() && !canPulseJump) {
+               Debug.Log(canPulseJump);
+               canPulseJump = true;
+          }
      }
      
      void checkSceneRestart() {
@@ -277,6 +303,10 @@ public class PlayerInput : MonoBehaviour {
 
      public void setCanShoot(bool canShoot) { 
           this.canShoot = canShoot;
+     }
+
+     public float getPulseJumpTimer() {
+          return pulseJumpTimer;
      }
 }//end of class
 

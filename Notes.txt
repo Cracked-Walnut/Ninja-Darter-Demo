@@ -1,5 +1,7 @@
 ToDos:
     - A climbing mechanic
+    - If the rightcollider != null, turn the player around, and vice versa
+        - And then, enable shooting while wall clinging
     - XP for clearing a room of enemies
     - Keep working on pulse jump
     - Make a stage system
@@ -24,6 +26,7 @@ ToDos:
             - First it calls altjump, then double jump
                 - It's doing this because the game believes the player isn't grounded in the starting chunks
                 - Delete the first chunk after it's instantiated, then re-instantiate
+                    - Or maybe instantiating the player through the script???
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Technical:

@@ -11,7 +11,7 @@ public class Weapon : MonoBehaviour {
     private float timer;
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Text currentAmmoDisplay, maxAmmoDisplay;
+    [SerializeField] private Text currentAmmoDisplay, maxAmmoDisplay, pulseJumpDisplay;
     [SerializeField] private int currentAmmo = 10, maxAmmo = 20;
     [SerializeField] private bool canFire = true;
 
@@ -23,6 +23,7 @@ public class Weapon : MonoBehaviour {
     void Update() {
         currentAmmoDisplay.text = currentAmmo.ToString();
         maxAmmoDisplay.text = maxAmmo.ToString();
+        pulseJumpDisplay.text = playerInput.getPulseJumpTimer().ToString("0.00");
         fireSingle();
     }
 
