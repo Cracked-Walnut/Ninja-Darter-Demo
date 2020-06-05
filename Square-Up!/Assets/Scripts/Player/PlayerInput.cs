@@ -29,14 +29,16 @@ public class PlayerInput : MonoBehaviour {
           canPhase = true, 
           rayCast, 
           isFlipped, 
-          canShoot;
+          canShoot = true;
 
      private PauseMenu pauseMenu;
      private AudioManager audioManager;
-     private GameObject player;
+     // private GameObject player;
+     private Player player;
      private PlayerPosition playerPosition;
      private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft;
      private Rigidbody2D rigidbody2D;
+     private Weapon weapon;
 
     // Update is called once per frame
     void Update() {
@@ -66,9 +68,11 @@ public class PlayerInput : MonoBehaviour {
           pauseMenu = FindObjectOfType<PauseMenu>();
           audioManager = FindObjectOfType<AudioManager>();
           rayCast = Physics2D.queriesStartInColliders = false;
-          player = GameObject.FindWithTag("Player");
+          // player = GameObject.FindWithTag("Player");
+          player = FindObjectOfType<Player>();
           playerPosition = FindObjectOfType<PlayerPosition>();
           rigidbody2D = GetComponent<Rigidbody2D>();
+          weapon = GetComponent<Weapon>();
      }
 
      // This is the only function I'm calling in Update(), so all frame dependent functions are called in here
@@ -173,21 +177,18 @@ public class PlayerInput : MonoBehaviour {
      void checkWallCling() {
           wallClingColRight = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallKickDistance);
           wallClingColLeft = Physics2D.Raycast(transform.position, Vector2.left * transform.localScale.x, wallKickDistance);
+          bool turnAround = true;
 
           /*RIGHT WALL CLING*/
-          if (!characterController2D.getGrounded() && wallClingColRight.collider != null && Input.GetKey(KeyCode.RightArrow)) {
+          if (!characterController2D.getGrounded() && wallClingColRight.collider != null /*&& Input.GetKey(KeyCode.RightArrow)*/) {
                wallFunction(false, false, 0f, -50f, false, "No Sound");
+               characterController2D.setFacingRight(false);
           }
           /*LEFT WALL CLING*/
-          else if (!characterController2D.getGrounded() && wallClingColLeft.collider != null && Input.GetKey(KeyCode.LeftArrow)) {
+          else if (!characterController2D.getGrounded() && wallClingColLeft.collider != null /*&& Input.GetKey(KeyCode.LeftArrow)*/) {
                wallFunction(false, false, 0f, -50f, false, "No Sound");
+               characterController2D.setFacingRight(true);
           }
-
-          /*Implementing this was easier and less bugs than figuring out how to get shooting to work while wall clinging*/
-          if (wallClingColRight.collider != null || wallClingColLeft.collider != null)
-               canShoot = false; /*If you're clinging to a wall, you can't fire your weapon*/
-          else
-               canShoot = true;
      }
 
      void checkWallJump() {

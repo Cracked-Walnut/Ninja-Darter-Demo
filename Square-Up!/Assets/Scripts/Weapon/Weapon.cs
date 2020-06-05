@@ -35,10 +35,8 @@ public class Weapon : MonoBehaviour {
         if (!playerInput.getCanShoot())
             return;
         else {
-
             if (Input.GetButtonDown("Fire1")) {
                 if (canFire && currentAmmo > 0) {
-
                     currentAmmo -= 1;
                     timer -= Time.deltaTime;
                     
@@ -48,7 +46,6 @@ public class Weapon : MonoBehaviour {
                     else {
                         accuracy(-170.0f, -190.0f);
                     }
-
                     if (currentAmmo <= 0) {
                         if (currentAmmo < 0)
                             currentAmmo = 0;
@@ -56,8 +53,8 @@ public class Weapon : MonoBehaviour {
                     }
                 }
             }
-            if (currentAmmo > 0)
-                canFire = true;
+                if (currentAmmo > 0)
+                    canFire = true;
             }
     }
  
@@ -81,6 +78,10 @@ public class Weapon : MonoBehaviour {
 
     public void setMaxAmmo(int maxAmmo) {
         this.maxAmmo = maxAmmo;
+    }
+
+    public Transform getFirePoint() {
+        return firePoint;
     }
 }//end of class
 
