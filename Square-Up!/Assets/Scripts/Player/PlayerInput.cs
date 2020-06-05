@@ -229,9 +229,8 @@ public class PlayerInput : MonoBehaviour {
      }
 
      void checkPulseJump() {
-          if (characterController2D.getGrounded() && Input.GetKey(KeyCode.X)) {
+          if (Input.GetKeyDown(KeyCode.X))
                rigidbody2D.AddForce(Vector2.up * 25, ForceMode2D.Impulse);
-          }
      }
      
      void checkSceneRestart() {
