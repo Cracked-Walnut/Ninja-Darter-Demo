@@ -1,7 +1,6 @@
 ToDos:
     - A climbing mechanic
     - XP for clearing a room of enemies
-    - Pads that launch the player up
     - Keep working on pulse jump
     - Make a stage system
         - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a
@@ -24,6 +23,7 @@ ToDos:
         - Player does not jump in starting room more than twice
             - First it calls altjump, then double jump
                 - It's doing this because the game believes the player isn't grounded in the starting chunks
+                - Delete the first chunk after it's instantiated, then re-instantiate
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Technical:

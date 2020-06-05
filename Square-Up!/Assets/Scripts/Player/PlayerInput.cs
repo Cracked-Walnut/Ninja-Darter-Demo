@@ -81,6 +81,7 @@ public class PlayerInput : MonoBehaviour {
           checkWallCling();
           checkWallJump();
           // checkGroundPound();
+          checkPulseJump();
           checkSceneRestart();
      }
 
@@ -225,6 +226,12 @@ public class PlayerInput : MonoBehaviour {
 
           if (characterController2D.getGrounded())
                setGravity(2f);
+     }
+
+     void checkPulseJump() {
+          if (characterController2D.getGrounded() && Input.GetKey(KeyCode.X)) {
+               rigidbody2D.AddForce(Vector2.up * 25, ForceMode2D.Impulse);
+          }
      }
      
      void checkSceneRestart() {
