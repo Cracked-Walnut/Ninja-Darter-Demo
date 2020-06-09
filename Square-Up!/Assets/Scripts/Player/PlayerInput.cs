@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerInput : MonoBehaviour {
 
      [SerializeField] private CharacterController2D characterController2D;
+     [SerializeField] private Transform groundDetection;
+     [SerializeField] private float groundDistance;
 
      private float horizontalMove = 0f, 
           runSpeed = 240f,
@@ -37,7 +39,7 @@ public class PlayerInput : MonoBehaviour {
      // private GameObject player;
      private Player player;
      private PlayerPosition playerPosition;
-     private RaycastHit2D jumpCol, wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft;
+     private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft;
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
 
@@ -80,7 +82,7 @@ public class PlayerInput : MonoBehaviour {
      void checkPhysics() {
           horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-          if (Time.timeScale != 0.0f) {
+          // if (Time.timeScale != 0.0f) {
                checkJump();
                // checkDoubleJump();
                // checkAltJump();
@@ -89,7 +91,7 @@ public class PlayerInput : MonoBehaviour {
                // checkWallJump();
                // checkGroundPound();
                // checkPulseJump();
-          }
+          // }
           checkSceneRestart();
      }
 
@@ -108,18 +110,19 @@ public class PlayerInput : MonoBehaviour {
     }
 
      void checkJump() {
-          jumpCol = Physics2D.Raycast(transform.position, Vector2.down * transform.localScale.x, jumpGroundDetection);
+          // groundDistance = Physics2D.Raycast(transform.position, Vector2.down * transform.localScale.x, jumpGroundDetection);
+           RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           /*If the player jumps...*/
-          if (Input.GetButtonDown("Jump") && jumpCol == null 
-               /*characterController2D.getGrounded()*/ && !checkAltJump()) 
+          if (Input.GetButtonDown("Jump") && groundInfo.collider == true
+               /*characterController2D.getGrounded() && !checkAltJump()*/)
           {
                audioManager.Play("Jump");
                // characterController2D.highJump();
                characterController2D.addForce(0, 600);
-               jump = true; /*addForce is being called in CharacterController2D.cs*/
+               // jump = true; /*addForce is being called in CharacterController2D.cs*/
                     
-               if (jump) /*Not sure why I included this...*/
-                    return;
+               // if (jump) /*Not sure why I included this...*/
+               //      return;
                
           }
      }
