@@ -88,9 +88,9 @@ public class PlayerInput : MonoBehaviour {
                // checkAltJump();
                // checkPhase();
                // checkWallCling();
-               // checkWallJump();
+               checkWallJump();
                // checkGroundPound();
-               // checkPulseJump();
+               checkPulseJump();
           // }
           checkSceneRestart();
      }

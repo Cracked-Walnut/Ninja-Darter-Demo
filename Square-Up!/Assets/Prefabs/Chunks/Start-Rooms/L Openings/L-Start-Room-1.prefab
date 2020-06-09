@@ -1719,7 +1719,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3008997768199249251}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.651, z: 0}
+  m_LocalPosition: {x: 0, y: -0.614, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3989695396740362451}
@@ -2272,7 +2272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterController2D: {fileID: 5783119106655207455}
   groundDetection: {fileID: 6779184575971139129}
-  groundDistance: 5
+  groundDistance: 0.1
 --- !u!1 &4014605526444915631
 GameObject:
   m_ObjectHideFlags: 0
@@ -13766,11 +13766,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8230540502010121701}
     m_Modifications:
-    - target: {fileID: 2976469239129391672, guid: a8489261e1b10c1488eb1d801af98452,
-        type: 3}
-      propertyPath: m_Name
-      value: Cube (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 6980136160779396509, guid: a8489261e1b10c1488eb1d801af98452,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13825,6 +13820,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976469239129391672, guid: a8489261e1b10c1488eb1d801af98452,
+        type: 3}
+      propertyPath: m_Name
+      value: Cube (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8489261e1b10c1488eb1d801af98452, type: 3}
