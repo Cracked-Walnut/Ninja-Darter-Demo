@@ -8,12 +8,13 @@ public class PlayerInput : MonoBehaviour {
 
      [SerializeField] private CharacterController2D characterController2D;
 
-     [SerializeField] private float horizontalMove = 0f, 
+     private float horizontalMove = 0f, 
           runSpeed = 240f,
           phaseSpeed = 700f,
           phaseSpeedNegative = -700f, 
           dropSpeed = 1f,
-          wallKickDistance = 0.5f;
+          wallKickDistance = 0.5f,
+          jumpGroundDetection = 0.1f;
           
      private float pulseJumpTimer;
      private bool jump, 
@@ -36,7 +37,7 @@ public class PlayerInput : MonoBehaviour {
      // private GameObject player;
      private Player player;
      private PlayerPosition playerPosition;
-     private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft;
+     private RaycastHit2D jumpCol, wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft;
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
 
@@ -79,14 +80,16 @@ public class PlayerInput : MonoBehaviour {
      void checkPhysics() {
           horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-          checkJump();
-          checkDoubleJump();
-          checkAltJump();
-          checkPhase();
-          checkWallCling();
-          checkWallJump();
-          // checkGroundPound();
-          checkPulseJump();
+          if (Time.timeScale != 0.0f) {
+               checkJump();
+               // checkDoubleJump();
+               // checkAltJump();
+               // checkPhase();
+               // checkWallCling();
+               // checkWallJump();
+               // checkGroundPound();
+               // checkPulseJump();
+          }
           checkSceneRestart();
      }
 
@@ -105,9 +108,10 @@ public class PlayerInput : MonoBehaviour {
     }
 
      void checkJump() {
+          jumpCol = Physics2D.Raycast(transform.position, Vector2.down * transform.localScale.x, jumpGroundDetection);
           /*If the player jumps...*/
-          if (Input.GetButtonDown("Jump") && Time.timeScale != 0.0f && 
-               characterController2D.getGrounded() && !checkAltJump()) 
+          if (Input.GetButtonDown("Jump") && jumpCol == null 
+               /*characterController2D.getGrounded()*/ && !checkAltJump()) 
           {
                audioManager.Play("Jump");
                // characterController2D.highJump();
@@ -154,7 +158,7 @@ public class PlayerInput : MonoBehaviour {
           isGrounded = characterController2D.getGrounded();
           isFacingRight = characterController2D.getFacingRight();
 
-          if (Time.timeScale != 0.0f) { // right dash
+               // right dash
                if (Input.GetKeyDown(KeyCode.RightShift) && isFacingRight && !isGrounded && canPhase) {
                     audioManager.Play("Phase");
                     // applyForce(phaseSpeed, 0f);
@@ -170,7 +174,7 @@ public class PlayerInput : MonoBehaviour {
                }    
                if (isGrounded) // touch the ground to reset dash
                     canPhase = true;
-          }
+          
      }
 
      // I'm going to take the wall cling functions out of here and put them into their own function
