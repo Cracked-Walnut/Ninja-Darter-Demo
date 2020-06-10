@@ -1,8 +1,20 @@
+Notes for next commit:
+    - Updated ToDos.
+    - Bug Fixes.
+    - Implemented GroundInfo Raycast into jump & double jump functions
+    - Removed alt jump function. Double jump will suffice.
+    - Implemented GroundInfo Raycast into pulse jump, wall jump and wall cling functions
+    - Increased fall multiplier from 3.0 to 4.5 in CharacterController2D.cs script to give the player more weight & control
+    - Made a new constant called PULSE_JUMP_SECONDS. It will store the seconds required to hold down X to pulse jump.
+        This variable cannot be changed. However, a second variable called Pulse Jump Timer will be influenced to make 
+        the Pulse Jump work.
+
 ToDos:
     - Open up the chunks more
+    - Use right click and left click to control left and right barrels?
+        - This can help solve the wall cling shooting bug
     - A climbing mechanic
-    - If the player is holding the arrow key while wall clinging, don't let them shoot
-        - Otherwise, let them shoot
+        - Might be worked out with more raycasts for wall jumping
     - XP for clearing a room of enemies
     - Make a stage system
         - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a
@@ -21,11 +33,8 @@ ToDos:
     Bugs:
         - HP number not incrementing
             - Removed for now. Not as important to fix as other bugs
-        - Player does not jump in starting room more than twice
-            - First it calls altjump, then double jump
-                - It's doing this because the game believes the player isn't grounded in the starting chunks
-                - Delete the first chunk after it's instantiated, then re-instantiate
-                    - Or maybe instantiating the player through the script???
+
+        - One bullet kills you
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Technical:
@@ -54,8 +63,7 @@ ToDos:
                 - XP is awarded per enemy kill (applied after satge completion). XP can be applied to the player's overall level at the end of a level
                 - To keep things simple, I might offer a % based system of a flat value
 
-        - Health pickup sound
-        
+        - Health pickup sound    
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Enemy ideas:

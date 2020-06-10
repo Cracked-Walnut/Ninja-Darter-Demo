@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour {
           jumpGroundDetection = 0.1f;
           
      private float pulseJumpTimer;
+     private const float PULSE_JUMP_SECONDS = 0.5f;
      private bool jump, 
           isGameOver, 
           isGamePaused, 
@@ -39,7 +40,7 @@ public class PlayerInput : MonoBehaviour {
      // private GameObject player;
      private Player player;
      private PlayerPosition playerPosition;
-     private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft;
+     private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft, groundInfo;
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
 
@@ -56,7 +57,8 @@ public class PlayerInput : MonoBehaviour {
 
      // Called at before the first frame
      void Start() {
-          pulseJumpTimer = 1.0f;
+          pulseJumpTimer = PULSE_JUMP_SECONDS;
+          groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
      }
 
      /*Also called once per frame like Update but I think it's used for time sensitive variables*/
@@ -84,15 +86,14 @@ public class PlayerInput : MonoBehaviour {
 
           // if (Time.timeScale != 0.0f) {
                checkJump();
-               // checkDoubleJump();
-               // checkAltJump();
-               // checkPhase();
-               // checkWallCling();
+               checkDoubleJump();
+               checkPhase();
+               checkWallCling();
                checkWallJump();
                // checkGroundPound();
                checkPulseJump();
           // }
-          checkSceneRestart();
+          // checkSceneRestart();
      }
 
      private void checkEscapeKey() {
@@ -110,103 +111,87 @@ public class PlayerInput : MonoBehaviour {
     }
 
      void checkJump() {
-          // groundDistance = Physics2D.Raycast(transform.position, Vector2.down * transform.localScale.x, jumpGroundDetection);
-           RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
+          groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           /*If the player jumps...*/
-          if (Input.GetButtonDown("Jump") && groundInfo.collider == true
-               /*characterController2D.getGrounded() && !checkAltJump()*/)
-          {
-               audioManager.Play("Jump");
-               // characterController2D.highJump();
-               characterController2D.addForce(0, 600);
-               // jump = true; /*addForce is being called in CharacterController2D.cs*/
-                    
-               // if (jump) /*Not sure why I included this...*/
-               //      return;
+          if (Input.GetButtonDown("Jump") && groundInfo.collider == true) {
                
+               audioManager.Play("Jump");
+               Debug.Log("Jump");
+               characterController2D.addForce(0, 800);
           }
      }
 
      void checkDoubleJump() {
+          groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           if (Input.GetButtonDown("Jump")) {
-               if (!characterController2D.getGrounded() && canDoubleJump && !checkAltJump()) { /*Double jump*/
+               if (groundInfo.collider == false && canDoubleJump) { /*Double jump*/
+
                     audioManager.Play("DoubleJump");
-                    characterController2D.addForce(0, 800); /*To upgrade the jump height, check if upgrade is active with a boolean*/
+                    Debug.Log("DoubleJump");
+                    characterController2D.addForce(0, 1000); /*To upgrade the jump height, check if upgrade is active with a boolean*/
                     canDoubleJump = false;
                }
           }
 
-          if (characterController2D.getGrounded()) { /*Resets double jump when you touch the ground*/
+          if (groundInfo.collider == true/*characterController2D.getGrounded()*/) { // resets double jump when you touch the ground
                audioManager.Play("PlayerGrounded");
                canDoubleJump = true;
           }
      }
 
-     /*If the player walks off a platform and wants to jump before touching the ground...*/
-     private bool checkAltJump() { 
-          isGrounded = characterController2D.getGrounded();
-
-          if (Input.GetButtonDown("Jump") && !isGrounded && canAltJump) {
-               audioManager.Play("DoubleJump");
-               characterController2D.addForce(0, 800); /*This emulates the force of the double jump, which is slightly more powerful than the single jump*/
-               canAltJump = false;
-               return true;
-          }
-          if (isGrounded) /*resets alt jump*/
-               canAltJump = true;
-               return false;
-     }
-
      void checkPhase() { // dash ability for the player
-          isGrounded = characterController2D.getGrounded();
           isFacingRight = characterController2D.getFacingRight();
+          groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
 
                // right dash
-               if (Input.GetKeyDown(KeyCode.RightShift) && isFacingRight && !isGrounded && canPhase) {
+               if (Input.GetKeyDown(KeyCode.RightShift) && isFacingRight && groundInfo.collider == false && canPhase) {
                     audioManager.Play("Phase");
-                    // applyForce(phaseSpeed, 0f);
                     rigidbody2D.velocity = new Vector2(phaseSpeed, 0f);
                     canPhase = false; // you can only use the ability once in the air. must touch the ground to reset
                }
-               else if (Input.GetKeyDown(KeyCode.RightShift) && !isFacingRight && !isGrounded && canPhase) {
+               else if (Input.GetKeyDown(KeyCode.RightShift) && !isFacingRight && groundInfo.collider == false && canPhase) {
                     // left dash
                     audioManager.Play("Phase");
-                    // applyForce(phaseSpeedNegative, 0f);
                     rigidbody2D.velocity = new Vector2(phaseSpeedNegative, 0f);
                     canPhase = false;
                }    
-               if (isGrounded) // touch the ground to reset dash
+               if (groundInfo.collider == true) // touch the ground to reset dash
                     canPhase = true;
-          
      }
 
      // I'm going to take the wall cling functions out of here and put them into their own function
      void checkWallCling() {
+          groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           wallClingColRight = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallKickDistance);
           wallClingColLeft = Physics2D.Raycast(transform.position, Vector2.left * transform.localScale.x, wallKickDistance);
           bool turnAround = true;
 
           /*RIGHT WALL CLING*/
-          if (!characterController2D.getGrounded() && wallClingColRight.collider != null /*&& Input.GetKey(KeyCode.RightArrow)*/) {
-               wallFunction(false, false, 0f, -50f, false, "No Sound");
-               characterController2D.setFacingRight(false);
+          if (groundInfo.collider == false && wallClingColRight.collider != null && Input.GetKey(KeyCode.RightArrow)) {
+               wallFunction(false, false, 0f, -100f, false, "No Sound");
+               canShoot = false;
+               // characterController2D.setFacingRight(false);
           }
           /*LEFT WALL CLING*/
-          else if (!characterController2D.getGrounded() && wallClingColLeft.collider != null /*&& Input.GetKey(KeyCode.LeftArrow)*/) {
-               wallFunction(false, false, 0f, -50f, false, "No Sound");
-               characterController2D.setFacingRight(true);
+          else if (groundInfo.collider == false && wallClingColLeft.collider != null && Input.GetKey(KeyCode.LeftArrow)) {
+               wallFunction(false, false, 0f, -100f, false, "No Sound");
+               canShoot = false;
+               // characterController2D.setFacingRight(true);
           }
+          else
+               canShoot = true;
      }
 
      void checkWallJump() {
+          groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           wallJumpColRight = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallKickDistance);
           wallJumpColLeft = Physics2D.Raycast(transform.position, Vector2.left * transform.localScale.x, wallKickDistance);
 
           /*LEFT WALL JUMP*/
-          if (Input.GetKeyDown(KeyCode.LeftArrow) && !characterController2D.getGrounded() && wallJumpColRight.collider != null)
+          if (Input.GetKeyDown(KeyCode.LeftArrow) && groundInfo.collider == false && wallJumpColRight.collider != null)
                wallFunction(true, true, -1250f, 900f, true, "WallJump");
           /*RIGHT WALL JUMP*/
-          else if (Input.GetKeyDown(KeyCode.RightArrow) && !characterController2D.getGrounded() && wallJumpColLeft.collider != null)
+          else if (Input.GetKeyDown(KeyCode.RightArrow) && groundInfo.collider == false && wallJumpColLeft.collider != null)
                wallFunction(true, true, 1250f, 900f, true, "WallJump");
      }
 
@@ -239,6 +224,7 @@ public class PlayerInput : MonoBehaviour {
 
      // player must be grounded to perform pulse jump!
      void checkPulseJump() {
+          RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           // if the player holds down the X key, start the countdown
           if (Input.GetKey(KeyCode.X) && canPulseJump) { 
                pulseJumpTimer -= Time.deltaTime;
@@ -246,25 +232,25 @@ public class PlayerInput : MonoBehaviour {
                // if the player succeeds in holding down X till the countdown reaches 0.0, launch the player upwards, 
                // reset the timer and make the bool false so they can't jump till they land
                if (pulseJumpTimer <= 0.0f) {
-                    characterController2D.addForce(0, 1600);
-                    pulseJumpTimer = 1.0f;
+                    characterController2D.addForce(0, 2000);
+                    pulseJumpTimer = PULSE_JUMP_SECONDS;
                     canPulseJump = false;
                }
 
                // if the player is in the air and continue to hold X, make sure pulseJump doesn't 
                // decrement
-               if (Input.GetKey(KeyCode.X) && !characterController2D.getGrounded())
-                    pulseJumpTimer = 1.0f;
+               if (Input.GetKey(KeyCode.X) && groundInfo.collider == false)
+                    pulseJumpTimer = PULSE_JUMP_SECONDS;
           }
 
-          // if the player lets the X key go before the countdown ends, reset the countdown and return
-          if (Input.GetKeyUp(KeyCode.X) && pulseJumpTimer > 0.0f && characterController2D.getGrounded())
-               pulseJumpTimer = 1.0f;
+          // if the player lets the X key go before the countdown ends, reset the countdown
+          if (Input.GetKeyUp(KeyCode.X) && pulseJumpTimer > 0.0f && groundInfo.collider == true)
+               pulseJumpTimer = PULSE_JUMP_SECONDS;
           
-          if (characterController2D.getGrounded() && !canPulseJump) {
-               Debug.Log(canPulseJump);
+          // reset pulse jump upon landing
+          if (groundInfo.collider == true && !canPulseJump)
                canPulseJump = true;
-          }
+          
      }
      
      void checkSceneRestart() {

@@ -17,7 +17,7 @@ public class CharacterController2D : MonoBehaviour {
 	private Rigidbody2D m_Rigidbody2D;
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
-	private float fallMultipler = 3.0f;
+	private float fallMultipler = 4.5f;
 	private float lowJumpMultiplier = 1.1f;
 
 	[Header("Events")]
