@@ -1,13 +1,4 @@
 Notes for next commit:
-    - Updated ToDos.
-    - Bug Fixes.
-    - Implemented GroundInfo Raycast into jump & double jump functions
-    - Removed alt jump function. Double jump will suffice.
-    - Implemented GroundInfo Raycast into pulse jump, wall jump and wall cling functions
-    - Increased fall multiplier from 3.0 to 4.5 in CharacterController2D.cs script to give the player more weight & control
-    - Made a new constant called PULSE_JUMP_SECONDS. It will store the seconds required to hold down X to pulse jump.
-        This variable cannot be changed. However, a second variable called Pulse Jump Timer will be influenced to make 
-        the Pulse Jump work.
 
 ToDos:
     - Open up the chunks more
