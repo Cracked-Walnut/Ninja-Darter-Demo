@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour {
           jumpGroundDetection = 0.1f;
           
      private float pulseJumpTimer;
-     private const float PULSE_JUMP_SECONDS = 0.5f;
+     private const float PULSE_JUMP_SECONDS = 0.85f;
      private bool jump, 
           isGameOver, 
           isGamePaused, 
