@@ -57,8 +57,8 @@ public class Mobility : MonoBehaviour {
     }
     
     public void increaseLeftPhaseDistance(float phaseDistance) {
-        float newPhaseDistance = playerInput.getNegativePhaseSpeed() * phaseDistance;
-        playerInput.setPhaseSpeedNegative(newPhaseDistance);
+        float newPhaseDistance = playerInput.getPhaseSpeed() * phaseDistance;
+        playerInput.setPhaseSpeed(newPhaseDistance);
     }
 
 }

@@ -13,7 +13,7 @@ public class PlayerInput : MonoBehaviour {
      private float horizontalMove = 0f, 
           runSpeed = 240f,
           phaseSpeed = 700f,
-          phaseSpeedNegative = -700f, 
+          // phaseSpeedNegative = -700f, 
           dropSpeed = 1f,
           wallKickDistance = 0.5f,
           jumpGroundDetection = 0.1f;
@@ -146,13 +146,15 @@ public class PlayerInput : MonoBehaviour {
                // right dash
                if (Input.GetKeyDown(KeyCode.RightShift) && isFacingRight && groundInfo.collider == false && canPhase) {
                     audioManager.Play("Phase");
-                    rigidbody2D.velocity = new Vector2(phaseSpeed, 0f);
+                    setPhaseSpeed(700f);
+                    rigidbody2D.velocity = new Vector2(getPhaseSpeed(), 0f);
                     canPhase = false; // you can only use the ability once in the air. must touch the ground to reset
                }
                else if (Input.GetKeyDown(KeyCode.RightShift) && !isFacingRight && groundInfo.collider == false && canPhase) {
                     // left dash
                     audioManager.Play("Phase");
-                    rigidbody2D.velocity = new Vector2(phaseSpeedNegative, 0f);
+                    setPhaseSpeed(-700f);
+                    rigidbody2D.velocity = new Vector2(getPhaseSpeed(), 0f);
                     canPhase = false;
                }    
                if (groundInfo.collider == true) // touch the ground to reset dash
@@ -263,45 +265,25 @@ public class PlayerInput : MonoBehaviour {
           }
      }
 
-     void setGravity(float gravity) {
-          rigidbody2D.gravityScale = gravity;
-     }
+     void setGravity(float gravity) {rigidbody2D.gravityScale = gravity;}
 
-     public float getRunSpeed() {
-          return runSpeed;
-     }
+     public float getRunSpeed() {return runSpeed;}
 
-     public void setRunSpeed(float runSpeed) {
-          this.runSpeed = runSpeed;
-     }
+     public void setRunSpeed(float runSpeed) {this.runSpeed = runSpeed;}
 
-     public float getPhaseSpeed() {
-          return phaseSpeed;
-     }
+     public float getPhaseSpeed() {return phaseSpeed;}
 
-     public void setPhaseSpeed(float phaseSpeed) {
-          this.phaseSpeed = phaseSpeed;
-     }
+     public void setPhaseSpeed(float phaseSpeed) {this.phaseSpeed = phaseSpeed;}
 
-     public float getNegativePhaseSpeed() {
-          return phaseSpeedNegative;
-     }
+     // public float getNegativePhaseSpeed() {return phaseSpeedNegative;}
 
-     public void setPhaseSpeedNegative(float phaseSpeedNegative) {
-          this.phaseSpeedNegative = phaseSpeedNegative;
-     }
+     // public void setPhaseSpeedNegative(float phaseSpeedNegative) {this.phaseSpeedNegative = phaseSpeedNegative;}
 
-     public bool getCanShoot() {
-          return canShoot;
-     }
+     public bool getCanShoot() {return canShoot;}
 
-     public void setCanShoot(bool canShoot) { 
-          this.canShoot = canShoot;
-     }
+     public void setCanShoot(bool canShoot) {this.canShoot = canShoot;}
 
-     public float getPulseJumpTimer() {
-          return pulseJumpTimer;
-     }
+     public float getPulseJumpTimer() {return pulseJumpTimer;}
 }//end of class
 
 
