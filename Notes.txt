@@ -1,12 +1,12 @@
 Notes for next commit:
 
 ToDos:
-    - Use right click and left click to control left and right barrels?
-        - This can help solve the wall cling shooting bug
-    - A climbing mechanic
-        - Might be worked out with more raycasts for wall jumping
+    - First, fix double jump issue (use multiple ground Raycasts)
+    - Add more Transforms for Pulse Jump (left, middle, and right)
+    - Convert Wall Cling colliders from pure Raycasts to Raycasts working with Transforms
+        - See Pulse Jump function for details
+    
     - Randomly generate enemies?
-
     - XP for clearing a room of enemies
     - Make a stage system
         - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a
