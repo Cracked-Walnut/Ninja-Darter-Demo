@@ -9,13 +9,12 @@ public class MainMenu : MonoBehaviour {
 
     public void PlayGame() { 
         
-        SceneManager.LoadScene("Procedural-1");
+        SceneManager.LoadScene("Stage-Selector");
         if (Time.timeScale != 1.0f) 
             Time.timeScale = 1.0f; /*If the game is paused, unpause it*/
     }
 
     public void QuitGame() { 
-        Debug.Log("Quit");
         Application.Quit(); 
     }
 }

@@ -5,9 +5,9 @@ ToDos:
     - Randomly generate enemies?
     - XP for clearing a room of enemies
     - Make a stage system
-        - Assign exclusive chunks to each stage, which means I need to make more chunks. After x stages, we can have a
-            boss battle, or a timed room
-            - Use the pause menu as a reference to build this stage selector
+        - Upon finishing level, redirect player to stage selector
+            - Unlock next stage
+        - Use the pause menu as a reference to build this stage selector
             
     - Make a minimap to work with randomly generated levels (new branch)
         - Make the map very simple; show only the rooms present in the level
