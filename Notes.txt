@@ -1,10 +1,11 @@
 Notes for next commit:
+    - Fixed HP bug (one hit would drain HP bar)
+    - Removed some transforms assigned to Player object
+    - Updated Notes.txt
+    - Added borders to Stage-1
+
 
 ToDos:
-    - First, fix double jump issue (use multiple ground Raycasts)
-    - Add more Transforms for Pulse Jump (left, middle, and right)
-    - Convert Wall Cling colliders from pure Raycasts to Raycasts working with Transforms
-        - See Pulse Jump function for details
     
     - Randomly generate enemies?
     - XP for clearing a room of enemies
@@ -23,11 +24,9 @@ ToDos:
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Bugs:
-        - Go into CharacterController2D.cs and comment out the part that rotates the firepoint Transforms
         - HP number not incrementing
             - Removed for now. Not as important to fix as other bugs
-
-        - One bullet kills you
+        - Phase will not work after double jumping and wall jumping
 --------------------------------------------------------------------------------------------------------------------------------------------
 
     Technical:
