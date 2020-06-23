@@ -2,13 +2,9 @@ Notes for next commit:
 
 ToDos:
     
-    - Randomly generate enemies?
-    - XP for clearing a room of enemies
     - Make a stage system
-        - Upon finishing level, redirect player to stage selector
-            - Unlock next stage
-        - Use the pause menu as a reference to build this stage selector
-            
+        - Disable locked levels, unlock when previous level is complete
+                
     - Make a minimap to work with randomly generated levels (new branch)
         - Make the map very simple; show only the rooms present in the level
         - The player will be in the highlighted room

@@ -169,13 +169,13 @@ public class PlayerInput : MonoBehaviour {
           bool turnAround = true;
 
           /*RIGHT WALL CLING*/
-          if (groundInfo.collider == false && wallClingColRight.collider != null && Input.GetKey(KeyCode.RightArrow)) {
+          if (groundInfo.collider == false && wallClingColRight.collider != null && Input.GetKey(KeyCode.RightArrow) && rigidbody2D.velocity.y < 0) {
                wallFunction(false, false, 0f, -100f, false, "No Sound");
                canShoot = false;
                // characterController2D.setFacingRight(false);
           }
           /*LEFT WALL CLING*/
-          else if (groundInfo.collider == false && wallClingColLeft.collider != null && Input.GetKey(KeyCode.LeftArrow)) {
+          else if (groundInfo.collider == false && wallClingColLeft.collider != null && Input.GetKey(KeyCode.LeftArrow) && rigidbody2D.velocity.y < 0) {
                wallFunction(false, false, 0f, -100f, false, "No Sound");
                canShoot = false;
                // characterController2D.setFacingRight(true);
@@ -191,10 +191,10 @@ public class PlayerInput : MonoBehaviour {
 
           /*LEFT WALL JUMP*/
           if (Input.GetKeyDown(KeyCode.LeftArrow) && groundInfo.collider == false && wallJumpColRight.collider != null)
-               wallFunction(true, true, -1250f, 900f, true, "WallJump");
+               wallFunction(true, true, -1250f, 1100f, true, "WallJump");
           /*RIGHT WALL JUMP*/
           else if (Input.GetKeyDown(KeyCode.RightArrow) && groundInfo.collider == false && wallJumpColLeft.collider != null)
-               wallFunction(true, true, 1250f, 900f, true, "WallJump");
+               wallFunction(true, true, 1250f, 1100f, true, "WallJump");
      }
 
      void wallFunction(bool canDoubleJump, bool canPhase,
