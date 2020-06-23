@@ -278,6 +278,7 @@ GameObject:
   m_Component:
   - component: {fileID: 728372969}
   - component: {fileID: 728372970}
+  - component: {fileID: 728372971}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -312,6 +313,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28a7e6c34f10dc14e8f44eb876a1d0ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &728372971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728372968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f8a2ddf09585f94f818dd994c195e15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &889079969
@@ -976,15 +989,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 728372970}
-        m_MethodName: PlayGame
-        m_Mode: 1
+      - m_Target: {fileID: 728372971}
+        m_MethodName: loadStage
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Stage_Selector
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
