@@ -56,8 +56,9 @@ public class SceneLoader : MonoBehaviour {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 	}
 
-	public void loadStage(int stage) {
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + stage);
+	public void loadStage(string stage) {
+		Debug.Log("Loading Stage: " + stage);
+		SceneManager.LoadScene(stage);
 		Debug.Log("Loaded Stage: " + stage);
 	}
 
