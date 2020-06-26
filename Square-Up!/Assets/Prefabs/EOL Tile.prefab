@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5962008903920143902}
   - component: {fileID: 5962008903920143903}
   - component: {fileID: 6515665647491084241}
+  - component: {fileID: 8932295484534311775}
   m_Layer: 0
   m_Name: EOL Tile
   m_TagString: Untagged
@@ -106,3 +107,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &8932295484534311775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962008903920143900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 894fa18822a3f0845b04a3724bcc3e99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
