@@ -117,7 +117,7 @@ public class PlayerInput : MonoBehaviour {
                
                audioManager.Play("Jump");
                Debug.Log("Jump");
-               characterController2D.addForce(0, 800);
+               characterController2D.addForce(0, 1000);
           }
      }
 
@@ -128,7 +128,7 @@ public class PlayerInput : MonoBehaviour {
 
                     audioManager.Play("DoubleJump");
                     Debug.Log("DoubleJump");
-                    characterController2D.addForce(0, 1000); /*To upgrade the jump height, check if upgrade is active with a boolean*/
+                    characterController2D.addForce(0, 1200); /*To upgrade the jump height, check if upgrade is active with a boolean*/
                     canDoubleJump = false;
                }
           }
