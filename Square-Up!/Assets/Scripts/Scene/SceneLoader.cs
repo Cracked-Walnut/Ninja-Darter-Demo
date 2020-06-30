@@ -23,10 +23,13 @@ public class SceneLoader : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.gameObject.name == "Player") {
-			audioManager.Play("Win Level");
+			
+			loadStage("Level-1");
+			
+			// audioManager.Play("Win Level");
 
-			if (Time.timeScale == 1.0f)
-				Invoke("levelComplete", 1); /*Wait one second then execute function*/
+			// if (Time.timeScale == 1.0f)
+			// 	Invoke("levelComplete", 1); /*Wait one second then execute function*/
 		}
 	}
 
