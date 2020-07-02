@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StageLoader1 : MonoBehaviour {
+public class StageLoader : MonoBehaviour {
 
     [SerializeField] private string stageName;
 
@@ -11,7 +11,7 @@ public class StageLoader1 : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.gameObject.name == "Player") {
             if (stageName == null || stageName == "")
-                stageName = "Level-1";
+                stageName = "Stage-Select"; // default to stage select
 
             SceneManager.LoadScene(stageName);
         }
