@@ -6,6 +6,13 @@ ToDos:
         - Use DontDestroyOnLoad() on player character to persist upgrades and other changes
         - Make a Transition Scene for each level transition
         - https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.MoveGameObjectToScene.html
+
+    - Data to be saved:
+        - Player:
+            - HP
+            - Ammo count
+            - Coins Collected
+            - All upgrades
                 
     - Make a minimap to work with randomly generated levels (new branch)
         - Make the map very simple; show only the rooms present in the level
