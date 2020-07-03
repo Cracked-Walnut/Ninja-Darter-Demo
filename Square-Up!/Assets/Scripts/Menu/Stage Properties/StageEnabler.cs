@@ -5,12 +5,12 @@ using UnityEngine;
 public class StageEnabler : MonoBehaviour {
 
     [SerializeField] private GameObject[] TotalLevelsList;
+    private int level;
 
 
     void Start() {
         LockAllSubsequentLevels();
     }
-
 
     // running through the list of levels EXCEPT level 1 and disabling them at the start of the game
     void LockAllSubsequentLevels () {
@@ -19,7 +19,16 @@ public class StageEnabler : MonoBehaviour {
         }
     }
 
-    void UnlockLevel (int level) {
+    public void UnlockLevel (int level) {
+        this.level = level;
         TotalLevelsList[level].SetActive(true);
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }
