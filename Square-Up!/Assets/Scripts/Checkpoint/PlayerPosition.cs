@@ -33,10 +33,10 @@ public class PlayerPosition : MonoBehaviour {
     }
 
     public void applyHealthSettings() {
-        healthBar.setMaxHealth(player.maxHealth);
+        healthBar.setMaxHealth(player.getMaxHealth());
         player.gainHealth(5);
         player.healthIsFull();
-        Debug.Log(player.maxHealth);
+        Debug.Log(player.getMaxHealth());
     }
 
     public bool getCheckPointSwitch() {

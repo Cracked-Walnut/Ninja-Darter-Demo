@@ -30,7 +30,7 @@ public class EnemyCollision : MonoBehaviour {
 	}
 
     public bool checkGameOver() {
-        if (player.currentHealth <= 0) {
+        if (player.getCurrentHealth() <= 0) {
             if (Time.timeScale == 1f) {
                 Time.timeScale = 0f;
                 gameOverMenu.showGameOverScreen();

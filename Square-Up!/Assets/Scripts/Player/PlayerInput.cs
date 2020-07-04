@@ -286,8 +286,8 @@ public class PlayerInput : MonoBehaviour {
      public float getPulseJumpTimer() { return pulseJumpTimer; }
      public float getPulseJumpSeconds() { return pulseJumpSeconds; }
 
-     public float getWallJumpX() { return getWallJumpX; }
-     public float getWallJumpY() {return getWallJumpY; }
+     public float getWallJumpX() { return wallJumpX; }
+     public float getWallJumpY() {return wallJumpY; }
 }//end of class
 
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveData {
+public class SaveData : MonoBehaviour {
 
     private Player player; // HP, int
     private Weapon weapon;// Ammo Count, int
@@ -30,13 +30,21 @@ public class SaveData {
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
-    private void SaveAllPrimitiveNonUpgrades() {
+    public void SaveAllPrimitiveNonUpgrades() {
 
-        SaveHP();
-        SaveAmmo();
-        SavePulseJump();
-        SaveStageTime();
-        SaveTotalCoins();
+        try {
+        
+            SaveHP();
+            SaveAmmo();
+            SavePulseJump();
+            SaveStageTime();
+            SaveTotalCoins();
+        
+        } catch {
+            Debug.Log("Save error occured");
+        }
+
+        Debug.Log("Saved PlayerPrefs");
     }
 
     void SaveHP () { PlayerPrefs.SetInt("hp", player.getCurrentHealth()); }
@@ -47,20 +55,27 @@ public class SaveData {
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
-    private void LoadAllPrimitiveNonUpgrades() {
+    public void LoadAllPrimitiveNonUpgrades() {
+
+        try {    
+
+            Debug.Log(LoadHP());
+            Debug.Log(LoadAmmo());
+            Debug.Log(LoadPulseJump());
+            Debug.Log(LoadStageTime());
+            Debug.Log(LoadTotalCoins());
         
-        LoadHP();
-        LoadAmmo();
-        LoadPulseJump();
-        LoadStageTime();
-        LoadTotalCoins();
+        } catch {
+            Debug.Log("Load error occured");
+        }
+        Debug.Log("Loaded PlayerPrefs");
     }
 
-    void LoadHP() { PlayerPrefs.GetInt("hp"); }
-    void LoadAmmo() { PlayerPrefs.GetInt("ammo_count"); }
-    void LoadPulseJump() { PlayerPrefs.GetFloat("pulse_jump_seconds"); }
-    void LoadStageTime() { PlayerPrefs.GetFloat("level_timer"); }
-    void LoadTotalCoins() { PlayerPrefs.GetInt("coins_collected"); }
+    int LoadHP() { return PlayerPrefs.GetInt("hp"); }
+    int LoadAmmo() { return PlayerPrefs.GetInt("ammo_count"); }
+    float LoadPulseJump() { return PlayerPrefs.GetFloat("pulse_jump_seconds"); }
+    float LoadStageTime() { return PlayerPrefs.GetFloat("level_timer"); }
+    int LoadTotalCoins() { return PlayerPrefs.GetInt("coins_collected"); }
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -71,7 +86,7 @@ public class SaveData {
         SaveJumpHeight();
         SaveWallJumpXDistance();
         SaveWallJumpYDistance();
-        SaveGroundPoundForce();
+        // SaveGroundPoundForce();
         SavePhaseDistance();
     }
 
