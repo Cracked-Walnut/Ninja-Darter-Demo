@@ -14,6 +14,7 @@ public class SaveData {
     private Defense defense;
     private Mobility mobility;
     private Offense offense;
+    private CharacterController2D characterController2D;
 
     void Awake() {
         player = new Player();
@@ -21,29 +22,67 @@ public class SaveData {
         playerInput = new PlayerInput();
         timer = new Timer();
         coinCollision = new CoinCollision();
+        defense = new Defense();
+        mobility = new Mobility();
+        offense = new Offense();
+        characterController2D = new CharacterController2D();
     }
 
-    private void SavePrimitiveNonUpgrades() {
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
 
-        PlayerPrefs.SetInt("hp", player.getCurrentHealth());
-        PlayerPrefs.SetInt("ammo_count", weapon.getBulletCount());
-        PlayerPrefs.SetFloat("pulse_jump_seconds", playerInput.getPulseJumpSeconds());
-        PlayerPrefs.SetFloat("level_timer", timer.getTotalTime());
-        PlayerPrefs.SetInt("coins_collected", coinCollision.getCoinCount());
+    private void SaveAllPrimitiveNonUpgrades() {
+
+        SaveHP();
+        SaveAmmo();
+        SavePulseJump();
+        SaveStageTime();
+        SaveTotalCoins();
     }
 
-    private void LoadPrimitiveNonUpgrades() {
-        PlayerPrefs.GetInt("hp");
-        PlayerPrefs.GetInt("ammo_count");
-        PlayerPrefs.GetFloat("pulse_jump_seconds");
-        PlayerPrefs.GetFloat("level_timer");
-        PlayerPrefs.GetInt("coins_collected");
+    void SaveHP () { PlayerPrefs.SetInt("hp", player.getCurrentHealth()); }
+    void SaveAmmo() { PlayerPrefs.SetInt("ammo_count", weapon.getBulletCount()); }
+    void SavePulseJump() { PlayerPrefs.SetFloat("pulse_jump_seconds", playerInput.getPulseJumpSeconds()); }
+    void SaveStageTime() { PlayerPrefs.SetFloat("level_timer", timer.getTotalTime()); }
+    void SaveTotalCoins() { PlayerPrefs.SetInt("coins_collected", coinCollision.getCoinCount()); }
+
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
+
+    private void LoadAllPrimitiveNonUpgrades() {
+        
+        LoadHP();
+        LoadAmmo();
+        LoadPulseJump();
+        LoadStageTime();
+        LoadTotalCoins();
     }
 
-    private void SaveUpgrades() {
+    void LoadHP() { PlayerPrefs.GetInt("hp"); }
+    void LoadAmmo() { PlayerPrefs.GetInt("ammo_count"); }
+    void LoadPulseJump() { PlayerPrefs.GetFloat("pulse_jump_seconds"); }
+    void LoadStageTime() { PlayerPrefs.GetFloat("level_timer"); }
+    void LoadTotalCoins() { PlayerPrefs.GetInt("coins_collected"); }
 
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
 
+    private void SaveAllUpgrades() { 
+
+        SaveMaxHP();
+        SaveMovementSpeed();
+        SaveJumpHeight();
+        SaveWallJumpXDistance();
+        SaveWallJumpYDistance();
+        SaveGroundPoundForce();
+        SavePhaseDistance();
     }
-    
+
+    void SaveMaxHP() { PlayerPrefs.GetInt("max_hp", player.getMaxHealth()); }
+    void SaveMovementSpeed () { PlayerPrefs.GetFloat("run_speed", playerInput.getRunSpeed()); }
+    void SaveJumpHeight () { PlayerPrefs.GetFloat("jump_height", characterController2D.getJumpForce()); }
+    void SaveWallJumpXDistance () { PlayerPrefs.GetFloat("wall_jump_x", playerInput.getWallJumpX()); }
+    void SaveWallJumpYDistance () { PlayerPrefs.GetFloat("wall_jump_y", playerInput.getWallJumpY()); }
+    void SaveGroundPoundForce () {}
+    void SavePhaseDistance () { PlayerPrefs.GetFloat("phase_speed", playerInput.getPhaseSpeed()); }
+
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
 
 }

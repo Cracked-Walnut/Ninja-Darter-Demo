@@ -160,4 +160,6 @@ public class CharacterController2D : MonoBehaviour {
 		this.m_FacingRight = m_FacingRight;
 	}
 
+	public float getJumpForce() { return m_JumpForce; }
+
 }//end of class

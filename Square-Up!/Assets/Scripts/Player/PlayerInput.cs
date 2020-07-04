@@ -13,6 +13,8 @@ public class PlayerInput : MonoBehaviour {
      private float horizontalMove = 0f, 
           runSpeed = 240f,
           phaseSpeed = 700f,
+          wallJumpX = 1250f,
+          wallJumpY = 1100f,
           // phaseSpeedNegative = -700f, 
           dropSpeed = 1f,
           wallKickDistance = 0.5f,
@@ -189,12 +191,14 @@ public class PlayerInput : MonoBehaviour {
           wallJumpColRight = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, wallKickDistance);
           wallJumpColLeft = Physics2D.Raycast(transform.position, Vector2.left * transform.localScale.x, wallKickDistance);
 
-          /*LEFT WALL JUMP*/
+          /*LEFT WALL JUMP, wallJumpX calculation is just some math to retrieve the negative value of WallJumpX, since we'll
+          be wall jumping to the left*/
           if (Input.GetKeyDown(KeyCode.LeftArrow) && groundInfo.collider == false && wallJumpColRight.collider != null)
-               wallFunction(true, true, -1250f, 1100f, true, "WallJump");
+               wallFunction(true, true, wallJumpX - (wallJumpX * 2f), wallJumpY, true, "WallJump");
+
           /*RIGHT WALL JUMP*/
           else if (Input.GetKeyDown(KeyCode.RightArrow) && groundInfo.collider == false && wallJumpColLeft.collider != null)
-               wallFunction(true, true, 1250f, 1100f, true, "WallJump");
+               wallFunction(true, true, wallJumpX, wallJumpY, true, "WallJump");
      }
 
      void wallFunction(bool canDoubleJump, bool canPhase,
@@ -265,27 +269,25 @@ public class PlayerInput : MonoBehaviour {
           }
      }
 
-     void setGravity(float gravity) {rigidbody2D.gravityScale = gravity;}
+     void setGravity(float gravity) { rigidbody2D.gravityScale = gravity; }
 
-     public float getRunSpeed() {return runSpeed;}
+     public float getRunSpeed() { return runSpeed; }
+     public void setRunSpeed(float runSpeed) { this.runSpeed = runSpeed; }
 
-     public void setRunSpeed(float runSpeed) {this.runSpeed = runSpeed;}
-
-     public float getPhaseSpeed() {return phaseSpeed;}
-
-     public void setPhaseSpeed(float phaseSpeed) {this.phaseSpeed = phaseSpeed;}
+     public float getPhaseSpeed() { return phaseSpeed; }
+     public void setPhaseSpeed(float phaseSpeed) { this.phaseSpeed = phaseSpeed; }
 
      // public float getNegativePhaseSpeed() {return phaseSpeedNegative;}
-
      // public void setPhaseSpeedNegative(float phaseSpeedNegative) {this.phaseSpeedNegative = phaseSpeedNegative;}
 
-     public bool getCanShoot() {return canShoot;}
+     public bool getCanShoot() { return canShoot; }
+     public void setCanShoot(bool canShoot) { this.canShoot = canShoot; }
 
-     public void setCanShoot(bool canShoot) {this.canShoot = canShoot;}
+     public float getPulseJumpTimer() { return pulseJumpTimer; }
+     public float getPulseJumpSeconds() { return pulseJumpSeconds; }
 
-     public float getPulseJumpTimer() {return pulseJumpTimer;}
-
-     public float getPulseJumpSeconds() {return pulseJumpSeconds;}
+     public float getWallJumpX() { return getWallJumpX; }
+     public float getWallJumpY() {return getWallJumpY; }
 }//end of class
 
 
