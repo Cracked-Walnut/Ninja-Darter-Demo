@@ -75,13 +75,31 @@ public class SaveData {
         SavePhaseDistance();
     }
 
-    void SaveMaxHP() { PlayerPrefs.GetInt("max_hp", player.getMaxHealth()); }
-    void SaveMovementSpeed () { PlayerPrefs.GetFloat("run_speed", playerInput.getRunSpeed()); }
-    void SaveJumpHeight () { PlayerPrefs.GetFloat("jump_height", characterController2D.getJumpForce()); }
-    void SaveWallJumpXDistance () { PlayerPrefs.GetFloat("wall_jump_x", playerInput.getWallJumpX()); }
-    void SaveWallJumpYDistance () { PlayerPrefs.GetFloat("wall_jump_y", playerInput.getWallJumpY()); }
-    void SaveGroundPoundForce () {}
-    void SavePhaseDistance () { PlayerPrefs.GetFloat("phase_speed", playerInput.getPhaseSpeed()); }
+    void SaveMaxHP() { PlayerPrefs.SetInt("max_hp", player.getMaxHealth()); }
+    void SaveMovementSpeed () { PlayerPrefs.SetFloat("run_speed", playerInput.getRunSpeed()); }
+    void SaveJumpHeight () { PlayerPrefs.SetFloat("jump_height", characterController2D.getJumpForce()); }
+    void SaveWallJumpXDistance () { PlayerPrefs.SetFloat("wall_jump_x", playerInput.getWallJumpX()); }
+    void SaveWallJumpYDistance () { PlayerPrefs.SetFloat("wall_jump_y", playerInput.getWallJumpY()); }
+    // void SaveGroundPoundForce () {}
+    void SavePhaseDistance () { PlayerPrefs.SetFloat("phase_speed", playerInput.getPhaseSpeed()); }
+
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
+
+    private void LoadAllUpgrades() { 
+        LoadMaxHP();
+        LoadMovementSpeed();
+        LoadJumpHeight();
+        LoadWallJumpXDistance();
+        LoadWallJumpYDistance();
+        LoadPhaseDistance();
+    }
+
+    void LoadMaxHP() { PlayerPrefs.GetInt("max_hp"); }
+    void LoadMovementSpeed() { PlayerPrefs.GetFloat("run_speed"); }
+    void LoadJumpHeight() { PlayerPrefs.GetFloat("jump_height"); }
+    void LoadWallJumpXDistance() { PlayerPrefs.GetFloat("wall_jump_x"); }
+    void LoadWallJumpYDistance() { PlayerPrefs.GetFloat("wall_jump_y"); }
+    void LoadPhaseDistance() { PlayerPrefs.GetFloat("phase_speed"); }
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
