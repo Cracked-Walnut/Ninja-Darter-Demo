@@ -87,29 +87,17 @@ public class Player : MonoBehaviour {
         yield return 0;
     }
 
-    public bool getPlayerInvincible() {
-        return isPlayerInvincible;
-    }
+    public bool getPlayerInvincible() { return isPlayerInvincible; }
 
-    public void setPlayerInvincible(bool inv) {
-        isPlayerInvincible = inv;
-    }
+    public void setPlayerInvincible(bool inv) { isPlayerInvincible = inv; }
 
-    public int getCoinCount() {
-        return coinCount;
-    }
+    public int getCoinCount() { return coinCount; }
 
-    public void addCoin(int coin) {
-        coinCount += coin;
-    }
+    public void addCoin(int coin) { coinCount += coin; }
 
-    public int getCurrentHealth() {
-        return currentHealth;
-    }
+    public int getCurrentHealth() { return currentHealth; }
 
-    public int getMaxHealth() {
-        return maxHealth;
-    }
+    public int getMaxHealth() { return maxHealth; }
 } //end of class
 
 

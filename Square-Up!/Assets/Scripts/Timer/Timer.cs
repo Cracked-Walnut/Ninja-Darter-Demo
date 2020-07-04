@@ -9,13 +9,8 @@ public class Timer : MonoBehaviour {
     private float totalTime;
     private bool isTimerRunning;
 
-    public bool getIsTimerRunning() {
-        return isTimerRunning;
-    }
 
-    public void setIsTimerRunning(bool isTimerRunning) {
-        this.isTimerRunning = isTimerRunning;
-    }
+    
 
     void Start() {
         totalTime = 0.0f;
@@ -29,4 +24,9 @@ public class Timer : MonoBehaviour {
             timerDisplay.text = roundedTotalTime;
         }
     }
+
+    public float getTotalTime() { return totalTime; }
+    
+    public bool getIsTimerRunning() { return isTimerRunning; }
+    public void setIsTimerRunning(bool isTimerRunning) { this.isTimerRunning = isTimerRunning; }
 }

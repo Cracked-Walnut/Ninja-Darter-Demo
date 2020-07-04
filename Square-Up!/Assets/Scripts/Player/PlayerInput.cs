@@ -19,7 +19,7 @@ public class PlayerInput : MonoBehaviour {
           jumpGroundDetection = 0.1f;
           
      private float pulseJumpTimer;
-     private const float PULSE_JUMP_SECONDS = 0.85f;
+     private float pulseJumpSeconds = 0.85f;
      private bool jump, 
           isGameOver, 
           isGamePaused, 
@@ -57,7 +57,7 @@ public class PlayerInput : MonoBehaviour {
 
      // Called at before the first frame
      void Start() {
-          pulseJumpTimer = PULSE_JUMP_SECONDS;
+          pulseJumpTimer = pulseJumpSeconds;
           groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
      }
 
@@ -235,19 +235,19 @@ public class PlayerInput : MonoBehaviour {
                // reset the timer and make the bool false so they can't jump till they land
                if (pulseJumpTimer <= 0.0f) {
                     characterController2D.addForce(0, 2000);
-                    pulseJumpTimer = PULSE_JUMP_SECONDS;
+                    pulseJumpTimer = pulseJumpSeconds;
                     canPulseJump = false;
                }
 
                // if the player is in the air and continue to hold X, make sure pulseJump doesn't 
                // decrement
                if (Input.GetKey(KeyCode.X) && groundInfo.collider == false)
-                    pulseJumpTimer = PULSE_JUMP_SECONDS;
+                    pulseJumpTimer = pulseJumpSeconds;
           }
 
           // if the player lets the X key go before the countdown ends, reset the countdown
           if (Input.GetKeyUp(KeyCode.X) && pulseJumpTimer > 0.0f && groundInfo.collider == true)
-               pulseJumpTimer = PULSE_JUMP_SECONDS;
+               pulseJumpTimer = pulseJumpSeconds;
           
           // reset pulse jump upon landing
           if (groundInfo.collider == true && !canPulseJump)
@@ -284,6 +284,8 @@ public class PlayerInput : MonoBehaviour {
      public void setCanShoot(bool canShoot) {this.canShoot = canShoot;}
 
      public float getPulseJumpTimer() {return pulseJumpTimer;}
+
+     public float getPulseJumpSeconds() {return pulseJumpSeconds;}
 }//end of class
 
 
