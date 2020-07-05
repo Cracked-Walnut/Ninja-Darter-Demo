@@ -61,4 +61,17 @@ public class Mobility : MonoBehaviour {
         playerInput.setPhaseSpeed(newPhaseDistance);
     }
 
+    public void decreasePulseTime(float pulseTimer) {
+        float newPulseForce = playerInput.getPulseForce() - pulseTimer;
+        playerInput.setPulseForce(newPulseForce);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        
+            if (collision.gameObject.name == "Player") {
+                decreasePulseTime(0.05f);
+            }
+        
+	}
+
 }

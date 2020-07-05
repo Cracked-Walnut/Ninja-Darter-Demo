@@ -15,6 +15,7 @@ public class PlayerInput : MonoBehaviour {
           phaseSpeed = 700f,
           wallJumpX = 1250f,
           wallJumpY = 1100f,
+          pulseForce = 2000f,
           // phaseSpeedNegative = -700f, 
           dropSpeed = 1f,
           wallKickDistance = 0.5f,
@@ -238,7 +239,7 @@ public class PlayerInput : MonoBehaviour {
                // if the player succeeds in holding down X till the countdown reaches 0.0, launch the player upwards, 
                // reset the timer and make the bool false so they can't jump till they land
                if (pulseJumpTimer <= 0.0f) {
-                    characterController2D.addForce(0, 2000);
+                    characterController2D.addForce(0, pulseForce);
                     pulseJumpTimer = pulseJumpSeconds;
                     canPulseJump = false;
                }
@@ -285,9 +286,13 @@ public class PlayerInput : MonoBehaviour {
 
      public float getPulseJumpTimer() { return pulseJumpTimer; }
      public float getPulseJumpSeconds() { return pulseJumpSeconds; }
+     public void setPulseJumpSeconds (float pulseJumpSeconds) { this.pulseJumpSeconds = pulseJumpSeconds; }
 
      public float getWallJumpX() { return wallJumpX; }
      public float getWallJumpY() {return wallJumpY; }
+
+     public float getPulseForce() { return pulseForce; }
+     public void setPulseForce(float pulseForce) { this.pulseForce = pulseForce; }
 }//end of class
 
 
