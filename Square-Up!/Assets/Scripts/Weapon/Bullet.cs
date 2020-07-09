@@ -11,7 +11,10 @@ public class Bullet : MonoBehaviour {
     private Enemy enemy;
     private CoinCollision coinCollision;
     private HeartCollision heartCollision;
+    private Player player;
+
     public Rigidbody2D rigidbody2D;
+
     
     void Awake() {
         characterController2D = FindObjectOfType<CharacterController2D>();
@@ -32,11 +35,12 @@ public class Bullet : MonoBehaviour {
         enemy = collider.GetComponent<Enemy>();
         coinCollision = collider.GetComponent<CoinCollision>();
         heartCollision = collider.GetComponent<HeartCollision>();
+        player = collider.GetComponent<Player>();
         
         if (enemy != null)
             enemy.takeDamage(damage);
         
-        if (coinCollision != null || heartCollision != null)
+        if (coinCollision != null || heartCollision != null || player != null)
             return; /*Bullets will not disappear when colliding with coins or hearts*/
         
         Destroy(gameObject);

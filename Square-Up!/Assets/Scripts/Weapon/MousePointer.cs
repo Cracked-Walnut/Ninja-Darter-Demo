@@ -16,7 +16,7 @@ public class MousePointer : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        Cursor.visible = false;
+        // Cursor.visible = false;
         // Cursor.SetCursor(crosshairPNG, Vector2.zero, CursorMode.ForceSoftware);
     }
 
@@ -29,14 +29,12 @@ public class MousePointer : MonoBehaviour {
 
         Vector3 difference = target - player.transform.position;
         float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        // player.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationZ);
 
         if (Input.GetMouseButtonDown(0)) {
             float distance = difference.magnitude;
             Vector2 direction = difference / distance;
             fireBullet(direction, rotationZ);
         }
-
     }
 
     void fireBullet(Vector2 direction, float rotationZ) {
@@ -49,5 +47,5 @@ public class MousePointer : MonoBehaviour {
 
 /*
 Sources:
-1) O. T., OXMOND Tutorials, 'How To Change The Cursor In Unity! [Unity3D 2019 Beginner Tutorial]', 2019. [Online]. Available: https://www.youtube.com/watch?v=W4SE0_cfAqc [Accessed: 05-Jul-2020].
+1) P. S., Press Start, 'Unity - Point and Shoot Tutorial', 2019. [Online]. Available: https://www.youtube.com/watch?v=7-8nE9_FwWs [Accessed: 09-Jul-2020].
 */
