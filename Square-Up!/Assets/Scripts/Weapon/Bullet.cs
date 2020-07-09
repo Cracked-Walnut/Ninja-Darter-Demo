@@ -5,13 +5,16 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
 
     private float damage = 34f, bulletRange = 2.0f;
-    [SerializeField] private float speed = 40f;
+    private float speed = 40f;
     // private bool isItemPickUp = false;
     private CharacterController2D characterController2D;
     private Enemy enemy;
     private CoinCollision coinCollision;
     private HeartCollision heartCollision;
+    private Player player;
+
     public Rigidbody2D rigidbody2D;
+
     
     void Awake() {
         characterController2D = FindObjectOfType<CharacterController2D>();
@@ -32,23 +35,19 @@ public class Bullet : MonoBehaviour {
         enemy = collider.GetComponent<Enemy>();
         coinCollision = collider.GetComponent<CoinCollision>();
         heartCollision = collider.GetComponent<HeartCollision>();
+        player = collider.GetComponent<Player>();
         
         if (enemy != null)
             enemy.takeDamage(damage);
         
-        if (coinCollision != null || heartCollision != null)
+        if (coinCollision != null || heartCollision != null || player != null)
             return; /*Bullets will not disappear when colliding with coins or hearts*/
         
         Destroy(gameObject);
     }
 
-    public float getDamage() {
-        return damage;
-    }
-
-    public void setDamage(float damage) {
-        this.damage = damage;
-    }
+    public float getDamage() { return damage; }
+    public void setDamage(float damage) { this.damage = damage; }
 }
 
 /*

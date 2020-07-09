@@ -41,10 +41,10 @@ public class Weapon : MonoBehaviour {
                     timer -= Time.deltaTime;
                     
                     if (characterController2D.getFacingRight()) {
-                        accuracy(-10.0f, 10.0f);
+                        fireBullet(-10.0f, 10.0f);
                     }
                     else {
-                        accuracy(-170.0f, -190.0f);
+                        fireBullet(-170.0f, -190.0f);
                     }
                     if (currentAmmo <= 0) {
                         if (currentAmmo < 0)
@@ -58,31 +58,17 @@ public class Weapon : MonoBehaviour {
             }
     }
  
-    public void accuracy(float highAngle, float lowAngle) {
+    public void fireBullet(float highAngle, float lowAngle) {
         float randomAccuracyNum = Random.Range(highAngle, lowAngle);
         Quaternion accuracy = Quaternion.Euler(0, 0, randomAccuracyNum);
         Instantiate(bulletPrefab, firePoint.position, accuracy);
     }
 
-    public int getBulletCount() {
-        return currentAmmo;
-    }
-
-    public void setBulletCount(int currentAmmo) {
-        this.currentAmmo = currentAmmo;
-    }
-
-    public int getMaxAmmo() {
-        return maxAmmo;
-    }
-
-    public void setMaxAmmo(int maxAmmo) {
-        this.maxAmmo = maxAmmo;
-    }
-
-    public Transform getFirePoint() {
-        return firePoint;
-    }
+    public int getBulletCount() { return currentAmmo; }
+    public void setBulletCount(int currentAmmo) { this.currentAmmo = currentAmmo; }
+    public int getMaxAmmo() { return maxAmmo; }
+    public void setMaxAmmo(int maxAmmo) { this.maxAmmo = maxAmmo; }
+    public Transform getFirePoint() { return firePoint; }
 }//end of class
 
 
