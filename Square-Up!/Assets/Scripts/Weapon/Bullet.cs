@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
 
     private float damage = 34f, bulletRange = 2.0f;
-    [SerializeField] private float speed = 40f;
+    private float speed = 40f;
     // private bool isItemPickUp = false;
     private CharacterController2D characterController2D;
     private Enemy enemy;
@@ -42,13 +42,8 @@ public class Bullet : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public float getDamage() {
-        return damage;
-    }
-
-    public void setDamage(float damage) {
-        this.damage = damage;
-    }
+    public float getDamage() { return damage; }
+    public void setDamage(float damage) { this.damage = damage; }
 }
 
 /*
