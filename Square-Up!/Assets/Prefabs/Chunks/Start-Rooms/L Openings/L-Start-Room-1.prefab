@@ -2046,6 +2046,7 @@ GameObject:
   - component: {fileID: 6343998852347015836}
   - component: {fileID: 9192474158882577667}
   - component: {fileID: 237341194697637607}
+  - component: {fileID: 1641064243600732692}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2292,6 +2293,18 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5987991702924311717, guid: 3df64d975738677478cc6b7f87c962a8,
     type: 3}
   firePoint: {fileID: 9103023230700100564}
+--- !u!114 &1641064243600732692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3933753468091198029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0385511fba9fc541acafeb14ca95791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4014605526444915631
 GameObject:
   m_ObjectHideFlags: 0
@@ -13890,11 +13903,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8230540502010121701}
     m_Modifications:
-    - target: {fileID: 2976469239129391672, guid: a8489261e1b10c1488eb1d801af98452,
-        type: 3}
-      propertyPath: m_Name
-      value: Cube (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 6980136160779396509, guid: a8489261e1b10c1488eb1d801af98452,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13949,6 +13957,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2976469239129391672, guid: a8489261e1b10c1488eb1d801af98452,
+        type: 3}
+      propertyPath: m_Name
+      value: Cube (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8489261e1b10c1488eb1d801af98452, type: 3}
