@@ -102,7 +102,7 @@ public class PlayerInput : MonoBehaviour {
                checkWallJump();
                // checkGroundPound();
                checkPulseJump();
-               checkStep();
+               // checkStep();
           // }
           // checkSceneRestart();
      }
@@ -279,13 +279,14 @@ public class PlayerInput : MonoBehaviour {
      }
 
      void checkStep() {
-          stepDetectionRight = Physics2D.Raycast(stepColRight.position, Vector2.right, stepDistance);
-          stepDetectionLeft = Physics2D.Raycast(stepColLeft.position, Vector2.left, stepDistance);
+          stepColRight = Physics2D.Raycast(stepDetectionRight.position, Vector2.right, stepDistance);
+          stepColLeft = Physics2D.Raycast(stepDetectionLeft.position, Vector2.left, stepDistance);
 
-          if (stepDetectionRight == true || stepDetectionLeft == true) {
+          if (stepColRight.collider == false && stepColLeft.collider == false)
+               return;
+
+          else if (stepColRight.collider == true || stepColLeft.collider == true)
                characterController2D.addForce(0, stepForce);
-          }
-
      }
 
      void setGravity(float gravity) { rigidbody2D.gravityScale = gravity; }
