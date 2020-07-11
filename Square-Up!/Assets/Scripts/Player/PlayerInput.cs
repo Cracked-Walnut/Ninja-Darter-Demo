@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private float groundDistance;
 
      private float horizontalMove = 0f, 
-          runSpeed = 240f,
+          runSpeed = 20f,
           phaseSpeed = 700f,
           wallJumpX = 1250f,
           wallJumpY = 1100f,
