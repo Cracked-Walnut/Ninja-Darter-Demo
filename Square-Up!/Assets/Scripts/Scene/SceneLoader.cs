@@ -11,6 +11,8 @@ public class SceneLoader : MonoBehaviour {
 	private PlayerPosition playerPosition;
 	private Weapon weapon;
 	private PlayerInput playerInput;
+	[SerializeField] private Animator animator;
+	[SerializeField] private int sceneWait;
 
 	void Awake() {
 		audioManager = FindObjectOfType<AudioManager>();
@@ -22,15 +24,9 @@ public class SceneLoader : MonoBehaviour {
 
 	
 	void OnCollisionEnter2D(Collision2D collision) {
-		if (collision.gameObject.name == "Player") {
+		if (collision.gameObject.name == "Player")
 			
 			loadStage("Level-1");
-			
-			// audioManager.Play("Win Level");
-
-			// if (Time.timeScale == 1.0f)
-			// 	Invoke("levelComplete", 1); /*Wait one second then execute function*/
-		}
 	}
 
 	public void Restart_Scene() { /*Used when the player dies or player hits the R key*/
@@ -51,24 +47,20 @@ public class SceneLoader : MonoBehaviour {
 		gameOverMenu.setActive(false);
 	}
 
-	public void levelComplete() {
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+	public void LoadNextLevel() {
+		StartCoroutine(LoadLevel(SceneManager.GetActiveScene().buildIndex + 1));
 	}
 
-	public void showGameComplete() {
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+	public IEnumerator LoadLevel(int levelIndex) {
+
+		animator.SetTrigger("Start");
+		yield return new WaitForSeconds(sceneWait);
+		SceneManager.LoadScene(levelIndex);
+
 	}
 
 	public void loadStage(string stage) {
-		Debug.Log("Loading Stage: " + stage);
 		SceneManager.LoadScene(stage);
-		Debug.Log("Loaded Stage: " + stage);
-	}
-
-	public void LoadLevelOne() {
-		Debug.Log("Level-1");
-		SceneManager.LoadScene("Level-1");
-		Debug.Log("Level-1");
 	}
 }//end of class
 

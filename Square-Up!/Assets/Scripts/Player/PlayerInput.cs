@@ -7,12 +7,12 @@ using UnityEngine.SceneManagement;
 public class PlayerInput : MonoBehaviour {
 
      [SerializeField] private CharacterController2D characterController2D;
-     [SerializeField] private Transform groundDetection, stepDetectionRight, stepDetectionLeft;
+     [SerializeField] private Transform groundDetection;
      [SerializeField] private float groundDistance, stepDistance;
 
 
      private float horizontalMove = 0f, 
-          runSpeed = 20f,
+          runSpeed = 240f,
           phaseSpeed = 700f,
           wallJumpX = 1250f,
           wallJumpY = 1100f,
@@ -46,7 +46,7 @@ public class PlayerInput : MonoBehaviour {
      private Player player;
      private PlayerPosition playerPosition;
      private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft, 
-          groundInfo, stepColRight, stepColLeft;
+          groundInfo;
 
 
      private Rigidbody2D rigidbody2D;
@@ -67,8 +67,6 @@ public class PlayerInput : MonoBehaviour {
      void Start() {
           pulseJumpTimer = pulseJumpSeconds;
           groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
-          stepColRight = Physics2D.Raycast(stepDetectionRight.position, Vector2.right, stepDistance);
-          stepColLeft = Physics2D.Raycast(stepDetectionLeft.position, Vector2.left, stepDistance);
      }
 
      /*Also called once per frame like Update but I think it's used for time sensitive variables*/
@@ -276,17 +274,6 @@ public class PlayerInput : MonoBehaviour {
                } else if (!isGameOver && !isGamePaused && !playerPosition.getCheckPointSwitch())
                     playerPosition.applyInitialPoint();
           }
-     }
-
-     void checkStep() {
-          stepColRight = Physics2D.Raycast(stepDetectionRight.position, Vector2.right, stepDistance);
-          stepColLeft = Physics2D.Raycast(stepDetectionLeft.position, Vector2.left, stepDistance);
-
-          if (stepColRight.collider == false && stepColLeft.collider == false)
-               return;
-
-          else if (stepColRight.collider == true || stepColLeft.collider == true)
-               characterController2D.addForce(0, stepForce);
      }
 
      void setGravity(float gravity) { rigidbody2D.gravityScale = gravity; }
