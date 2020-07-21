@@ -7,6 +7,7 @@ public class ParallaxBackground : MonoBehaviour {
     [SerializeField] private Vector2 parallaxEffectMultiplier;
     [SerializeField] private bool infiniteHorizontal;
     [SerializeField] private bool infiniteVertical;
+    [SerializeField] private float parallaxScale;
     
 
     private Transform cameraTransform;
@@ -19,8 +20,10 @@ public class ParallaxBackground : MonoBehaviour {
         lastCameraPosition = cameraTransform.position;
         Sprite sprite = GetComponent<SpriteRenderer>().sprite;
         Texture2D texture = sprite.texture;
-        textureUnitSizeX = (texture.width * 5) / sprite.pixelsPerUnit; // make the "5" a variable later
-        textureUnitSizeY = (texture.height * 5) / sprite.pixelsPerUnit; 
+
+        // Parallax Scale must match your image's Transform X scale
+        textureUnitSizeX = (texture.width * parallaxScale) / sprite.pixelsPerUnit; 
+        textureUnitSizeY = (texture.height * parallaxScale) / sprite.pixelsPerUnit; 
     }
 
     void LateUpdate() {
