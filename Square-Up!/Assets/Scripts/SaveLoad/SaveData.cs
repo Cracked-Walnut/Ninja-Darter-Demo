@@ -2,120 +2,69 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveData {
+public class SaveData : MonoBehaviour {
 
+    private PlayerData playerData;
     private Player player; // HP, int
-    private Weapon weapon;// Ammo Count, int
+    // private Weapon weapon;// Ammo Count, int
     private PlayerInput playerInput;// Pulse Jump, float
     private Timer timer;// Timer, float
-    private CoinCollision coinCollision;// Coins Collected, int
+    // private CoinCollision coinCollision;// Coins Collected, int
     
     // Upgrades, float and int
-    private Defense defense;
-    private Mobility mobility;
-    private Offense offense;
-    private CharacterController2D characterController2D;
+    // private Defense defense;
+    // private Mobility mobility;
+    // private Offense offense;
+    // private CharacterController2D characterController2D;
+
+    void Start() {
+        SaveHP();
+    }
 
     void Awake() {
-        player = new Player();
-        weapon = new Weapon();
+        playerData = new PlayerData();
+        player = FindObjectOfType<Player>();
+        // weapon = new Weapon();
         playerInput = new PlayerInput();
         timer = new Timer();
-        coinCollision = new CoinCollision();
-        defense = new Defense();
-        mobility = new Mobility();
-        offense = new Offense();
-        characterController2D = new CharacterController2D();
+        // coinCollision = new CoinCollision();
+        // defense = new Defense();
+        // mobility = new Mobility();
+        // offense = new Offense();
+        // characterController2D = new CharacterController2D();
     }
 
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
-    public void SaveAllPrimitiveNonUpgrades() {
+    void SaveHP () {
+        playerData.setHealth(player.getCurrentHealth());
+        playerData.setPulseJump(playerInput.getPulseJumpSeconds());
+        playerData.setTimer(timer.getTotalTime());
 
-        try {
-        
-            SaveHP();
-            SaveAmmo();
-            SavePulseJump();
-            SaveStageTime();
-            SaveTotalCoins();
-        
-        } catch {
-            Debug.Log("Save error occured");
-        }
+        string hpJson = JsonUtility.ToJson(playerData);
+        Debug.Log(hpJson);
+     }
 
-        Debug.Log("Saved PlayerPrefs");
-    }
+    private class PlayerData {
 
-    void SaveHP () { PlayerPrefs.SetInt("hp", player.getCurrentHealth()); }
-    void SaveAmmo() { PlayerPrefs.SetInt("ammo_count", weapon.getBulletCount()); }
-    void SavePulseJump() { PlayerPrefs.SetFloat("pulse_jump_seconds", playerInput.getPulseJumpSeconds()); }
-    void SaveStageTime() { PlayerPrefs.SetFloat("level_timer", timer.getTotalTime()); }
-    void SaveTotalCoins() { PlayerPrefs.SetInt("coins_collected", coinCollision.getCoinCount()); }
+        // for every variable you wanna save, make a new variable and store your other variable in it
+        [SerializeField] private int health;
+        [SerializeField] private float pulseJump;
+        [SerializeField] private float timer;
 
+
+        public int getHealth() { return health; }
+        public void setHealth(int health) { this.health = health; }
+
+        public float getPulseJump() { return pulseJump; }
+        public void setPulseJump(float pulseJump) { this.pulseJump = pulseJump; }
+
+        public float getTimer() { return timer; }
+        public void setTimer(float timer) { this.timer = timer; }
+
+    } // end of inner class
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
-    public void LoadAllPrimitiveNonUpgrades() {
-
-        try {    
-
-            Debug.Log(LoadHP());
-            Debug.Log(LoadAmmo());
-            Debug.Log(LoadPulseJump());
-            Debug.Log(LoadStageTime());
-            Debug.Log(LoadTotalCoins());
-        
-        } catch {
-            Debug.Log("Load error occured");
-        }
-        Debug.Log("Loaded PlayerPrefs");
-    }
-
-    int LoadHP() { return PlayerPrefs.GetInt("hp"); }
-    int LoadAmmo() { return PlayerPrefs.GetInt("ammo_count"); }
-    float LoadPulseJump() { return PlayerPrefs.GetFloat("pulse_jump_seconds"); }
-    float LoadStageTime() { return PlayerPrefs.GetFloat("level_timer"); }
-    int LoadTotalCoins() { return PlayerPrefs.GetInt("coins_collected"); }
-
-/*-----------------------------------------------------------------------------------------------------------------------------------*/
-
-    private void SaveAllUpgrades() { 
-
-        SaveMaxHP();
-        SaveMovementSpeed();
-        SaveJumpHeight();
-        SaveWallJumpXDistance();
-        SaveWallJumpYDistance();
-        // SaveGroundPoundForce();
-        SavePhaseDistance();
-    }
-
-    void SaveMaxHP() { PlayerPrefs.SetInt("max_hp", player.getMaxHealth()); }
-    void SaveMovementSpeed () { PlayerPrefs.SetFloat("run_speed", playerInput.getRunSpeed()); }
-    void SaveJumpHeight () { PlayerPrefs.SetFloat("jump_height", characterController2D.getJumpForce()); }
-    void SaveWallJumpXDistance () { PlayerPrefs.SetFloat("wall_jump_x", playerInput.getWallJumpX()); }
-    void SaveWallJumpYDistance () { PlayerPrefs.SetFloat("wall_jump_y", playerInput.getWallJumpY()); }
-    // void SaveGroundPoundForce () {}
-    void SavePhaseDistance () { PlayerPrefs.SetFloat("phase_speed", playerInput.getPhaseSpeed()); }
-
-/*-----------------------------------------------------------------------------------------------------------------------------------*/
-
-    private void LoadAllUpgrades() { 
-        LoadMaxHP();
-        LoadMovementSpeed();
-        LoadJumpHeight();
-        LoadWallJumpXDistance();
-        LoadWallJumpYDistance();
-        LoadPhaseDistance();
-    }
-
-    void LoadMaxHP() { PlayerPrefs.GetInt("max_hp"); }
-    void LoadMovementSpeed() { PlayerPrefs.GetFloat("run_speed"); }
-    void LoadJumpHeight() { PlayerPrefs.GetFloat("jump_height"); }
-    void LoadWallJumpXDistance() { PlayerPrefs.GetFloat("wall_jump_x"); }
-    void LoadWallJumpYDistance() { PlayerPrefs.GetFloat("wall_jump_y"); }
-    void LoadPhaseDistance() { PlayerPrefs.GetFloat("phase_speed"); }
-
-/*-----------------------------------------------------------------------------------------------------------------------------------*/
-
-}
+} // end of outer class

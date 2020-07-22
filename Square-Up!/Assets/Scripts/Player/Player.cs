@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
     
     private bool isPickedUp = false, isPlayerInvincible = false;
     private int coinCount = 0;
-    [SerializeField] private int maxHealth = 5, currentHealth = 5;
+    private int maxHealth = 5, currentHealth;
     private Rigidbody2D playerRigidBody;
     private SceneLoader sceneLoader;
     private CharacterController2D characterController2D;
@@ -21,11 +21,15 @@ public class Player : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        // Debug.Log(getCurrentHealth());
         // currentHealth = maxHealth;
         // healthBar.setMaxHealth(maxHealth);
     }
 
     private void Awake() {
+        currentHealth = maxHealth;
+        healthBar.setMaxHealth(maxHealth);
+        
         playerRigidBody = GetComponent<Rigidbody2D>();
         characterController2D = FindObjectOfType<CharacterController2D>();
         audioManager = FindObjectOfType<AudioManager>();
@@ -88,17 +92,15 @@ public class Player : MonoBehaviour {
     }
 
     public bool getPlayerInvincible() { return isPlayerInvincible; }
-
     public void setPlayerInvincible (bool inv) { isPlayerInvincible = inv; }
 
     public int getCoinCount() { return coinCount; }
-
     public void addCoin (int coin) { coinCount += coin; }
 
     public int getCurrentHealth() { return currentHealth; }
+    public void setCurrentHealth(int currentHealth) { this.currentHealth = currentHealth; }
 
     public int getMaxHealth() { return maxHealth; }
-
     public void setMaxHealth (int maxHealth) { this.maxHealth = maxHealth; }
 } //end of class
 
