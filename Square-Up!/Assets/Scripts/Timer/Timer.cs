@@ -10,8 +10,6 @@ public class Timer : MonoBehaviour {
     private bool isTimerRunning;
 
 
-    
-
     void Start() {
         totalTime = 0.0f;
         isTimerRunning = true;

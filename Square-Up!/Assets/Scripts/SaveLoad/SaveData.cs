@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class SaveData : MonoBehaviour {
     // private Weapon weapon;// Ammo Count, int
     private PlayerInput playerInput;// Pulse Jump, float
     private Timer timer;// Timer, float
-    // private CoinCollision coinCollision;// Coins Collected, int
+    private CoinCollision coinCollision;// Coins Collected, int
     
     // Upgrades, float and int
     // private Defense defense;
@@ -27,7 +28,7 @@ public class SaveData : MonoBehaviour {
         // weapon = new Weapon();
         playerInput = new PlayerInput();
         timer = new Timer();
-        // coinCollision = new CoinCollision();
+        coinCollision = FindObjectOfType<CoinCollision>();
         // defense = new Defense();
         // mobility = new Mobility();
         // offense = new Offense();
@@ -40,10 +41,30 @@ public class SaveData : MonoBehaviour {
         playerData.setHealth(player.getCurrentHealth());
         playerData.setPulseJump(playerInput.getPulseJumpSeconds());
         playerData.setTimer(timer.getTotalTime());
+        playerData.setTotalCoins(coinCollision.getCoinCount());
 
-        string hpJson = JsonUtility.ToJson(playerData);
-        Debug.Log(hpJson);
-     }
+        string jsonSave = JsonUtility.ToJson(playerData);
+        Debug.Log(jsonSave);
+        
+        try {
+
+            File.WriteAllText("D:\\Github-Repos\\Square-Up\\Square-Up!\\Assets\\" + "DummySaveFile", jsonSave);
+            Debug.Log("saved to file");
+        } 
+        catch (IOException e) {
+            Debug.Log("Error occured while saving!");
+        }
+
+        string loadJson = File.ReadAllText("D:\\Github-Repos\\Square-Up\\Square-Up!\\Assets\\" + "DummySaveFile");
+        PlayerData loadedPlayerData = JsonUtility.FromJson<PlayerData>(jsonSave);
+        Debug.Log("Health: " + loadedPlayerData.getHealth());
+        Debug.Log("Pulse Jump: " + loadedPlayerData.getPulseJump());
+        Debug.Log("Timer: " + loadedPlayerData.getTimer());
+        Debug.Log("Total Coins: " + loadedPlayerData.getTotalCoins());
+
+    }
+
+
 
     private class PlayerData {
 
@@ -51,6 +72,7 @@ public class SaveData : MonoBehaviour {
         [SerializeField] private int health;
         [SerializeField] private float pulseJump;
         [SerializeField] private float timer;
+        [SerializeField] private int totalCoins;
 
 
         public int getHealth() { return health; }
@@ -62,9 +84,17 @@ public class SaveData : MonoBehaviour {
         public float getTimer() { return timer; }
         public void setTimer(float timer) { this.timer = timer; }
 
+        public int getTotalCoins() { return totalCoins; }
+        public void setTotalCoins(int totalCoins) { this.totalCoins = totalCoins; }
+
     } // end of inner class
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------------------------------------*/
 
 } // end of outer class
+
+/*
+Sources:
+1) C.D., Code Monkey, 'What is JSON? (Unity Tutorial for Beginners)', 2018. [Online]. Available: https://www.youtube.com/watch?v=4oRVMCRCvN0 [Accessed: 22-Jul-2020].
+*/
