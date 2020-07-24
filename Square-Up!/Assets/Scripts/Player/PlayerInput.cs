@@ -10,22 +10,23 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private Transform groundDetection;
      [SerializeField] private float groundDistance, stepDistance;
 
-
      private float horizontalMove = 0f, 
-          runSpeed = 240f,
+          runSpeed = 200f,
+          rollSpeed = 300f,
           phaseSpeed = 700f,
           wallJumpX = 1250f,
           wallJumpY = 1100f,
+          jumpForce = 1200f,
+          doubleJumpForce = 1400f,
           pulseForce = 2000f,
           stepForce = 100f,
-          // phaseSpeedNegative = -700f, 
           dropSpeed = 1f,
           wallKickDistance = 0.5f,
           jumpGroundDetection = 0.1f;
           
      private float pulseJumpTimer;
      private float pulseJumpSeconds = 0.85f;
-     private bool jump, 
+     private bool jump,
           isGameOver, 
           isGamePaused, 
           isGrounded, 
@@ -42,12 +43,14 @@ public class PlayerInput : MonoBehaviour {
 
      private PauseMenu pauseMenu;
      private AudioManager audioManager;
-     // private GameObject player;
      private Player player;
      private PlayerPosition playerPosition;
-     private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft, 
-          groundInfo;
 
+     private RaycastHit2D wallClingColRight, 
+          wallClingColLeft, 
+          wallJumpColRight, 
+          wallJumpColLeft, 
+          groundInfo;
 
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
@@ -123,10 +126,10 @@ public class PlayerInput : MonoBehaviour {
           groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           /*If the player jumps...*/
           if (Input.GetButtonDown("Jump") && groundInfo.collider == true) {
-               
+
                audioManager.Play("Jump");
                Debug.Log("Jump");
-               characterController2D.addForce(0, 1000);
+               characterController2D.addForce(0, jumpForce);
           }
      }
 
@@ -137,7 +140,7 @@ public class PlayerInput : MonoBehaviour {
 
                     audioManager.Play("DoubleJump");
                     Debug.Log("DoubleJump");
-                    characterController2D.addForce(0, 1200); /*To upgrade the jump height, check if upgrade is active with a boolean*/
+                    characterController2D.addForce(0, doubleJumpForce); /*To upgrade the jump height, check if upgrade is active with a boolean*/
                     canDoubleJump = false;
                }
           }
@@ -151,12 +154,14 @@ public class PlayerInput : MonoBehaviour {
      void checkPhase() { // dash ability for the player
           isFacingRight = characterController2D.getFacingRight();
           groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
+          float rollSpeedDropMultiplier = 5f;
 
                // right dash
                if (Input.GetKeyDown(KeyCode.RightShift) && isFacingRight && groundInfo.collider == false && canPhase) {
                     audioManager.Play("Phase");
                     setPhaseSpeed(700f);
                     rigidbody2D.velocity = new Vector2(getPhaseSpeed(), 0f);
+
                     canPhase = false; // you can only use the ability once in the air. must touch the ground to reset
                }
                else if (Input.GetKeyDown(KeyCode.RightShift) && !isFacingRight && groundInfo.collider == false && canPhase) {
@@ -165,7 +170,7 @@ public class PlayerInput : MonoBehaviour {
                     setPhaseSpeed(-700f);
                     rigidbody2D.velocity = new Vector2(getPhaseSpeed(), 0f);
                     canPhase = false;
-               }    
+               }
                if (groundInfo.collider == true) // touch the ground to reset dash
                     canPhase = true;
      }
