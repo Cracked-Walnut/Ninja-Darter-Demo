@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private CharacterController2D characterController2D;
      [SerializeField] private Transform groundDetection;
      [SerializeField] private float groundDistance, stepDistance;
+     [SerializeField] private Animator animator;
 
      private float horizontalMove = 0f, 
           runSpeed = 200f,
@@ -58,6 +59,8 @@ public class PlayerInput : MonoBehaviour {
     // Update is called once per frame
     void Update() {
           characterController2D.highJump(); // Used to add some weight to the player as they're falling
+          Debug.Log("X: " + rigidbody2D.velocity.x + "\n" +
+                    "Y: " + rigidbody2D.velocity.y);
           checkPhysics();
      
           if (escapeKey) // Check if the escape key is enabled. Useful for instance when the player, they shouldn't be able to pause
@@ -75,6 +78,7 @@ public class PlayerInput : MonoBehaviour {
      /*Also called once per frame like Update but I think it's used for time sensitive variables*/
      void FixedUpdate() {
         characterController2D.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+        animator.SetFloat("SpeedX", Mathf.Abs(horizontalMove));
         jump = false; // At the start of each frame, jump is false
     }
 
@@ -84,7 +88,6 @@ public class PlayerInput : MonoBehaviour {
           pauseMenu = FindObjectOfType<PauseMenu>();
           audioManager = FindObjectOfType<AudioManager>();
           rayCast = Physics2D.queriesStartInColliders = false;
-          // player = GameObject.FindWithTag("Player");
           player = FindObjectOfType<Player>();
           playerPosition = FindObjectOfType<PlayerPosition>();
           rigidbody2D = GetComponent<Rigidbody2D>();
@@ -125,11 +128,28 @@ public class PlayerInput : MonoBehaviour {
      void checkJump() {
           groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           /*If the player jumps...*/
-          if (Input.GetButtonDown("Jump") && groundInfo.collider == true) {
-
-               audioManager.Play("Jump");
-               Debug.Log("Jump");
+          if (Input.GetButtonDown("Jump") && groundInfo.collider != false) {
+               
                characterController2D.addForce(0, jumpForce);
+               
+               if (rigidbody2D.velocity.y > 0.0f) {
+                    audioManager.Play("Jump");
+                    animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+                    // animator.SetBool("isJumping", true);
+                    // characterController2D.addForce(0, jumpForce);
+               }
+               if (rigidbody2D.velocity.y < 0.0f) 
+                    Debug.Log("Jump Down");
+                    animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+               
+          } 
+          if (groundInfo.collider == false) {
+               animator.SetBool("isJumping", true);
+               animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+          }
+          else { 
+               animator.SetBool("isJumping", false);
+               animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
           }
      }
 
@@ -184,13 +204,13 @@ public class PlayerInput : MonoBehaviour {
 
           /*RIGHT WALL CLING*/
           if (groundInfo.collider == false && wallClingColRight.collider != null && Input.GetKey(KeyCode.RightArrow) && rigidbody2D.velocity.y < 0) {
-               wallFunction(false, false, 0f, -100f, false, "No Sound");
+               wallFunction(false, false, 0f, -50f, false, "No Sound");
                canShoot = false;
                // characterController2D.setFacingRight(false);
           }
           /*LEFT WALL CLING*/
           else if (groundInfo.collider == false && wallClingColLeft.collider != null && Input.GetKey(KeyCode.LeftArrow) && rigidbody2D.velocity.y < 0) {
-               wallFunction(false, false, 0f, -100f, false, "No Sound");
+               wallFunction(false, false, 0f, -50f, false, "No Sound");
                canShoot = false;
                // characterController2D.setFacingRight(true);
           }
