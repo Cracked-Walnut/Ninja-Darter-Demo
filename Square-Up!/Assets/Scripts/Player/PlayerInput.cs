@@ -25,8 +25,8 @@ public class PlayerInput : MonoBehaviour {
           runSpeed = 200f,
           rollSpeed = 300f,
           phaseSpeed = 700f,
-          wallJumpX = 1250f,
-          wallJumpY = 1100f,
+          wallJumpX = 1900f,
+          wallJumpY = 1750f,
           jumpForce = 1800f,
           doubleJumpForce = 2200f,
           pulseForce = 2000f,
@@ -35,8 +35,6 @@ public class PlayerInput : MonoBehaviour {
           wallKickDistance = 0.5f,
           jumpGroundDetection = 0.1f;
 
-     
-          
      private float pulseJumpTimer;
      private float pulseJumpSeconds = 0.85f;
      private bool jump,

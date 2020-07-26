@@ -19,18 +19,37 @@ public class CameraFollow : MonoBehaviour {
 
 	void FixedUpdate() {
 
-		if (target.transform.position.y > 200f && target.transform.position.y < 240f) {
-			transform.position = new Vector3(target.transform.position.x, 210f, -10f);
-		}
-		else if (target.transform.position.y < 200f && target.transform.position.y > 160f) {
+		// starting height
+		if (target.transform.position.y > 200f && target.transform.position.y < 240f)
+			transform.position = new Vector3(target.transform.position.x, 220f, -10f);
+
+		// 1 chunk below
+		else if (target.transform.position.y < 200f && target.transform.position.y > 160f)
 			transform.position = new Vector3(target.transform.position.x, 180f, -10f);
-		} else
+		
+		// 2 chunks below
+		else if (target.transform.position.y < 160f && target.transform.position.y > 120f)
+			transform.position = new Vector3(target.transform.position.x, 140f, -10f);
+		
+		// 3 chunks below
+		else if (target.transform.position.y < 120f && target.transform.position.y > 80f)
+			transform.position = new Vector3(target.transform.position.x, 100f, -10f);
+
+		// 4 chunks below
+		else if (target.transform.position.y < 80f && target.transform.position.y > 40f)
+			transform.position = new Vector3(target.transform.position.x, 60f, -10f);
+
+		// 5 chunks below
+		else if (target.transform.position.y < 40f && target.transform.position.y > 0f)
+			transform.position = new Vector3(target.transform.position.x, 20f, -10f);
+
+		// 1 chunk above
+		else
 			transform.position = new Vector3(target.transform.position.x, 230f, -10f);
 	
 		// if(target.transform.position.y < -20f && target.transform.position.y > - 60f)
 		// 	transform.position = new Vector3(target.transform.position.x, -40f, -10f);
 
-		
 	}
 /*
 https://gamedev.stackexchange.com/questions/147526/only-make-camera-follow-player-on-x-axis
