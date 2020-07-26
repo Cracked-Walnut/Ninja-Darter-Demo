@@ -10,6 +10,16 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private Transform groundDetection;
      [SerializeField] private float groundDistance, stepDistance;
      [SerializeField] private Animator animator;
+     [SerializeField] private Transform attackPoint;
+     [SerializeField] private float attackRange = 0.5f;
+     [SerializeField] private float attackRate = 2f;
+     [SerializeField] private float nextAttackTime = 0f;
+     [SerializeField] private float reset;
+     [SerializeField] private float resetTime;
+     [SerializeField] private int comboNumber;
+     [SerializeField] private LayerMask enemyLayers;
+
+     private List <string> comboList = new List<string>(new string[] {"Attack1", "Attack2", "Attack3"}); // the list of moves available to the player to perform
 
      private float horizontalMove = 0f, 
           runSpeed = 200f,
@@ -24,6 +34,8 @@ public class PlayerInput : MonoBehaviour {
           dropSpeed = 1f,
           wallKickDistance = 0.5f,
           jumpGroundDetection = 0.1f;
+
+     
           
      private float pulseJumpTimer;
      private float pulseJumpSeconds = 0.85f;
@@ -56,11 +68,11 @@ public class PlayerInput : MonoBehaviour {
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
 
+/*------------------------------------------------------------------------------------------------------------------------------------------------*/
+
     // Update is called once per frame
     void Update() {
           characterController2D.highJump(); // Used to add some weight to the player as they're falling
-          Debug.Log("X: " + rigidbody2D.velocity.x + "\n" +
-                    "Y: " + rigidbody2D.velocity.y);
           checkPhysics();
      
           if (escapeKey) // Check if the escape key is enabled. Useful for instance when the player, they shouldn't be able to pause
@@ -106,6 +118,8 @@ public class PlayerInput : MonoBehaviour {
                checkWallJump();
                // checkGroundPound();
                checkPulseJump();
+               // checkAttack1();
+               checkCombo();
                // checkStep();
           // }
           // checkSceneRestart();
@@ -301,6 +315,54 @@ public class PlayerInput : MonoBehaviour {
           }
      }
 
+     void checkAttack1() {
+          if (Input.GetKeyDown(KeyCode.Space)) {
+               
+               if (Time.time > nextAttackTime) {
+
+                    // play an attack animation
+                    animator.SetTrigger("Attack1");
+
+                    // detect enemies in range of attack
+                    // A circle which detects enemies
+                    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers); 
+                    
+                    // damage them
+                    foreach(Collider2D enemy in hitEnemies)
+                         Debug.Log("We hit " + enemy.name);
+               
+                    nextAttackTime = Time.time + 1f / attackRate; // add attackRate (0.5f) to the current time. If current time exceed 0.5
+                    // seconds, you can attack again
+               }
+          }
+     }
+
+     void checkCombo() {
+
+          // run through the combo list with each space press
+          if (Input.GetKeyDown(KeyCode.Space) && comboNumber < 3) {
+               animator.SetTrigger(comboList[comboNumber]);
+               comboNumber++;
+               reset = 0f;
+          }
+
+          // if the player doesn't make it through the entire combo, go back to idle
+          if (comboNumber > 0) {  
+               reset += Time.deltaTime;
+
+               if (reset < resetTime) {
+                    animator.SetTrigger("Reset");
+                    comboNumber = 0;
+               } 
+          }
+          if (comboNumber == 3) {
+               resetTime = 3f;
+               comboNumber = 0;
+          }
+          else
+               resetTime = 1f;
+     }
+
      void setGravity(float gravity) { rigidbody2D.gravityScale = gravity; }
 
      public float getRunSpeed() { return runSpeed; }
@@ -320,7 +382,7 @@ public class PlayerInput : MonoBehaviour {
      public void setPulseJumpSeconds (float pulseJumpSeconds) { this.pulseJumpSeconds = pulseJumpSeconds; }
 
      public float getWallJumpX() { return wallJumpX; }
-     public float getWallJumpY() {return wallJumpY; }
+     public float getWallJumpY() { return wallJumpY; }
 
      public float getPulseForce() { return pulseForce; }
      public void setPulseForce(float pulseForce) { this.pulseForce = pulseForce; }
@@ -332,4 +394,6 @@ Sources:
 1) J.D., Day, 'Full Unity 2D Game Tutorial 2019 – Player Movement', 2019. [Online]. Available: https://www.gamedevelopment.blog/unity-2d-game-tutorial-2019-player-movement/ [Accessed: 10-Nov-2019].
 2) S., Screenhog, 'Can I detect if a letter key is pressed', 2012. [Online]. Available: https://answers.unity.com/questions/345826/can-i-detect-if-a-letter-key-is-pressed-1.html [Accessed: 31-Jan-2020].
 3) W.U.T., Wabble - Unity Tutorials, '58. Making a 2D Platformer in Unity (C#) - Wall Jump', 2015. [Online]. Available: https://www.youtube.com/watch?v=9QjwHsjbX_A [Accessed: Mar-09-2020].
+5) B., Brackeys, '2D Animation in Unity (Tutorial)', 2018. [Online]. Available: https://www.youtube.com/watch?v=hkaysu1Z-N8 [Accessed: 24-Jul-2020].
+4) B., Brackeys, 'MELEE COMBAT in Unity', 2019. [Online]. Available: https://www.youtube.com/watch?v=sPiVz1k-fEs [Accessed: Jul-25-2020].
 */
