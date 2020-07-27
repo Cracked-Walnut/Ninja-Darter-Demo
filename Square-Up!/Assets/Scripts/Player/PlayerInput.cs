@@ -15,8 +15,6 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private float attackRate = 2f;
      [SerializeField] private float nextAttackTime = 0f;
      [SerializeField] private float reset;
-     [SerializeField] private float resetTime;
-     [SerializeField] private int comboNumber;
      [SerializeField] private LayerMask enemyLayers;
 
      private float horizontalMove = 0f, 
@@ -33,10 +31,7 @@ public class PlayerInput : MonoBehaviour {
           wallKickDistance = 0.5f,
           jumpGroundDetection = 0.1f, 
           pulseJumpTimer, 
-          pulseJumpSeconds = 0.85f,
-          lastClickedTimer = 0f;
-     [SerializeField] private float maxComboDelay;
-     [SerializeField] private int noOfClicks = 0;
+          pulseJumpSeconds = 0.85f;
 
 
      private bool jump,
@@ -61,6 +56,7 @@ public class PlayerInput : MonoBehaviour {
      private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft, groundInfo;
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
+     private string[] comboList = new string[2] {"Attack1", "Attack2"};
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -68,9 +64,6 @@ public class PlayerInput : MonoBehaviour {
     void Update() {
           characterController2D.highJump(); // Used to add some weight to the player as they're falling
           checkPhysics();
-
-          if (Time.time - lastClickedTimer > maxComboDelay)
-               noOfClicks = 0; // reset combo time exceeds the delay
      
           if (escapeKey) // Check if the escape key is enabled. Useful for instance when the player, they shouldn't be able to pause
                checkEscapeKey();
@@ -116,6 +109,7 @@ public class PlayerInput : MonoBehaviour {
                // checkGroundPound();
                checkPulseJump();
                checkAttack1();
+               // checkCombo();
                // checkStep();
           // }
           // checkSceneRestart();
@@ -142,25 +136,31 @@ public class PlayerInput : MonoBehaviour {
                
                characterController2D.addForce(0, jumpForce);
                
-               if (rigidbody2D.velocity.y > 0.0f) {
-                    audioManager.Play("Jump");
-                    animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
-                    // animator.SetBool("isJumping", true);
-                    // characterController2D.addForce(0, jumpForce);
-               }
-               if (rigidbody2D.velocity.y < 0.0f) 
-                    Debug.Log("Jump Down");
-                    animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+               // if (rigidbody2D.velocity.y > 0.0f) {
+               //      audioManager.Play("Jump");
+               //      animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+               //      // animator.SetBool("isJumping", true);
+               //      // characterController2D.addForce(0, jumpForce);
+               // }
+               // if (rigidbody2D.velocity.y < 0.0f) 
+               //      Debug.Log("Jump Down");
+               //      animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
                
           } 
           if (groundInfo.collider == false) {
                animator.SetBool("isJumping", true);
                animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+               checkAirAttack();
           }
           else { 
                animator.SetBool("isJumping", false);
                animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
           }
+     }
+
+     void checkAirAttack() {
+          if (Input.GetKeyDown(KeyCode.Space))
+               animator.SetTrigger("Attack2");
      }
 
      void checkDoubleJump() {
@@ -312,6 +312,32 @@ public class PlayerInput : MonoBehaviour {
      }
 
      void checkAttack1() {
+          if (Input.GetKeyDown(KeyCode.Space)) {
+                    
+                    if (Time.time > nextAttackTime) {
+                         int comboCounter = 0;
+                         // play an attack animation
+                         animator.SetTrigger(comboList[comboCounter]);
+                         comboCounter += 1;
+
+                         // detect enemies in range of attack
+                         // A circle which detects enemies
+                         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers); 
+                              
+                         // damage them
+                         foreach(Collider2D enemy in hitEnemies)
+                                   Debug.Log("We hit " + enemy.name);
+                         
+                         nextAttackTime = Time.time + 1f / attackRate; // add attackRate (0.5f) to the current time. If current time exceed 0.5
+                         // seconds, you can attack again
+                         if (comboCounter > 1)
+                              comboCounter = 0;
+                    }
+               
+          }
+     }
+
+     void checkCombo() {
           if (Input.GetKeyDown(KeyCode.Space)) {
                
                if (Time.time > nextAttackTime) {
