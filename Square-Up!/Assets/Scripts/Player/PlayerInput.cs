@@ -19,8 +19,6 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private int comboNumber;
      [SerializeField] private LayerMask enemyLayers;
 
-     private List <string> comboList = new List<string>(new string[] {"Attack1", "Attack2", "Attack3"}); // the list of moves available to the player to perform
-
      private float horizontalMove = 0f, 
           runSpeed = 200f,
           rollSpeed = 300f,
@@ -33,10 +31,14 @@ public class PlayerInput : MonoBehaviour {
           stepForce = 100f,
           dropSpeed = 1f,
           wallKickDistance = 0.5f,
-          jumpGroundDetection = 0.1f;
+          jumpGroundDetection = 0.1f, 
+          pulseJumpTimer, 
+          pulseJumpSeconds = 0.85f,
+          lastClickedTimer = 0f;
+     [SerializeField] private float maxComboDelay;
+     [SerializeField] private int noOfClicks = 0;
 
-     private float pulseJumpTimer;
-     private float pulseJumpSeconds = 0.85f;
+
      private bool jump,
           isGameOver, 
           isGamePaused, 
@@ -56,13 +58,7 @@ public class PlayerInput : MonoBehaviour {
      private AudioManager audioManager;
      private Player player;
      private PlayerPosition playerPosition;
-
-     private RaycastHit2D wallClingColRight, 
-          wallClingColLeft, 
-          wallJumpColRight, 
-          wallJumpColLeft, 
-          groundInfo;
-
+     private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft, groundInfo;
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
 
@@ -72,6 +68,9 @@ public class PlayerInput : MonoBehaviour {
     void Update() {
           characterController2D.highJump(); // Used to add some weight to the player as they're falling
           checkPhysics();
+
+          if (Time.time - lastClickedTimer > maxComboDelay)
+               noOfClicks = 0; // reset combo time exceeds the delay
      
           if (escapeKey) // Check if the escape key is enabled. Useful for instance when the player, they shouldn't be able to pause
                checkEscapeKey();
@@ -116,8 +115,7 @@ public class PlayerInput : MonoBehaviour {
                checkWallJump();
                // checkGroundPound();
                checkPulseJump();
-               // checkAttack1();
-               checkCombo();
+               checkAttack1();
                // checkStep();
           // }
           // checkSceneRestart();
@@ -333,32 +331,6 @@ public class PlayerInput : MonoBehaviour {
                     // seconds, you can attack again
                }
           }
-     }
-
-     void checkCombo() {
-
-          // run through the combo list with each space press
-          if (Input.GetKeyDown(KeyCode.Space) && comboNumber < 3) {
-               animator.SetTrigger(comboList[comboNumber]);
-               comboNumber++;
-               reset = 0f;
-          }
-
-          // if the player doesn't make it through the entire combo, go back to idle
-          if (comboNumber > 0) {  
-               reset += Time.deltaTime;
-
-               if (reset < resetTime) {
-                    animator.SetTrigger("Reset");
-                    comboNumber = 0;
-               } 
-          }
-          if (comboNumber == 3) {
-               resetTime = 3f;
-               comboNumber = 0;
-          }
-          else
-               resetTime = 1f;
      }
 
      void setGravity(float gravity) { rigidbody2D.gravityScale = gravity; }
