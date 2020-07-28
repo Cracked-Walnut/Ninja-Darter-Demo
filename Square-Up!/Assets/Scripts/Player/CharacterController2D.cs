@@ -19,6 +19,7 @@ public class CharacterController2D : MonoBehaviour {
 	private Vector3 m_Velocity = Vector3.zero;
 	private float fallMultipler = 4.5f;
 	private float lowJumpMultiplier = 1.1f;
+	private PlayerInput playerInput;
 
 	[Header("Events")]
 	[Space]
@@ -33,6 +34,7 @@ public class CharacterController2D : MonoBehaviour {
 
 	private void Awake() {
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		playerInput = FindObjectOfType<PlayerInput>();
 
 		if (OnLandEvent == null) OnLandEvent = new UnityEvent();
 
@@ -140,8 +142,11 @@ public class CharacterController2D : MonoBehaviour {
 
 	public void Flip() {
 		// Switch the way the player is labelled as facing.
+		
 		m_FacingRight = !m_FacingRight;
 		transform.Rotate(0f, 180f, 0f);
+		if (m_Grounded)
+			playerInput.CreateDust();
 		// Multiply the player's x local scale by -1.
 		// Vector3 theScale = transform.localScale;
 		// theScale.x *= -1;

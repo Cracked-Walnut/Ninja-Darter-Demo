@@ -16,6 +16,7 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private float nextAttackTime = 0f;
      [SerializeField] private float reset;
      [SerializeField] private LayerMask enemyLayers;
+     [SerializeField] private ParticleSystem dustEffect;
 
      private float horizontalMove = 0f, 
           runSpeed = 200f,
@@ -56,7 +57,7 @@ public class PlayerInput : MonoBehaviour {
      private RaycastHit2D wallClingColRight, wallClingColLeft, wallJumpColRight, wallJumpColLeft, groundInfo;
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
-     private string[] comboList = new string[2] {"Attack1", "Attack2"};
+     private string[] comboList = new string[3] {"Attack1", "Attack2", "Attack3"};
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -135,6 +136,7 @@ public class PlayerInput : MonoBehaviour {
           if (Input.GetButtonDown("Jump") && groundInfo.collider != false) {
                
                characterController2D.addForce(0, jumpForce);
+               CreateDust();
                
                // if (rigidbody2D.velocity.y > 0.0f) {
                //      audioManager.Play("Jump");
@@ -313,7 +315,6 @@ public class PlayerInput : MonoBehaviour {
 
      void checkAttack1() {
           if (Input.GetKeyDown(KeyCode.Space)) {
-                    Debug.Log(comboList.Length);
                     if (Time.time > nextAttackTime) {
 
                          // play an attack animation
@@ -322,7 +323,7 @@ public class PlayerInput : MonoBehaviour {
                          
                          // detect enemies in range of attack
                          // A circle which detects enemies
-                         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers); 
+                         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
                               
                          // damage them
                          foreach(Collider2D enemy in hitEnemies)
@@ -355,6 +356,10 @@ public class PlayerInput : MonoBehaviour {
                     // seconds, you can attack again
                }
           }
+     }
+
+     public void CreateDust() {
+          dustEffect.Play();
      }
 
      void setGravity(float gravity) { rigidbody2D.gravityScale = gravity; }
@@ -390,4 +395,5 @@ Sources:
 3) W.U.T., Wabble - Unity Tutorials, '58. Making a 2D Platformer in Unity (C#) - Wall Jump', 2015. [Online]. Available: https://www.youtube.com/watch?v=9QjwHsjbX_A [Accessed: Mar-09-2020].
 5) B., Brackeys, '2D Animation in Unity (Tutorial)', 2018. [Online]. Available: https://www.youtube.com/watch?v=hkaysu1Z-N8 [Accessed: 24-Jul-2020].
 4) B., Brackeys, 'MELEE COMBAT in Unity', 2019. [Online]. Available: https://www.youtube.com/watch?v=sPiVz1k-fEs [Accessed: Jul-25-2020].
+6) P.S., Start, 'Dust Effect when Running & Jumping in Unity [Particle Effect]', 2019. [Online]. Available: https://www.youtube.com/watch?v=1CXVbCbqKyg [Accessed: Jul-28-2020].
 */

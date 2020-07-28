@@ -50,8 +50,8 @@ public class CameraFollow : MonoBehaviour {
 
 	}
 /*
-https://gamedev.stackexchange.com/questions/147526/only-make-camera-follow-player-on-x-axis
-1) B., Brackeys, 'Smooth Camera Follow in Unity - Tutorial', 2017. [Online]. Available: https://www.youtube.com/watch?v=MFQhpwc6cKE
+1) B., Brackeys, 'Smooth Camera Follow in Unity - Tutorial', 2017. [Online]. Available: https://www.youtube.com/watch?v=MFQhpwc6cKE [27-Jul-2020].
+2) B.R., Redpath, 'Only make camera follow player on x axis?', 2017. [Online]. Available:  https://gamedev.stackexchange.com/questions/147526/only-make-camera-follow-player-on-x-axis [Accessed: 27-Jul-2020].
 */
 
 }//end of class
