@@ -313,13 +313,13 @@ public class PlayerInput : MonoBehaviour {
 
      void checkAttack1() {
           if (Input.GetKeyDown(KeyCode.Space)) {
-                    
+                    Debug.Log(comboList.Length);
                     if (Time.time > nextAttackTime) {
-                         int comboCounter = 0;
-                         // play an attack animation
-                         animator.SetTrigger(comboList[comboCounter]);
-                         comboCounter += 1;
 
+                         // play an attack animation
+                         int randomMove = Random.Range(0, comboList.Length);
+                         animator.SetTrigger(comboList[randomMove]);
+                         
                          // detect enemies in range of attack
                          // A circle which detects enemies
                          Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers); 
@@ -327,13 +327,11 @@ public class PlayerInput : MonoBehaviour {
                          // damage them
                          foreach(Collider2D enemy in hitEnemies)
                                    Debug.Log("We hit " + enemy.name);
+                                   // damaging function
                          
                          nextAttackTime = Time.time + 1f / attackRate; // add attackRate (0.5f) to the current time. If current time exceed 0.5
                          // seconds, you can attack again
-                         if (comboCounter > 1)
-                              comboCounter = 0;
                     }
-               
           }
      }
 
