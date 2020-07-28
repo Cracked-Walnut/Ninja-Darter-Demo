@@ -103,6 +103,7 @@ public class PlayerInput : MonoBehaviour {
 
           // if (Time.timeScale != 0.0f) {
                checkJump();
+               checkCrouch();
                checkDoubleJump();
                checkPhase();
                checkWallCling();
@@ -154,10 +155,17 @@ public class PlayerInput : MonoBehaviour {
                animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
                checkAirAttack();
           }
-          else { 
+          else {
                animator.SetBool("isJumping", false);
                animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
           }
+     }
+
+     void checkCrouch() {
+          if (Input.GetKey(KeyCode.DownArrow))
+               animator.SetBool("isCrouching", true);
+          else
+               animator.SetBool("isCrouching", false);
      }
 
      void checkAirAttack() {
