@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class SkeletonArcher : Enemy {
 
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject arrowPrefab;
+    private Quaternion fireAngle;
+
     // Start is called before the first frame update
     void Start() {
         attackRate = 1.0f;
@@ -26,9 +30,11 @@ public class SkeletonArcher : Enemy {
 
     void attack() {
         attackRate -= Time.deltaTime;
+        fireAngle = Quaternion.Euler(0, 0, 90);
 
         if (attackRate <= 0.0f) {
             animator.SetBool("isAttacking", true);
+            Instantiate(arrowPrefab, firePoint.position, fireAngle);
             attackRate = 1.0f;
         }
     }
