@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour {
 
-    [SerializeField] private float health = 100f;
-    private bool isAlive = true;
+    protected List<string> animationList = new List<string>();
+    private float health = 100f;
+    protected float attackRate;
+    protected bool isAlive;
+    protected Animator animator;
     // public GameObject deathEffect;
 
     public void takeDamage(float damage) {
