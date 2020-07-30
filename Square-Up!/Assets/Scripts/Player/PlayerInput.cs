@@ -22,14 +22,14 @@ public class PlayerInput : MonoBehaviour {
           runSpeed = 200f,
           rollSpeed = 300f,
           phaseSpeed = 700f,
-          wallJumpX = 1900f,
+          wallJumpX = 2500f,
           wallJumpY = 1750f,
           jumpForce = 1800f,
           doubleJumpForce = 2200f,
           pulseForce = 2000f,
           stepForce = 100f,
           dropSpeed = 1f,
-          wallKickDistance = 0.5f,
+          wallKickDistance = 1f,
           jumpGroundDetection = 0.1f, 
           pulseJumpTimer, 
           pulseJumpSeconds = 0.85f;
@@ -110,7 +110,7 @@ public class PlayerInput : MonoBehaviour {
                checkWallJump();
                // checkGroundPound();
                checkPulseJump();
-               checkAttack1();
+               checkAttack();
                // checkCombo();
                // checkStep();
           // }
@@ -246,11 +246,11 @@ public class PlayerInput : MonoBehaviour {
           /*LEFT WALL JUMP, wallJumpX calculation is just some math to retrieve the negative value of WallJumpX, since we'll
           be wall jumping to the left*/
           if (Input.GetKeyDown(KeyCode.LeftArrow) && groundInfo.collider == false && wallJumpColRight.collider != null)
-               wallFunction(true, true, wallJumpX - (wallJumpX * 2f), wallJumpY, true, "WallJump");
+               wallFunction(false, true, wallJumpX - (wallJumpX * 2f), wallJumpY, true, "WallJump");
 
           /*RIGHT WALL JUMP*/
           else if (Input.GetKeyDown(KeyCode.RightArrow) && groundInfo.collider == false && wallJumpColLeft.collider != null)
-               wallFunction(true, true, wallJumpX, wallJumpY, true, "WallJump");
+               wallFunction(false, true, wallJumpX, wallJumpY, true, "WallJump");
      }
 
      void wallFunction(bool canDoubleJump, bool canPhase,
@@ -321,49 +321,27 @@ public class PlayerInput : MonoBehaviour {
           }
      }
 
-     void checkAttack1() {
+     void checkAttack() {
           if (Input.GetKeyDown(KeyCode.Space)) {
                     if (Time.time > nextAttackTime) {
 
                          // play an attack animation
                          int randomMove = Random.Range(0, comboList.Length);
                          animator.SetTrigger(comboList[randomMove]);
-                         
-                         // detect enemies in range of attack
-                         // A circle which detects enemies
-                         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-                              
-                         // damage them
-                         foreach(Collider2D enemy in hitEnemies)
-                                   Debug.Log("We hit " + enemy.name);
-                                   // damaging function
-                         
                          nextAttackTime = Time.time + 1f / attackRate; // add attackRate (0.5f) to the current time. If current time exceed 0.5
                          // seconds, you can attack again
                     }
           }
      }
 
-     void checkCombo() {
-          if (Input.GetKeyDown(KeyCode.Space)) {
-               
-               if (Time.time > nextAttackTime) {
-
-                    // play an attack animation
-                    animator.SetTrigger("Attack1");
-
-                    // detect enemies in range of attack
-                    // A circle which detects enemies
-                    Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers); 
-                    
-                    // damage them
-                    foreach(Collider2D enemy in hitEnemies)
-                         Debug.Log("We hit " + enemy.name);
-               
-                    nextAttackTime = Time.time + 1f / attackRate; // add attackRate (0.5f) to the current time. If current time exceed 0.5
-                    // seconds, you can attack again
-               }
-          }
+     void registerHit() {
+          // detect enemies in range of attack
+          // A circle which detects enemies
+          Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+                              
+          // damage them
+          foreach(Collider2D enemy in hitEnemies)
+          Debug.Log("We hit " + enemy.name);
      }
 
      public void CreateDust() {

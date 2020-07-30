@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBow : MonoBehaviour {
 
     [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject arrowPrefab;
+    [SerializeField] private GameObject projectile;
     // private float rateOfFire;
     private EnemyArrow enemyArrow;
 
@@ -15,6 +15,6 @@ public class EnemyBow : MonoBehaviour {
 
     void shoot() {
             Quaternion accuracy = Quaternion.Euler(0, 0, 0);
-            Instantiate(arrowPrefab, firePoint.position, accuracy);
+            Instantiate(projectile, firePoint.position, accuracy);
     }
 }
