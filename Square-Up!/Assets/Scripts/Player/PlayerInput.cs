@@ -59,6 +59,18 @@ public class PlayerInput : MonoBehaviour {
      private Weapon weapon;
      private string[] comboList = new string[3] {"Attack1", "Attack2", "Attack3"};
 
+     // plays when you hit an enemy
+     private string[] swordDamageList = new string[3] {"Dagger_Damager_1", "Dagger_Damager_2", "Dagger_Damager_3"};
+     private string[] swordWhooshList = new string[6] // one of these will play when the player swings the sword
+     {
+          "Sword_Whoosh_1", 
+          "Sword_Whoosh_2", 
+          "Sword_Whoosh_3", 
+          "Sword_Whoosh_4", 
+          "Sword_Whoosh_5", 
+          "Sword_Whoosh_6"
+     };
+
 /*------------------------------------------------------------------------------------------------------------------------------------------------*/
 
     // Update is called once per frame
@@ -325,6 +337,11 @@ public class PlayerInput : MonoBehaviour {
           if (Input.GetKeyDown(KeyCode.Space)) {
                     if (Time.time > nextAttackTime) {
 
+
+                         // plays a sword swinging sound
+                         int randomWhoosh = Random.Range(0, swordWhooshList.Length);
+                         audioManager.Play(swordWhooshList[randomWhoosh]);
+
                          // play an attack animation
                          int randomMove = Random.Range(0, comboList.Length);
                          animator.SetTrigger(comboList[randomMove]);
@@ -335,6 +352,7 @@ public class PlayerInput : MonoBehaviour {
      }
 
      void registerHit() {
+
           // detect enemies in range of attack
           // A circle which detects enemies
           Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
@@ -342,6 +360,14 @@ public class PlayerInput : MonoBehaviour {
           // damage them
           foreach(Collider2D enemy in hitEnemies)
           Debug.Log("We hit " + enemy.name);
+
+          if (hitEnemies != null) {
+               // play impact sound
+               int randomDamageSound = Random.Range(0, swordDamageList.Length);
+               audioManager.Play(swordDamageList[randomDamageSound]);
+               
+          }
+     
      }
 
      public void CreateDust() {
