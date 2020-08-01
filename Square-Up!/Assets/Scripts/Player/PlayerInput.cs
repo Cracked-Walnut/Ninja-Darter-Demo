@@ -58,8 +58,9 @@ public class PlayerInput : MonoBehaviour {
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
      private string[] comboList = new string[3] {"Attack1", "Attack2", "Attack3"};
+     private Enemy enemy;
 
-     // plays when you hit an enemy
+     // plays when you hit an enemiesHit
      private string[] swordDamageList = new string[3] {"Dagger_Damager_1", "Dagger_Damager_2", "Dagger_Damager_3"};
      private string[] swordWhooshList = new string[6] // one of these will play when the player swings the sword
      {
@@ -107,6 +108,7 @@ public class PlayerInput : MonoBehaviour {
           playerPosition = FindObjectOfType<PlayerPosition>();
           rigidbody2D = GetComponent<Rigidbody2D>();
           weapon = GetComponent<Weapon>();
+          enemy = FindObjectOfType<Enemy>();
      }
 
      // This is the only function I'm calling in Update(), so all frame dependent functions are called in here
@@ -147,30 +149,26 @@ public class PlayerInput : MonoBehaviour {
           groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
           /*If the player jumps...*/
           if (Input.GetButtonDown("Jump") && groundInfo.collider != false) {
-               
                characterController2D.addForce(0, jumpForce);
+               animator.SetBool("isGrounded", false);
                CreateDust();
-               
-               // if (rigidbody2D.velocity.y > 0.0f) {
-               //      audioManager.Play("Jump");
-               //      animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
-               //      // animator.SetBool("isJumping", true);
-               //      // characterController2D.addForce(0, jumpForce);
-               // }
-               // if (rigidbody2D.velocity.y < 0.0f) 
-               //      Debug.Log("Jump Down");
-               //      animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
-               
-          } 
-          if (groundInfo.collider == false) {
-               // animator.SetBool("isJumping", true);
-               animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
-               checkAirAttack();
           }
-          else {
-               // animator.SetBool("isJumping", false);
+
+          if (groundInfo.collider == false && rigidbody2D.velocity.y > 1) {
+               
                animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
-               checkAirAttack();
+               animator.SetTrigger("JumpUp");
+          }
+          
+          else if (groundInfo.collider == false && rigidbody2D.velocity.y < -1) {
+               
+               animator.SetTrigger("JumpDown");
+               animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+          
+          }
+          if (groundInfo.collider == true && rigidbody2D.velocity.y > -1 && rigidbody2D.velocity.y < 1) {
+               animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+               animator.SetBool("isGrounded", true);
           }
      }
 
@@ -366,15 +364,19 @@ public class PlayerInput : MonoBehaviour {
           // A circle which detects enemies
           Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
                               
+          if (hitEnemies == null) {
+               Debug.Log("We hit nothing");
+               return;
+          }
+          
           // damage them
-          foreach(Collider2D enemy in hitEnemies)
-          Debug.Log("We hit " + enemy.name);
-
-          if (hitEnemies != null) {
+          foreach(Collider2D enemiesHit in hitEnemies) {
+               enemy.takeDamage(50);
+               Debug.Log("We hit " + enemiesHit.name + "!");
+               
                // play impact sound
                int randomDamageSound = Random.Range(0, swordDamageList.Length);
                audioManager.Play(swordDamageList[randomDamageSound]);
-               
           }
      }
 
