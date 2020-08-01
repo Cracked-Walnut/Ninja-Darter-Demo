@@ -191,6 +191,7 @@ public class PlayerInput : MonoBehaviour {
                if (groundInfo.collider == false && canDoubleJump) { /*Double jump*/
 
                     audioManager.Play("DoubleJump");
+                    CreateDust();
                     Debug.Log("DoubleJump");
                     characterController2D.addForce(0, doubleJumpForce); /*To upgrade the jump height, check if upgrade is active with a boolean*/
                     canDoubleJump = false;
@@ -367,7 +368,6 @@ public class PlayerInput : MonoBehaviour {
                audioManager.Play(swordDamageList[randomDamageSound]);
                
           }
-     
      }
 
      public void CreateDust() {
