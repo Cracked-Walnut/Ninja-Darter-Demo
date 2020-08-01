@@ -163,13 +163,14 @@ public class PlayerInput : MonoBehaviour {
                
           } 
           if (groundInfo.collider == false) {
-               animator.SetBool("isJumping", true);
+               // animator.SetBool("isJumping", true);
                animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
                checkAirAttack();
           }
           else {
-               animator.SetBool("isJumping", false);
+               // animator.SetBool("isJumping", false);
                animator.SetFloat("SpeedY", rigidbody2D.velocity.y);
+               checkAirAttack();
           }
      }
 
@@ -178,11 +179,6 @@ public class PlayerInput : MonoBehaviour {
                animator.SetBool("isCrouching", true);
           else
                animator.SetBool("isCrouching", false);
-     }
-
-     void checkAirAttack() {
-          if (Input.GetKeyDown(KeyCode.Space))
-               animator.SetTrigger("Attack2");
      }
 
      void checkDoubleJump() {
@@ -338,18 +334,30 @@ public class PlayerInput : MonoBehaviour {
           if (Input.GetKeyDown(KeyCode.Space)) {
                     if (Time.time > nextAttackTime) {
 
-
-                         // plays a sword swinging sound
-                         int randomWhoosh = Random.Range(0, swordWhooshList.Length);
-                         audioManager.Play(swordWhooshList[randomWhoosh]);
-
-                         // play an attack animation
-                         int randomMove = Random.Range(0, comboList.Length);
-                         animator.SetTrigger(comboList[randomMove]);
+                         playSwordWhoosh();
+                         playSwordSwing();
                          nextAttackTime = Time.time + 1f / attackRate; // add attackRate (0.5f) to the current time. If current time exceed 0.5
                          // seconds, you can attack again
                     }
           }
+     }
+
+     void checkAirAttack() {
+          if (Input.GetKeyDown(KeyCode.Space)) {
+               animator.SetTrigger("Attack3");
+          }
+     }
+
+     void playSwordWhoosh() {
+          // plays a sword swinging sound
+          int randomWhoosh = Random.Range(0, swordWhooshList.Length);
+          audioManager.Play(swordWhooshList[randomWhoosh]);
+     }
+
+     void playSwordSwing() {
+          // play an attack animation
+          int randomMove = Random.Range(0, comboList.Length);
+          animator.SetTrigger(comboList[randomMove]);
      }
 
      void registerHit() {
