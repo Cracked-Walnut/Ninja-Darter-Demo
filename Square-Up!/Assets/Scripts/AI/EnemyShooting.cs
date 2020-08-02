@@ -11,7 +11,7 @@ public class EnemyShooting : MonoBehaviour {
 
     private bool isTimerRunning;
     private Quaternion shootRight, shootLeft;
-    private Enemy enemy;
+    // private Enemy enemy;
 
     [Header("Bullet Type, Fire Points & Enemy Vision")]
     [SerializeField] private GameObject bulletPrefab;
@@ -20,7 +20,7 @@ public class EnemyShooting : MonoBehaviour {
     
 
     void Awake() {
-        enemy = FindObjectOfType<Enemy>();
+        // enemy = FindObjectOfType<Enemy>();
         shootRight = Quaternion.Euler(0, 0, rightBarrelAngle);
         shootLeft = Quaternion.Euler(0, 0, leftBarrelAngle);
     }

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6528480398470998318}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: FirePoint
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 3420507182468789290}
   - component: {fileID: 3420507182468789332}
   - component: {fileID: 3420507182468789291}
+  - component: {fileID: 6979278502267642035}
   m_Layer: 9
   m_Name: Skeleton Archer
   m_TagString: Untagged
@@ -133,3 +134,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6979278502267642035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3420507182468789289}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445824437b5b67b4caa2bcbe1f431a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  firePoint: {fileID: 6528480398470998318}
+  fireBallPrefab: {fileID: 9116696113155261197, guid: d747297b581affb4a96b552535c6d406,
+    type: 3}

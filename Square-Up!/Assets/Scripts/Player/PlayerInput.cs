@@ -18,37 +18,13 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private LayerMask enemyLayers;
      [SerializeField] private ParticleSystem dustEffect;
 
-     private float horizontalMove = 0f, 
-          runSpeed = 200f,
-          rollSpeed = 300f,
-          phaseSpeed = 700f,
-          wallJumpX = 2500f,
-          wallJumpY = 1750f,
-          jumpForce = 1800f,
-          doubleJumpForce = 2200f,
-          pulseForce = 2000f,
-          stepForce = 100f,
-          dropSpeed = 1f,
-          wallKickDistance = 1f,
-          jumpGroundDetection = 0.1f, 
-          pulseJumpTimer, 
-          pulseJumpSeconds = 0.85f;
+     private float horizontalMove = 0f, runSpeed = 200f, rollSpeed = 300f, phaseSpeed = 700f, wallJumpX = 2500f, wallJumpY = 1750f,
+          jumpForce = 1800f, doubleJumpForce = 2200f, pulseForce = 2000f, stepForce = 100f, dropSpeed = 1f, wallKickDistance = 1f,
+          jumpGroundDetection = 0.1f, pulseJumpTimer, pulseJumpSeconds = 0.85f;
 
 
-     private bool jump,
-          isGameOver, 
-          isGamePaused, 
-          isGrounded, 
-          isFacingRight, 
-          crouch = false, 
-          canDoubleJump = true, 
-          canAltJump = true,
-          canPulseJump = true, 
-          escapeKey = true, 
-          canPhase = true, 
-          rayCast, 
-          isFlipped, 
-          canShoot = true;
+     private bool jump, isGameOver, isGamePaused, isGrounded, isFacingRight, crouch = false, canDoubleJump = true, canAltJump = true,
+          canPulseJump = true, escapeKey = true, canPhase = true, rayCast, isFlipped, canShoot = true;
 
      private PauseMenu pauseMenu;
      private AudioManager audioManager;
@@ -58,18 +34,12 @@ public class PlayerInput : MonoBehaviour {
      private Rigidbody2D rigidbody2D;
      private Weapon weapon;
      private string[] comboList = new string[3] {"Attack1", "Attack2", "Attack3"};
-     private Enemy enemy;
 
      // plays when you hit an enemiesHit
      private string[] swordDamageList = new string[3] {"Dagger_Damager_1", "Dagger_Damager_2", "Dagger_Damager_3"};
      private string[] swordWhooshList = new string[6] // one of these will play when the player swings the sword
      {
-          "Sword_Whoosh_1", 
-          "Sword_Whoosh_2", 
-          "Sword_Whoosh_3", 
-          "Sword_Whoosh_4", 
-          "Sword_Whoosh_5", 
-          "Sword_Whoosh_6"
+          "Sword_Whoosh_1", "Sword_Whoosh_2", "Sword_Whoosh_3", "Sword_Whoosh_4", "Sword_Whoosh_5", "Sword_Whoosh_6"
      };
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -108,27 +78,22 @@ public class PlayerInput : MonoBehaviour {
           playerPosition = FindObjectOfType<PlayerPosition>();
           rigidbody2D = GetComponent<Rigidbody2D>();
           weapon = GetComponent<Weapon>();
-          enemy = FindObjectOfType<Enemy>();
      }
 
      // This is the only function I'm calling in Update(), so all frame dependent functions are called in here
      void checkPhysics() {
           horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
-          // if (Time.timeScale != 0.0f) {
+          if (Time.timeScale != 0.0f) {
                checkJump();
                checkCrouch();
                checkDoubleJump();
                checkPhase();
                checkWallCling();
                checkWallJump();
-               // checkGroundPound();
                checkPulseJump();
                checkAttack();
-               // checkCombo();
-               // checkStep();
-          // }
-          // checkSceneRestart();
+          }
      }
 
      private void checkEscapeKey() {
@@ -273,20 +238,6 @@ public class PlayerInput : MonoBehaviour {
                soundFile = null;
      }
 
-     // currently not in use. There's a bug where you can clip through the floor if you move fast enough
-     void checkGroundPound() {
-          if (!characterController2D.getGrounded() && Input.GetKey(KeyCode.DownArrow)) {
-               // setGravity(10f);
-               rigidbody2D.AddForce(Vector2.down * dropSpeed, ForceMode2D.Impulse);
-               Debug.Log(Vector2.down * dropSpeed);
-          }
-          else if (!characterController2D.getGrounded() && Input.GetKeyUp(KeyCode.DownArrow))
-               // setGravity(2f);
-
-          if (characterController2D.getGrounded())
-               setGravity(2f);
-     }
-
      // player must be grounded to perform pulse jump!
      void checkPulseJump() {
           RaycastHit2D groundInfo = Physics2D.Raycast(groundDetection.position, Vector2.down, groundDistance);
@@ -339,10 +290,16 @@ public class PlayerInput : MonoBehaviour {
                     }
           }
      }
+     void registerHit() {
 
-     void checkAirAttack() {
-          if (Input.GetKeyDown(KeyCode.Space)) {
-               animator.SetTrigger("Attack3");
+          // detect enemies in range of attack
+          // A circle which detects enemies
+          Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+          
+          // damage them
+          foreach(Collider2D enemiesHit in hitEnemies) {
+               Debug.Log("We hit " + enemiesHit.name + "!");
+               enemiesHit.GetComponent<Wisp>().takeDamage(50);
           }
      }
 
@@ -358,28 +315,6 @@ public class PlayerInput : MonoBehaviour {
           animator.SetTrigger(comboList[randomMove]);
      }
 
-     void registerHit() {
-
-          // detect enemies in range of attack
-          // A circle which detects enemies
-          Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-                              
-          if (hitEnemies == null) {
-               Debug.Log("We hit nothing");
-               return;
-          }
-          
-          // damage them
-          foreach(Collider2D enemiesHit in hitEnemies) {
-               enemy.takeDamage(50);
-               Debug.Log("We hit " + enemiesHit.name + "!");
-               
-               // play impact sound
-               int randomDamageSound = Random.Range(0, swordDamageList.Length);
-               audioManager.Play(swordDamageList[randomDamageSound]);
-          }
-     }
-
      public void CreateDust() {
           dustEffect.Play();
      }
@@ -391,9 +326,6 @@ public class PlayerInput : MonoBehaviour {
 
      public float getPhaseSpeed() { return phaseSpeed; }
      public void setPhaseSpeed(float phaseSpeed) { this.phaseSpeed = phaseSpeed; }
-
-     // public float getNegativePhaseSpeed() {return phaseSpeedNegative;}
-     // public void setPhaseSpeedNegative(float phaseSpeedNegative) {this.phaseSpeedNegative = phaseSpeedNegative;}
 
      public bool getCanShoot() { return canShoot; }
      public void setCanShoot(bool canShoot) { this.canShoot = canShoot; }

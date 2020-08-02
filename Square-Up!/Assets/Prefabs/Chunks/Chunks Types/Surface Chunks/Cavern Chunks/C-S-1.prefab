@@ -6098,6 +6098,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6267004, y: 1.369868}
   m_EdgeRadius: 0
+--- !u!114 &6292793731937436692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055545496891455439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5968b46ebbb23a4ca816a5bf0711dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 5314262161625950530}
+  projectile: {fileID: 6537774926718040741, guid: 6b5c86e41798e764bb5ded4f54ec5d1b,
+    type: 3}
+--- !u!114 &4651158341325403966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9055545496891455439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 445824437b5b67b4caa2bcbe1f431a7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+  firePoint: {fileID: 5314262161625950530}
+  fireBallPrefab: {fileID: 6537774926718040741, guid: 6b5c86e41798e764bb5ded4f54ec5d1b,
+    type: 3}
 --- !u!1001 &5477210330515798210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6125,6 +6156,11 @@ PrefabInstance:
       propertyPath: m_CullingMode
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1157819817770356869, guid: fb0bb2de82065db4eb5d9d3e0a47bc69,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3578452264444235533, guid: fb0bb2de82065db4eb5d9d3e0a47bc69,
         type: 3}
       propertyPath: m_Name
@@ -6140,6 +6176,16 @@ PrefabInstance:
       propertyPath: firePoint
       value: 
       objectReference: {fileID: 5314262161625950530}
+    - target: {fileID: 4150257126670305644, guid: fb0bb2de82065db4eb5d9d3e0a47bc69,
+        type: 3}
+      propertyPath: health
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303838581574190973, guid: fb0bb2de82065db4eb5d9d3e0a47bc69,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8429544834465843222, guid: fb0bb2de82065db4eb5d9d3e0a47bc69,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6205,7 +6251,9 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4150257126670305644, guid: fb0bb2de82065db4eb5d9d3e0a47bc69, type: 3}
+    - {fileID: 4094340475350938190, guid: fb0bb2de82065db4eb5d9d3e0a47bc69, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fb0bb2de82065db4eb5d9d3e0a47bc69, type: 3}
 --- !u!1 &9055545496891455439 stripped
 GameObject:

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonArcher : Enemy {
+public class SkeletonArcher : MonoBehaviour {
 
     [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject arrowPrefab;
+    private List<string> animationList;
+    private float attackRate;
+    private Animator animator;
     private Quaternion fireAngle;
 
     // Start is called before the first frame update

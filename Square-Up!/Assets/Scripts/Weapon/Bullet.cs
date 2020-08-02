@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour {
     private float speed = 40f;
     // private bool isItemPickUp = false;
     private CharacterController2D characterController2D;
-    private Enemy enemy;
+    // private Enemy enemy;
     private CoinCollision coinCollision;
     private HeartCollision heartCollision;
     private Player player;
@@ -32,13 +32,13 @@ public class Bullet : MonoBehaviour {
     }
 
     void OnTriggerEnter2D (Collider2D collider) {
-        enemy = collider.GetComponent<Enemy>();
+        // enemy = collider.GetComponent<Enemy>();
         coinCollision = collider.GetComponent<CoinCollision>();
         heartCollision = collider.GetComponent<HeartCollision>();
         player = collider.GetComponent<Player>();
         
-        if (enemy != null)
-            enemy.takeDamage(damage);
+        // if (enemy != null)
+        //     enemy.takeDamage(damage);
         
         if (coinCollision != null || heartCollision != null || player != null)
             return; /*Bullets will not disappear when colliding with coins or hearts*/
