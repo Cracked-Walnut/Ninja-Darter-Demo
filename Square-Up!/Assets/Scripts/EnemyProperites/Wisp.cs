@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class Wisp : MonoBehaviour {
 
-    protected List<string> animationList = new List<string>();
     [SerializeField] private float health;
     protected float attackRate;
     protected bool isAlive;
-    private Animator animator;
 
-    /*-----------------------------------------------------*/
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private GameObject fireBallPrefab;
+    private Animator animator;
     private Quaternion fireAngle;
+    protected List<string> animationList = new List<string>();
 
     // Start is called before the first frame update
     void Start() {
@@ -25,27 +22,10 @@ public class Wisp : MonoBehaviour {
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update() {
-        // attack();
-    }
-
     void initAnimations() { 
         animationList = new List<string>();
         animationList.Add("Fire Wisp Attack");
     }
-
-    void attack() { // change to fire projectile through animation window
-        attackRate -= Time.deltaTime;
-        fireAngle = Quaternion.Euler(0, 0, 90);
-
-        if (attackRate <= 0.0f) {
-            animator.SetBool("isAttacking", true);
-            Instantiate(fireBallPrefab, firePoint.position, fireAngle);
-            attackRate = 1.0f;
-        }
-    }
-    /*-----------------------------------------------------*/
 
     public void takeDamage(float damage) {
         health -= damage;
@@ -56,7 +36,7 @@ public class Wisp : MonoBehaviour {
 
     public void Die() {
         isAlive = false;
-        animator.enabled = !animator.enabled;
+        // animator.enabled = !animator.enabled;
         Destroy(gameObject);
     }
 
