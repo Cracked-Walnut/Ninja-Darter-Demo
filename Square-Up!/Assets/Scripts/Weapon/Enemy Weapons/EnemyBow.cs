@@ -14,7 +14,7 @@ public class EnemyBow : MonoBehaviour {
     }
 
     void shoot() {
-            Quaternion accuracy = Quaternion.Euler(0, 0, 0);
+            Quaternion accuracy = Quaternion.Euler(0, 0, 0); // the direction of the projectile, left
             Instantiate(projectile, firePoint.position, accuracy);
     }
 }

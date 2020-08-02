@@ -297,10 +297,8 @@ public class PlayerInput : MonoBehaviour {
           Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
           
           // damage them
-          foreach(Collider2D enemiesHit in hitEnemies) {
-               Debug.Log("We hit " + enemiesHit.name + "!");
+          foreach(Collider2D enemiesHit in hitEnemies)
                enemiesHit.GetComponent<Wisp>().takeDamage(50);
-          }
      }
 
      void playSwordWhoosh() {
