@@ -41,31 +41,19 @@ public class CoinCollision : MonoBehaviour {
             coinIsPickedUp = true;
             capsuleCollider2D.enabled = !capsuleCollider2D.enabled;
             spriteRenderer.enabled = !spriteRenderer.enabled;
-            
-            if (player.getCoinCount() >= 8) {
-                timer.setIsTimerRunning(false);
-                audioManager.Play("Win Level");
-                Invoke("showGameComplete", 2);
-            }
-            audioManager.Play("CoinCollect");
+
+            Debug.Log(player.getCoinCount());
+            audioManager.Play("Coin_Scale_01");
         } 
         else if (coinIsPickedUp) 
             return;
     }
 
-    public bool getCoinIsPickedUp() {
-        return coinIsPickedUp;
-    }
+    public bool getCoinIsPickedUp() { return coinIsPickedUp; }
 
-    public Transform getCoinPosition() {
-        return coinPosition;
-    }
+    public Transform getCoinPosition() { return coinPosition; }
 
-    public int getCoinCount() {
-        return coinCount;
-    }
+    public int getCoinCount() { return coinCount; }
 
-    public void showGameComplete() {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
+    public void showGameComplete() { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); }
 }
