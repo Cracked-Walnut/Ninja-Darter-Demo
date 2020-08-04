@@ -36,12 +36,21 @@ public class PlayerInput : MonoBehaviour {
      private Weapon weapon;
      private string[] comboList = new string[3] {"Attack1", "Attack2", "Attack3"};
 
-     // plays when you hit an enemiesHit
-     private string[] swordDamageList = new string[3] {"Dagger_Damager_1", "Dagger_Damager_2", "Dagger_Damager_3"};
-     private string[] swordWhooshList = new string[6] // one of these will play when the player swings the sword
-     {
-          "Sword_Whoosh_1", "Sword_Whoosh_2", "Sword_Whoosh_3", "Sword_Whoosh_4", "Sword_Whoosh_5", "Sword_Whoosh_6"
-     };
+     // plays when you hit an enemy
+     private string[] swordDamageList = new string[3] {
+          "Dagger_Damage_1", "Dagger_Damage_2", "Dagger_Damage_3" }; 
+     
+     // one of these will play when the player swings the sword
+     private string[] swordWhooshList = new string[6] {
+          "Sword_Whoosh_1", "Sword_Whoosh_2", "Sword_Whoosh_3", "Sword_Whoosh_4", "Sword_Whoosh_5", "Sword_Whoosh_6" };
+     
+     // one of these will play when the player takes a step in the run animation
+     private string[] groundStepList = new string[5] {
+          "Ground_Step0", "Ground_Step1", "Ground_Step2", "Ground_Step3", "Ground_Step4"};
+
+     private string[] jumpSoundList = new string [3] {
+          "Forest_ground_jump0", "Forest_ground_jump1", "Forest_ground_jump2"};
+
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------*/
 
@@ -116,6 +125,7 @@ public class PlayerInput : MonoBehaviour {
           /*If the player jumps...*/
           if (Input.GetButtonDown("Jump") && groundInfo.collider != false) {
                characterController2D.addForce(0, jumpForce);
+               playJumpSound();
                animator.SetBool("isGrounded", false);
                CreateDust();
           }
@@ -150,7 +160,7 @@ public class PlayerInput : MonoBehaviour {
           if (Input.GetButtonDown("Jump")) {
                if (groundInfo.collider == false && canDoubleJump) { /*Double jump*/
 
-                    audioManager.Play("DoubleJump");
+                    playJumpSound();
                     CreateDust();
                     Debug.Log("DoubleJump");
                     characterController2D.addForce(0, doubleJumpForce); /*To upgrade the jump height, check if upgrade is active with a boolean*/
@@ -159,7 +169,7 @@ public class PlayerInput : MonoBehaviour {
           }
 
           if (groundInfo.collider == true/*characterController2D.getGrounded()*/) { // resets double jump when you touch the ground
-               audioManager.Play("PlayerGrounded");
+               // audioManager.Play("PlayerGrounded");
                canDoubleJump = true;
           }
      }
@@ -284,8 +294,8 @@ public class PlayerInput : MonoBehaviour {
           if (Input.GetKeyDown(KeyCode.Space)) {
                     if (Time.time > nextAttackTime) {
 
-                         playSwordWhoosh();
-                         playSwordSwing();
+                         playArrSound(swordWhooshList);
+                         playSwordAnimation();
                          nextAttackTime = Time.time + 1f / attackRate; // add attackRate (0.5f) to the current time. If current time exceed 0.5
                          // seconds, you can attack again
                     }
@@ -299,20 +309,31 @@ public class PlayerInput : MonoBehaviour {
           
           foreach(Collider2D enemiesHit in hitEnemies) {
 
-               // damage the enemy, and shake the camera a bit for effect
-               enemiesHit.GetComponent<Wisp>().takeDamage(50);
-               StartCoroutine(cameraFollow.Shake(.15f, .15f));
+              
+               enemiesHit.GetComponent<Wisp>().takeDamage(50); // damage the enemy
+               StartCoroutine(cameraFollow.Shake(.15f, .15f)); // shake the camera for effect
+               playArrSound(swordDamageList); // play a damage sound
 
           }
      }
 
-     void playSwordWhoosh() {
-          // plays a sword swinging sound
-          int randomWhoosh = Random.Range(0, swordWhooshList.Length);
-          audioManager.Play(swordWhooshList[randomWhoosh]);
+     void playArrSound(string[] soundArray) {
+          // plays a sound from any specified array
+          int randomSound = Random.Range(0, soundArray.Length);
+          audioManager.Play(soundArray[randomSound]);
      }
 
-     void playSwordSwing() {
+     void playSteppingSound() {
+          int randomSound = Random.Range(0, groundStepList.Length);
+          audioManager.Play(groundStepList[randomSound]);
+     }
+
+     void playJumpSound() {
+          int randomSound = Random.Range(0, jumpSoundList.Length);
+          audioManager.Play(jumpSoundList[randomSound]);
+     }
+
+     void playSwordAnimation() {
           // play an attack animation
           int randomMove = Random.Range(0, comboList.Length);
           animator.SetTrigger(comboList[randomMove]);
@@ -321,6 +342,7 @@ public class PlayerInput : MonoBehaviour {
      public void CreateDust() {
           dustEffect.Play();
      }
+
 
      void setGravity(float gravity) { rigidbody2D.gravityScale = gravity; }
 

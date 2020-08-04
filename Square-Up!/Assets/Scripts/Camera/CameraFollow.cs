@@ -50,21 +50,23 @@ public class CameraFollow : MonoBehaviour {
         float elapsed = 0.0f;
 
         while (elapsed < duration) {
-            float x = (Random.Range(-1f, 1f) * magnitude) + transform.position.x;
+			// Generate a random x & y value, then add it to the current camera x & y coordinate, creating a shake effect
+            float x = (Random.Range(-1f, 1f) * magnitude) + transform.position.x; 
             float y = (Random.Range(-1, 1f) * magnitude) + transform.position.y;
 
-            transform.position = new Vector3(x ,y, originalPos.z);
+            transform.position = new Vector3(x ,y, originalPos.z); // apply the shake to the current frame
 
             elapsed += Time.deltaTime;
 
             yield return null;
         }
 
-        transform.position = originalPos;
+        transform.position = originalPos; // revert the camera to its original position
     }
 /*
 1) B., Brackeys, 'Smooth Camera Follow in Unity - Tutorial', 2017. [Online]. Available: https://www.youtube.com/watch?v=MFQhpwc6cKE [27-Jul-2020].
 2) B.R., Redpath, 'Only make camera follow player on x axis?', 2017. [Online]. Available:  https://gamedev.stackexchange.com/questions/147526/only-make-camera-follow-player-on-x-axis [Accessed: 27-Jul-2020].
+3) B., Brackeys, 'CAMERA SHAKE in Unity', 2018. [Online]. Available: https://www.youtube.com/watch?v=9A9yj8KnM8c [Accessed: 03-Aug-2020].
 */
 
 }//end of class
