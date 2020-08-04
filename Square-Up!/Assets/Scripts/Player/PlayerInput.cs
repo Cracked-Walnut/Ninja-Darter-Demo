@@ -17,6 +17,7 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private float reset;
      [SerializeField] private LayerMask enemyLayers;
      [SerializeField] private ParticleSystem dustEffect;
+     [SerializeField] private CameraFollow cameraFollow;
 
      private float horizontalMove = 0f, runSpeed = 200f, rollSpeed = 300f, phaseSpeed = 700f, wallJumpX = 2500f, wallJumpY = 1750f,
           jumpForce = 1800f, doubleJumpForce = 2200f, pulseForce = 2000f, stepForce = 100f, dropSpeed = 1f, wallKickDistance = 1f,
@@ -296,9 +297,13 @@ public class PlayerInput : MonoBehaviour {
           // A circle which detects enemies
           Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
           
-          // damage them
-          foreach(Collider2D enemiesHit in hitEnemies)
+          foreach(Collider2D enemiesHit in hitEnemies) {
+
+               // damage the enemy, and shake the camera a bit for effect
                enemiesHit.GetComponent<Wisp>().takeDamage(50);
+               StartCoroutine(cameraFollow.Shake(.15f, .15f));
+
+          }
      }
 
      void playSwordWhoosh() {

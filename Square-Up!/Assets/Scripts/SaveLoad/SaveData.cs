@@ -6,11 +6,10 @@ using UnityEngine;
 public class SaveData : MonoBehaviour {
 
     private PlayerData playerData;
-    private Player player; // HP, int
+    private Player player; // HP, int / coins collected, int
     // private Weapon weapon;// Ammo Count, int
     private PlayerInput playerInput;// Pulse Jump, float
     private Timer timer;// Timer, float
-    private CoinCollision coinCollision;// Coins Collected, int
     
     // Upgrades, float and int
     // private Defense defense;
@@ -28,7 +27,6 @@ public class SaveData : MonoBehaviour {
         // weapon = new Weapon();
         playerInput = new PlayerInput();
         timer = new Timer();
-        coinCollision = FindObjectOfType<CoinCollision>();
         // defense = new Defense();
         // mobility = new Mobility();
         // offense = new Offense();
@@ -41,7 +39,7 @@ public class SaveData : MonoBehaviour {
         playerData.setHealth(player.getCurrentHealth());
         playerData.setPulseJump(playerInput.getPulseJumpSeconds());
         playerData.setTimer(timer.getTotalTime());
-        playerData.setTotalCoins(coinCollision.getCoinCount());
+        playerData.setTotalCoins(player.getCoinCount());
 
         string jsonSave = JsonUtility.ToJson(playerData);
         Debug.Log(jsonSave);

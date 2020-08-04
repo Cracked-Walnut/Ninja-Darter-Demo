@@ -18,7 +18,7 @@ public class CameraFollow : MonoBehaviour {
 	void FixedUpdate() {
 
 		// starting height
-		if (target.transform.position.y > 200f && target.transform.position.y < 240f)
+		if (target.transform.position.y > 200f/* && target.transform.position.y < 240f*/)
 			transform.position = new Vector3(target.transform.position.x, 220f, -10f);
 
 		// 1 chunk below
@@ -40,15 +40,28 @@ public class CameraFollow : MonoBehaviour {
 		// 5 chunks below
 		else if (target.transform.position.y < 40f && target.transform.position.y > 0f)
 			transform.position = new Vector3(target.transform.position.x, 20f, -10f);
-
-		// 1 chunk above
-		else
-			transform.position = new Vector3(target.transform.position.x, 230f, -10f);
 	
-		// if(target.transform.position.y < -20f && target.transform.position.y > - 60f)
-		// 	transform.position = new Vector3(target.transform.position.x, -40f, -10f);
-
 	}
+
+	public IEnumerator Shake (float duration, float magnitude) {
+        
+        Vector3 originalPos = transform.position;
+    
+        float elapsed = 0.0f;
+
+        while (elapsed < duration) {
+            float x = (Random.Range(-1f, 1f) * magnitude) + transform.position.x;
+            float y = (Random.Range(-1, 1f) * magnitude) + transform.position.y;
+
+            transform.position = new Vector3(x ,y, originalPos.z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        transform.position = originalPos;
+    }
 /*
 1) B., Brackeys, 'Smooth Camera Follow in Unity - Tutorial', 2017. [Online]. Available: https://www.youtube.com/watch?v=MFQhpwc6cKE [27-Jul-2020].
 2) B.R., Redpath, 'Only make camera follow player on x axis?', 2017. [Online]. Available:  https://gamedev.stackexchange.com/questions/147526/only-make-camera-follow-player-on-x-axis [Accessed: 27-Jul-2020].

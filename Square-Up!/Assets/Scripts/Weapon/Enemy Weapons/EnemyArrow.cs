@@ -12,7 +12,7 @@ public class EnemyArrow : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        speed = 40f;
+        speed = 20f;
         damage = 1f;
         range = 2f;
         rigidbody2D.velocity = (transform.right * speed) * -1;

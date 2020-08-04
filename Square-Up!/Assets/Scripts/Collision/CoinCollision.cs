@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 /*This script will trigger if the player collects a coin*/
 
 public class CoinCollision : MonoBehaviour {
 
-    private int coinCount = 0;
     private bool coinIsPickedUp = false;
     private Transform coinPosition = null;
     private GameObject playerObject;
@@ -15,7 +15,6 @@ public class CoinCollision : MonoBehaviour {
     private CapsuleCollider2D capsuleCollider2D;
     private SpriteRenderer spriteRenderer;
     private AudioManager audioManager;
-    private Timer timer;
 
     void Awake() {
         coinPosition = GetComponent<Transform>();
@@ -24,7 +23,6 @@ public class CoinCollision : MonoBehaviour {
         capsuleCollider2D = GetComponent<CapsuleCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioManager = FindObjectOfType<AudioManager>();
-        timer = FindObjectOfType<Timer>();
     }
     
     void OnTriggerEnter2D(Collider2D collider) {
@@ -38,6 +36,7 @@ public class CoinCollision : MonoBehaviour {
         
         if (!coinIsPickedUp) {
             player.addCoin(1);
+            
             coinIsPickedUp = true;
             capsuleCollider2D.enabled = !capsuleCollider2D.enabled;
             spriteRenderer.enabled = !spriteRenderer.enabled;
@@ -53,7 +52,7 @@ public class CoinCollision : MonoBehaviour {
 
     public Transform getCoinPosition() { return coinPosition; }
 
-    public int getCoinCount() { return coinCount; }
+    // public int getCoinCount() { return coinCount; }
 
     public void showGameComplete() { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); }
 }

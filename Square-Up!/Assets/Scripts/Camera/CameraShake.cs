@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class CameraShake : MonoBehaviour {
 
-    [SerializeField] private Animator cameraAnimator;
+    // [SerializeField] private Animator cameraAnimator;
 
-    public void camShake() {
-        cameraAnimator.SetTrigger("Shake");
-    }
-
+    // public void camShake() {
+    //     cameraAnimator.SetTrigger("Shake");
+    // }
 }
 
 /*
