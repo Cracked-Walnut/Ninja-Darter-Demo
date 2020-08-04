@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 4582323823808665242}
   - component: {fileID: 4181215931511913422}
   - component: {fileID: 4120347285805968964}
-  m_Layer: 0
+  - component: {fileID: 3147756754049259014}
+  m_Layer: 13
   m_Name: Fire Ball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,3 +253,16 @@ TrailRenderer:
   m_MinVertexDistance: 0.2
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &3147756754049259014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537774926718040741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d540fdd8df47443b1b7fb3f0dce837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5

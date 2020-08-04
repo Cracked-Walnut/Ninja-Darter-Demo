@@ -15,7 +15,7 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private float attackRate = 2f;
      [SerializeField] private float nextAttackTime = 0f;
      [SerializeField] private float reset;
-     [SerializeField] private LayerMask enemyLayers;
+     [SerializeField] private LayerMask enemyLayers, projectileLayers;
      [SerializeField] private ParticleSystem dustEffect;
      [SerializeField] private CameraFollow cameraFollow;
 
@@ -306,15 +306,22 @@ public class PlayerInput : MonoBehaviour {
           // detect enemies in range of attack
           // A circle which detects enemies
           Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-          
+          Collider2D[] hitProjectiles = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, projectileLayers);
+
           foreach(Collider2D enemiesHit in hitEnemies) {
 
-              
-               enemiesHit.GetComponent<Wisp>().takeDamage(50); // damage the enemy
+              enemiesHit.GetComponent<Wisp>().takeDamage(50); // damage the enemy
                StartCoroutine(cameraFollow.Shake(.15f, .15f)); // shake the camera for effect
                playArrSound(swordDamageList); // play a damage sound
-
           }
+     
+          foreach(Collider2D projectilesHit in hitProjectiles) {
+
+              projectilesHit.GetComponent<Projectile>().takeDamage(100); // damage the enemy
+               StartCoroutine(cameraFollow.Shake(.15f, .15f)); // shake the camera for effect
+               playArrSound(swordDamageList); // play a damage sound
+          }
+     
      }
 
      void playArrSound(string[] soundArray) {
