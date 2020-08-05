@@ -11,7 +11,7 @@ public class PlayerInput : MonoBehaviour {
      [SerializeField] private float groundDistance, stepDistance;
      [SerializeField] private Animator animator;
      [SerializeField] private Transform attackPoint;
-     [SerializeField] private float attackRange = 0.5f;
+     [SerializeField] private float attackRange;
      [SerializeField] private float attackRate = 2f;
      [SerializeField] private float nextAttackTime = 0f;
      [SerializeField] private float reset;
@@ -46,10 +46,13 @@ public class PlayerInput : MonoBehaviour {
      
      // one of these will play when the player takes a step in the run animation
      private string[] groundStepList = new string[5] {
-          "Ground_Step0", "Ground_Step1", "Ground_Step2", "Ground_Step3", "Ground_Step4"};
+          "Ground_Step0", "Ground_Step1", "Ground_Step2", "Ground_Step3", "Ground_Step4" };
 
      private string[] jumpSoundList = new string [3] {
-          "Forest_ground_jump0", "Forest_ground_jump1", "Forest_ground_jump2"};
+          "Forest_ground_jump0", "Forest_ground_jump1", "Forest_ground_jump2" };
+
+     private string[] deflectionSoundList = new string [4] {
+          "JBoB_Special_Sound_09", "JBoB_Special_Sound_10", "JBoB_Special_Sound_11", "JBoB_Special_Sound_12" };
 
 
 /*------------------------------------------------------------------------------------------------------------------------------------------------*/
@@ -98,10 +101,10 @@ public class PlayerInput : MonoBehaviour {
                checkJump();
                checkCrouch();
                checkDoubleJump();
-               checkPhase();
-               checkWallCling();
-               checkWallJump();
-               checkPulseJump();
+               // checkPhase();
+               // checkWallCling();
+               // checkWallJump();
+               // checkPulseJump();
                checkAttack();
           }
      }
@@ -306,7 +309,6 @@ public class PlayerInput : MonoBehaviour {
           // detect enemies in range of attack
           // A circle which detects enemies
           Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-          Collider2D[] hitProjectiles = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, projectileLayers);
 
           foreach(Collider2D enemiesHit in hitEnemies) {
 
@@ -314,14 +316,17 @@ public class PlayerInput : MonoBehaviour {
                StartCoroutine(cameraFollow.Shake(.15f, .15f)); // shake the camera for effect
                playArrSound(swordDamageList); // play a damage sound
           }
-     
+     }
+
+     void registerDeflection() {
+          Collider2D[] hitProjectiles = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, projectileLayers);
+
           foreach(Collider2D projectilesHit in hitProjectiles) {
 
-              projectilesHit.GetComponent<Projectile>().takeDamage(100); // damage the enemy
-               StartCoroutine(cameraFollow.Shake(.15f, .15f)); // shake the camera for effect
-               playArrSound(swordDamageList); // play a damage sound
+              projectilesHit.GetComponent<Projectile>().takeDamage(100); // damage the projectile to destroy it
+               StartCoroutine(cameraFollow.Shake(.1f, .075f)); // shake the camera for effect
+               playArrSound(deflectionSoundList); // play a deflection sound
           }
-     
      }
 
      void playArrSound(string[] soundArray) {

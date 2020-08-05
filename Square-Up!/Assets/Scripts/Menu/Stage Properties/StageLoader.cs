@@ -21,7 +21,7 @@ public class StageLoader : MonoBehaviour {
             // playerInput.setPulseJumpSeconds(0.5f);
             // Debug.Log(playerInput.getPulseJumpSeconds());
             // saveData.SaveAllPrimitiveNonUpgrades();
-            sceneLoader.LoadNextLevel();
+            sceneLoader.loadStage("End-Scene");
     
             // sceneLoader.LoadNextLevel();
             // SceneManager.LoadScene(stageName);

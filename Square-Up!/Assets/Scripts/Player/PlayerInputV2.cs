@@ -58,12 +58,12 @@ public class PlayerInputV2 : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        characterController2D.highJump(); // Used to add some weight to the player as they're falling
-        if (Time.timeScale != 0.0f) { // if the game isn't paused, check the physics
-            CheckPhysics();
-        }
-    }
+    // void Update() {
+    //     characterController2D.highJump(); // Used to add some weight to the player as they're falling
+    //     if (Time.timeScale != 0.0f) { // if the game isn't paused, check the physics
+    //         CheckPhysics();
+    //     }
+    // }
 
     void CheckPhysics() {
         Jump();
