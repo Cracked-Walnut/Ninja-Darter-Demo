@@ -10,6 +10,7 @@ public class Wisp : MonoBehaviour {
 
     private Animator animator;
     private Quaternion fireAngle;
+    private BoxCollider2D boxCollider2D;
     // protected List<string> animationList = new List<string>();
 
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class Wisp : MonoBehaviour {
 
     void Awake() {
         animator = GetComponent<Animator>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
     // void initAnimations() { 
@@ -32,6 +34,10 @@ public class Wisp : MonoBehaviour {
         Debug.Log(health);
         if (health <= 0)
             animator.SetTrigger("Dead");
+    }
+
+    void disableCollider() {
+        boxCollider2D.enabled = !boxCollider2D.enabled; 
     }
 
     public void Die() {

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class HeartCollision : MonoBehaviour {
 
+    private AudioManager audioManager;
     public int healAmount = 1;
     private bool isPickedUp = false, isPlayer = false;
     private Player player;
@@ -16,6 +17,7 @@ public class HeartCollision : MonoBehaviour {
     private void Awake() {
         player = FindObjectOfType<Player>();
         boxCollider2D = GetComponent<BoxCollider2D>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
@@ -30,6 +32,7 @@ public class HeartCollision : MonoBehaviour {
             if (player.healthIsFull())
                 return;
             else {
+                audioManager.Play("34.Natural Healing");
                 player.gainHealth(healAmount);
                 player.healthIsFull();
                 isPickedUp = true;

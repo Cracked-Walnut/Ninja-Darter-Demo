@@ -16,7 +16,6 @@ public class GameOverMenu : MonoBehaviour {
         Debug.Log("showGameOverScreen()");
         playerInput.setEscapeKey(false);
         setActive(true);
-        Time.timeScale = 0f;
     }
 
     public bool setActive(bool isActive) {

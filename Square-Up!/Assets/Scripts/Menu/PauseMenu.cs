@@ -26,6 +26,7 @@ public class PauseMenu : MonoBehaviour {
 
     public void LoadMenu() {
         Debug.Log("LoadMenu()");
+        Time.timeScale = NORMAL_TIME_FLOW;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); // Access the Main Menu Scene
     }
 
